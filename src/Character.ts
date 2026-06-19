@@ -1,107 +1,126 @@
-interface characterHealthStatus{
-    checkIfAlive:()=>boolean;
-    setMaxHealth:(newMaxHP:number)=>void;
-    setCurrentHealth:(newCurrentHealth:number)=>void;
-    getCurrentHealth:()=>number;
-    getMaxHealth:()=>number;
+import { healthStatus,attackSet } from "./interfaces/interfaces.ts";
+import {attackMoves} from "./types/Types.ts"
 
-}
+class Character implements healthStatus,attackSet{
 
-
-
-class Character implements characterHealthStatus{
-
-    maxHealth:number;
-    currentHealth:number;
-    name:string;
-    currentAttackPower:number;
-    maxAttackPower:number;
-   
+    public maxHealth:number;
+    public currentHealth:number;
+    public name:string;
+    private AttackPower:number;
+    public isAlive:boolean;
+    private attackMoves:attackMoves
 
     
 
-   constructor(name:string,currentHealth:number,maxHealth:number,currentAttackPower:number,maxAttackPower:number){
+   constructor(
+            name:string,
+            currentHealth:number,
+            isAlive:boolean,
+            maxHealth:number,
+            attackMoves:attackMoves,
+            AttackPower:number,
+            )
+    {
             this.name=name;
-            this.currentAttackPower=currentAttackPower;
+            this.AttackPower=AttackPower;
             this.currentHealth=currentHealth;
             this.maxHealth=maxHealth;
-            this.maxAttackPower=maxAttackPower;
-            
+            this.isAlive=isAlive;
+            this.attackMoves=attackMoves;
+                    
    }
 
 
     //set max HP of any character
 
-    setMaxHealth(hp:number){
+    protected setMaxHealth(hp:number){
         this.maxHealth=hp;
     }
 
     //get max HP of any charcater
-    getMaxHealth():number{
+    public getMaxHealth():number{
         return this.maxHealth;
     }
 
       //set current HP of any character
 
-    setCurrentHealth(newcurrentHP:number):void{
+    protected setCurrentHealth(newcurrentHP:number):void{
         this.currentHealth=newcurrentHP;
     }
 
     //get current HP of any character
-    getCurrentHealth():number{
+    public getCurrentHealth():number{
         return this.currentHealth;
     }
 
     // set name of a character
-    setCharacterName(newName:string):void{
+    protected setCharacterName(newName:string):void{
         this.name=newName;
     }
 
     //get name of a character
-     getCharacterName():string{
+    public getCharacterName():string{
        return this.name;
     }
 
-     //set max Attack of a character
-    setmaxAttackPow(newMaxAttackPow:number):void{
-        this.maxAttackPower=newMaxAttackPow;
-    }
-
-
-    //get max Attack of character
-    getmaxAttackPow():number{
-        return this.maxAttackPower
-    }
+  
 
 
     //set current Attack of a character
-    setCurrentAttackPow(newCurrentAttackPow:number):void{
-        this.currentAttackPower=newCurrentAttackPow; 
+   protected setCurrentAttackPow(newCurrentAttackPow:number):void{
+        this.AttackPower=newCurrentAttackPow; 
+    }
+
+
+    protected setIsAlive(newAliveStatus:boolean):void{
+        this.isAlive=newAliveStatus;
+    }
+
+    public getIsAlive():boolean{
+        return this.isAlive
     }
 
 
   //check if character is Alive or dead
-   checkIfAlive():boolean{
+   public checkIfAlive():boolean{
          let remainingHP:number;
          remainingHP=this.getCurrentHealth()
 
          if(remainingHP===0){
-            return false
+           this.setIsAlive(false)
          }else{
-            return true
+             this.setIsAlive(true)
          }
+
+         return this.getIsAlive();
    }
-
-
    
 
 
   //shows remaining Hp after being attacked
-   takeDamage(damageRecvd:number):void{
+  public takeDamage(damageRecvd:number):void{
 
         let currentHP:number=this.getCurrentHealth();
         let remainingHP:number=currentHP-damageRecvd;
         this.setCurrentHealth(remainingHP);
   }
 
+
+ protected setAttackMoves(regular_atks:string[]|null,special_atks:string[]|null):void{
+
+        let characterAttacks:attackMoves={
+            regular_atks:regular_atks,
+            special_atks:special_atks
+        };
+
+        this.attackMoves=characterAttacks
+ }
+
+
+ public getAttackMoves():attackMoves{
+        return this.attackMoves
+ }
+
+
 }
+
