@@ -5,34 +5,44 @@ import attackSetInterface from "../../interfaces/attackSetInterface.ts"
 class Goblin extends Character implements attackSetInterface {
 
    
- attackMoves:attack[];
- attackPower:number;
+ private regularAttackMoves:attack[];
+   private specialAttackMoves:attack[];
 
- constructor(
+   constructor(
+      name:string,
+      isAlive:boolean,
+      hp:number,
+      atkpow:number,
+      regularAttackMoves:attack[],
+      specialAttackMoves:attack[]
+      ){
+      
+      super(name,isAlive,hp,atkpow);
+      this.specialAttackMoves=specialAttackMoves;
+      this.regularAttackMoves=regularAttackMoves; 
+   
+   }
 
-    name:string,
-    currentHealth:number,
-    isAlive:boolean,
-    maxHealth:number,
-    attackMoves:attack[],
-    attackPower:number
- ){
-    super(name,currentHealth,isAlive,maxHealth);
-    this.attackMoves=attackMoves;
-    this.attackPower=attackPower
- }
 
 
+   setRegularAttackMoves(regAttacks:attack[]):void{
+      this.regularAttackMoves=regAttacks
+   }
 
-setAttackMoves(attacks: attack[]):void{
-   this.attackMoves=attacks
+
+   setSpecialAttackMoves(specialAttacks:attack[]):void{
+      this.specialAttackMoves=specialAttacks;
+   };
+
+   getRegularAttackMoves():attack[]{
+   return this.regularAttackMoves
+   }
+
+   getSpecialAttackMoves():attack[]{
+   return this.specialAttackMoves
+   }
+
+
 }
-
-getAttackMoves():attack[]{
-return this.attackMoves
-}
-
-}
-
 
 export default Goblin

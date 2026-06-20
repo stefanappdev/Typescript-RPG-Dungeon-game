@@ -2,49 +2,55 @@
 
 export default class Character {
 
-    private maxHealth:number;
-    private currentHealth:number;
+  
+    public hp:number;
     public name:string;
     public isAlive:boolean;
+    protected atkpow:number;
     
 
     
 
    constructor(
             name:string,
-            currentHealth:number,
             isAlive:boolean,
-            maxHealth:number,
+            hp:number,
+            atkpow:number
             )
     {
             this.name=name;
-            this.currentHealth=currentHealth;
-            this.maxHealth=maxHealth;
+            this.hp=hp;
             this.isAlive=isAlive;
+            this.atkpow=atkpow;
                     
    }
 
 
-    //set max HP of any character
 
-    setMaxHealth(hp:number){
-        this.maxHealth=hp;
+     //set atkpow of any character
+
+    setAtkpow(atkpow:number){
+        this.atkpow=atkpow;
     }
 
-    //get max HP of any charcater
-    getMaxHealth():number{
-        return this.maxHealth;
+    
+    //get atkpow of any character
+    getAtkpow():number{
+        return this.atkpow;
     }
 
-      //set current HP of any character
 
-    setCurrentHealth(newcurrentHP:number):void{
-        this.currentHealth=newcurrentHP;
+
+    //set HP of any character
+
+    setHP(hp:number){
+        this.hp=hp;
     }
 
+    
     //get current HP of any character
-    getCurrentHealth():number{
-        return this.currentHealth;
+    getCurrentHP():number{
+        return this.hp;
     }
 
     // set name of a character
@@ -66,26 +72,25 @@ export default class Character {
     }
 
 
-    //gets living status of character
-    getIsAlive():boolean{
-        return this.isAlive
+    //checks if character is alive
+    IsAlive():boolean{
+        if(this.isAlive){
+            return true
+        }else{
+            return false
+        }
+    }
+
+     //checks if character is dead
+    IsDead():boolean{
+        if(!this.isAlive){
+            return true
+        }else{
+            return false
+        }
     }
 
 
-  //check if character is Alive or dead
-   checkIfAlive():boolean{
-         let remainingHP:number;
-         remainingHP=this.getCurrentHealth()
-
-         if(remainingHP===0){
-           this.setIsAlive(false)
-         }else{
-             this.setIsAlive(true)
-         }
-
-         return this.getIsAlive();
-   }
-   
 
 
 }
