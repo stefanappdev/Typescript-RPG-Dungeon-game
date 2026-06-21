@@ -1,12 +1,11 @@
 
-
-export default class Character {
+ class Character {
 
   
     public hp:number;
     public name:string;
     public isAlive:boolean;
-    protected atkpow:number;
+    private atkpow:number;
     
 
     
@@ -95,3 +94,4 @@ export default class Character {
 
 }
 
+export default Character;

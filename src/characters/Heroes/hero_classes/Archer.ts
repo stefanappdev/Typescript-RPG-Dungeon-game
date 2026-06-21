@@ -1,28 +1,30 @@
-import Character from "../Character.ts";
-import {attackTypes,attack} from "../../types/types_attacks.ts"
-import attackSetInterface from "../../interfaces/attackSetInterface.ts"
+import Hero from "../Hero.ts";
+import {attackTypes,attack} from "../../../types/types_attacks.ts"
+import attackSetInterface from "../../../interfaces/attackSetInterface.ts"
 
-class Warrior extends Character implements attackSetInterface {
+class Archer extends Hero implements attackSetInterface {
 
    
    private regularAttackMoves:attack[];
    private specialAttackMoves:attack[];
+   
 
    constructor(
       name:string,
       isAlive:boolean,
       hp:number,
       atkpow:number,
+      className:string,
       regularAttackMoves:attack[],
       specialAttackMoves:attack[]
       ){
       
-      super(name,isAlive,hp,atkpow);
-      this.specialAttackMoves=specialAttackMoves;
-      this.regularAttackMoves=regularAttackMoves; 
+      super(name,isAlive,hp,atkpow,className);
+      this.regularAttackMoves=regularAttackMoves;
+      this.specialAttackMoves=specialAttackMoves
+      
    
    }
-
 
 
    setRegularAttackMoves(regAttacks:attack[]):void{
@@ -46,4 +48,4 @@ class Warrior extends Character implements attackSetInterface {
 }
 
 
-export default Warrior
+export default Archer
