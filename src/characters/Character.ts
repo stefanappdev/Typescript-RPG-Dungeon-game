@@ -1,3 +1,6 @@
+import { attack } from "../types/types_attacks";
+import Enemy from "./enemies/Enemy";
+import Hero from "./Heroes/Hero";
 
  class Character {
 
@@ -63,6 +66,19 @@
     }
 
   
+    //registers damage received by a character
+    takesDamage(dmgRecvd:number):void{
+      console.log(`${this.getCharacterName} received ${dmgRecvd} damage`)
+      let remainingHP=this.getCurrentHP()-dmgRecvd;
+      this.setHP(remainingHP);
+   }
+
+   attacks(attackUsed:attack,enemyNPC:Enemy|Hero):void{
+       
+    console.log(`${this.getCharacterName} used ${attackUsed}`);
+    console.log(`${enemyNPC.getCharacterName} received ${attackUsed.damage}`);
+
+   }
 
 
     //set the living status of a character
