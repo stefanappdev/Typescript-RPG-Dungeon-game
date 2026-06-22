@@ -13,17 +13,18 @@ import { attackTypes } from "../types/types_attacks";
 class Session implements sessionInterface{
     private enemies:Enemy[];
     private numEnemies:number;
-    public  achievedSessionVictory:boolean;
+    public  achievedSessionVictory:boolean|undefined; 
+    public  sessionInProgress:boolean|undefined;
     public player:Hero;
     public nextSession:Session|null;
 
     constructor(
-        achievedSessionVictory:boolean,
+        achievedSessionVictory:boolean|undefined,
         enemies:Enemy[],
         numEnemies:number,
         player:Hero,
         nextSession:Session|null,
-
+        sessionInProgress:boolean|undefined,
         
     ){
 
@@ -31,6 +32,7 @@ class Session implements sessionInterface{
         this.player=player;
         this.numEnemies=numEnemies;
         this.nextSession=nextSession;
+        this.sessionInProgress=sessionInProgress;
         this.enemies=enemies;
         this.achievedSessionVictory=achievedSessionVictory;
         }
@@ -83,6 +85,38 @@ class Session implements sessionInterface{
 
 
     }
+
+
+    /*sets the start or stop of a round*/ 
+    setSessionInProgress(state:boolean):void{
+
+        if(this.sessionInProgress===undefined){
+            this.sessionInProgress=state;
+        }else{
+            this.sessionInProgress=state;
+        }
+    }
+
+
+    setAchievedSessionVictory(state:boolean):void{
+        if(this.achievedSessionVictory===undefined){
+            this.achievedSessionVictory=state;
+        }else{
+            this.achievedSessionVictory=state
+        }
+    }
+
+
+    getAchievedSessionVictory():boolean|undefined{
+        return this.achievedSessionVictory
+    }
+
+
+    //gets the current state of a round*/
+    getSessionInProgress():boolean|undefined{
+        return this.sessionInProgress;
+    }
+
 
 
     //sets number of enemies for a session or round
@@ -210,6 +244,27 @@ class Session implements sessionInterface{
         //removes first player at start of turnQ
        let currentplayer=turnQ.shift();
        let nextplayer;
+
+
+        function checkForSessionVictory(turnQ:any,hero:Hero):boolean{
+            if(turnQ.length===1 || hero.IsAlive()){
+                return true
+            }else{
+                return false;
+            }
+        }
+
+        function checkForSessionLoss(turnQ:any,hero:Hero):boolean{
+            if(turnQ.length>0||hero.IsDead()){
+                return true
+            }else{
+                return false;
+            }
+
+        }
+
+
+       
        
        if(currentplayer===hero){
         //actions to be taken if hero's turn
@@ -229,7 +284,27 @@ class Session implements sessionInterface{
        }else if(currentplayer!==hero){
 
            //finish logic for enemy turn
+
+            //actions to be taken if enemy's turn
+           let regAtks=currentplayer.getRegularAttackMoves();
+           let atkdmg=regAtks[0].damage;
+           let randonIndex=Math.floor(Math.random()*turnQ.length);
+           let target=turnQ[randonIndex];
+           currentplayer.attacks(regAtks[0],target);
+           target.takesDamage(atkdmg)
+
+         //adds enemy back to turnQ at end of turn and set an enemy to currentplayer
+        turnQ.push(currentplayer);
+        nextplayer=turnQ.shift();
+        currentplayer=nextplayer;
+
        }
+        
+
+
+
+      //finish checks for victory and loss
+       
 
      }
 
