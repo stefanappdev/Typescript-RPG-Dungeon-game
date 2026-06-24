@@ -1,3 +1,6 @@
+import { attack } from "../types/types_attacks";
+import Enemy from "./enemies/Enemy";
+import Hero from "./Heroes/Hero";
 declare class Character {
     hp: number;
     name: string;
@@ -10,6 +13,8 @@ declare class Character {
     getCurrentHP(): number;
     setCharacterName(newName: string): void;
     getCharacterName(): string;
+    takesDamage(dmgRecvd: number): void;
+    attacks(attackUsed: attack, enemyNPC: Enemy | Hero): void;
     setIsAlive(newAliveStatus: boolean): void;
     IsAlive(): boolean;
     IsDead(): boolean;

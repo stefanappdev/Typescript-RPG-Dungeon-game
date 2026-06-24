@@ -11,146 +11,33 @@ import { attackTypes } from "../types/types_attacks";
 
 
 class Session implements sessionInterface{
-    private enemies:Enemy[];
-    private numEnemies:number;
-    public  achievedSessionVictory:boolean|undefined; 
-    public  sessionInProgress:boolean|undefined;
+    
+    public achievedSessionVictory:boolean|undefined; 
+    public sessionInProgress:boolean|undefined;
     public player:Hero;
-    public nextSession:Session|null;
+    public nextSession:Session|undefined;
 
     constructor(
         achievedSessionVictory:boolean|undefined,
-        enemies:Enemy[],
-        numEnemies:number,
         player:Hero,
-        nextSession:Session|null,
+        nextSession:Session|undefined,
         sessionInProgress:boolean|undefined,
         
     ){
-
-
-        this.player=player;
-        this.numEnemies=numEnemies;
+        this.player=player;  
         this.nextSession=nextSession;
         this.sessionInProgress=sessionInProgress;
-        this.enemies=enemies;
         this.achievedSessionVictory=achievedSessionVictory;
         }
     
-
-    //generates enemies for a session 
-
-    GenerateEnemies(enemyType:string):Enemy|any{
-
-        let sessionEnemy:Enemy;
-
-        switch(enemyType){
-            case 'goblin':
-                    
-                sessionEnemy=new Goblin('goblin',true,50,5,'Enemy',
-                                [{attackName:'goblin punch',
-                                    attackType:attackTypes.REGULAR,
-                                    description:'light punch',
-                                    damage:5}
-                                ],
-                                [
-                                    {attackName:'goblin super punch',
-                                        attackType:attackTypes.SPECIAL,
-                                        description:'super punch',
-                                        damage:10}])
-                
-                                        
-                break;
-
-            case 'orc':
-                sessionEnemy=new Orc('Orc',true,75,10,'Enemy',
-                                [{attackName:'Orc slash',
-                                    attackType:attackTypes.REGULAR,
-                                    description:'light attack with sword',
-                                    damage:10}
-                                ],
-                                [
-                                    {attackName:'orc power slash',
-                                        attackType:attackTypes.SPECIAL,
-                                        description:'light attack with sword',
-                                        damage:15}])
-                break;
-            
-            default:
-                return;
-    }
     
-
-    return sessionEnemy
-
-
-    }
-
-
-    /*sets the start or stop of a round*/ 
-    setSessionInProgress(state:boolean):void{
-
-        if(this.sessionInProgress===undefined){
-            this.sessionInProgress=state;
-        }else{
-            this.sessionInProgress=state;
-        }
-    }
-
-
-    setAchievedSessionVictory(state:boolean):void{
-        if(this.achievedSessionVictory===undefined){
-            this.achievedSessionVictory=state;
-        }else{
-            this.achievedSessionVictory=state
-        }
-    }
-
-
-    getAchievedSessionVictory():boolean|undefined{
-        return this.achievedSessionVictory
-    }
-
-
-    //gets the current state of a round*/
-    getSessionInProgress():boolean|undefined{
-        return this.sessionInProgress;
+    SessionGreeting():void{
+        console.log('Round Start')
     }
 
 
 
-    //sets number of enemies for a session or round
-    setNoSessionEnemies():void{
-            this.numEnemies=Math.floor(Math.random()*4);
-
-        }
-
-    //randomly generates enemies in a session
-        generateRandomEnemies():void{
-            let enemies=[{id:0,type:'goblin'},{id:1,type:'orc'}]
-            for (let x=0;x<this.numEnemies;x++){
-                let key=Math.floor(Math.random()*this.numEnemies);
-                let target=enemies.find(enemy=>enemy.id===key)
-                if (target){
-                    if (target.type==='goblin'){
-
-                        this.enemies.push(this.GenerateEnemies('goblin'));
-                
-                    }else if(target.type==='Orc'){
-
-                        this.enemies.push(this.GenerateEnemies('goblin'))
-                        
-                    }
-
-                }
-            }
-
-    }
-
-
-
-
- // generates a Hero based on player input
+    // generates a Hero based on player input
     GenerateHero(heroName:string,heroType:string): Hero|any {
 
         let choosenHeroClass:Hero;
@@ -233,6 +120,120 @@ class Session implements sessionInterface{
 
 
 
+    //generates enemies for a session 
+
+    GenerateEnemies(enemyType:string):Enemy|any{
+
+        let sessionEnemy:Enemy;
+
+        switch(enemyType){
+            case 'goblin':
+                    
+                sessionEnemy=new Goblin('goblin',true,50,5,'Enemy',
+                                [{attackName:'goblin punch',
+                                    attackType:attackTypes.REGULAR,
+                                    description:'light punch',
+                                    damage:5}
+                                ],
+                                [
+                                    {attackName:'goblin super punch',
+                                        attackType:attackTypes.SPECIAL,
+                                        description:'super punch',
+                                        damage:10}])
+                
+                                        
+                break;
+
+            case 'orc':
+                sessionEnemy=new Orc('Orc',true,75,10,'Enemy',
+                                [{attackName:'Orc slash',
+                                    attackType:attackTypes.REGULAR,
+                                    description:'light attack with sword',
+                                    damage:10}
+                                ],
+                                [
+                                    {attackName:'orc power slash',
+                                        attackType:attackTypes.SPECIAL,
+                                        description:'light attack with sword',
+                                        damage:15}])
+                break;
+            
+            default:
+                return;
+    }
+    
+
+    return sessionEnemy
+
+
+    }
+
+
+    /*sets the start or stop of a round*/ 
+    setSessionInProgress(state:boolean):void{
+
+        if(this.sessionInProgress===undefined){
+            this.sessionInProgress=state;
+        }else{
+            this.sessionInProgress=state;
+        }
+    }
+
+
+    setAchievedSessionVictory(state:boolean):void{
+        if(this.achievedSessionVictory===undefined){
+            this.achievedSessionVictory=state;
+        }else{
+            this.achievedSessionVictory=state
+        }
+    }
+
+
+    getAchievedSessionVictory():boolean|undefined{
+        return this.achievedSessionVictory
+    }
+
+
+    //gets the current state of a round*/
+    getSessionInProgress():boolean|undefined{
+        return this.sessionInProgress;
+    }
+
+/*
+
+    //sets number of enemies for a session or round
+    setNoSessionEnemies():void{
+            this.numEnemies=Math.floor(Math.random()*4);
+
+        }
+
+    //randomly generates enemies in a session
+        generateRandomEnemies():void{
+            let enemies=[{id:0,type:'goblin'},{id:1,type:'orc'}]
+            for (let x=0;x<this.numEnemies;x++){
+                let key=Math.floor(Math.random()*this.numEnemies);
+                let target=enemies.find(enemy=>enemy.id===key)
+                if (target){
+                    if (target.type==='goblin'){
+
+                        this.enemies.push(this.GenerateEnemies('goblin'));
+                
+                    }else if(target.type==='Orc'){
+
+                        this.enemies.push(this.GenerateEnemies('goblin'))
+                        
+                    }
+
+                }
+            }
+
+    }
+
+
+
+
+ 
+
     
      turnManager(hero:Hero,enemies:Enemy[]){
       ///turn Q to manage turns taken
@@ -247,66 +248,77 @@ class Session implements sessionInterface{
 
 
         function checkForSessionVictory(turnQ:any,hero:Hero):boolean{
-            if(turnQ.length===1 || hero.IsAlive()){
+            if(turnQ.length===1 && hero.IsAlive()){
                 return true
             }else{
                 return false;
             }
         }
 
-        function checkForSessionLoss(turnQ:any,hero:Hero):boolean{
-            if(turnQ.length>0||hero.IsDead()){
-                return true
-            }else{
-                return false;
+      
+
+
+       while(turnQ.length>0){
+       
+        if(currentplayer===hero){
+            //actions to be taken if hero's turn
+            let regAtks=currentplayer.getRegularAttackMoves()
+            let atkdmg=regAtks[0].damage;
+            let randomIndex=Math.floor(Math.random()*turnQ.length)
+            let target=turnQ[randomIndex];
+            currentplayer.attacks(regAtks[0],target)
+            target.takesDamage(atkdmg)
+
+           
+            if(hero.IsAlive()){
+            //adds hero back to turnQ at end of turn and set an enemy to currentplayer
+            //if hero is alive
+            let gotSessionwin=checkForSessionVictory(turnQ,hero);
+            if(gotSessionwin){
+                this.setAchievedSessionVictory(true);
+                this.setSessionInProgress(false);
+                break;
             }
 
+            turnQ.push(currentplayer);
+            nextplayer=turnQ.shift();
+            currentplayer=nextplayer;
+            }
+
+           
+            
+        }else if(currentplayer!==hero){
+
+            //finish logic for enemy turn
+
+                //actions to be taken if enemy's turn
+            let regAtks=currentplayer.getRegularAttackMoves();
+            let atkdmg=regAtks[0].damage;
+            let randonIndex=Math.floor(Math.random()*turnQ.length);
+            let target=turnQ[randonIndex];
+            currentplayer.attacks(regAtks[0],target);
+            target.takesDamage(atkdmg)
+
+            //check if hero dies after enemy turn
+            if(hero.IsDead()){
+
+                this.setAchievedSessionVictory(false);
+                this.setSessionInProgress(false);
+                break;
+            }
+
+            //adds enemy back to turnQ at end of turn and set an enemy to currentplayer
+            turnQ.push(currentplayer);
+            nextplayer=turnQ.shift();
+            currentplayer=nextplayer;
+
         }
+            
+    }
+     
+    }
 
-
-       
-       
-       if(currentplayer===hero){
-        //actions to be taken if hero's turn
-        let regAtks=currentplayer.getRegularAttackMoves()
-        let atkdmg=regAtks[0].damage;
-        let randomIndex=Math.floor(Math.random()*turnQ.length)
-        let target=turnQ[randomIndex];
-        currentplayer.attacks(regAtks[0],target)
-        target.takesDamage(atkdmg)
-
-
-        //adds hero back to turnQ at end of turn and set an enemy to currentplayer
-        turnQ.push(currentplayer);
-        nextplayer=turnQ.shift();
-        currentplayer=nextplayer;
-
-       }else if(currentplayer!==hero){
-
-           //finish logic for enemy turn
-
-            //actions to be taken if enemy's turn
-           let regAtks=currentplayer.getRegularAttackMoves();
-           let atkdmg=regAtks[0].damage;
-           let randonIndex=Math.floor(Math.random()*turnQ.length);
-           let target=turnQ[randonIndex];
-           currentplayer.attacks(regAtks[0],target);
-           target.takesDamage(atkdmg)
-
-         //adds enemy back to turnQ at end of turn and set an enemy to currentplayer
-        turnQ.push(currentplayer);
-        nextplayer=turnQ.shift();
-        currentplayer=nextplayer;
-
-       }
-        
-
-
-
-      //finish checks for victory and loss
-       
-
-     }
+*/
 
 
 }

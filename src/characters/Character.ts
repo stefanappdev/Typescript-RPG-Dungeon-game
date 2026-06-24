@@ -1,29 +1,23 @@
-import { attack } from "../types/types_attacks";
-import Enemy from "./enemies/Enemy";
-import Hero from "./Heroes/Hero";
 
  class Character {
 
   
     public hp:number;
-    public name:string;
-    public isAlive:boolean;
-    private atkpow:number;
+    public characterName:string;
+    private atkPow:number;
     
 
     
 
    constructor(
-            name:string,
-            isAlive:boolean,
+            characterName:string,
             hp:number,
-            atkpow:number
+            atkPow:number
             )
     {
-            this.name=name;
+            this.characterName=characterName;
             this.hp=hp;
-            this.isAlive=isAlive;
-            this.atkpow=atkpow;
+            this.atkPow=atkPow;
                     
    }
 
@@ -31,14 +25,14 @@ import Hero from "./Heroes/Hero";
 
      //set atkpow of any character
 
-    setAtkpow(atkpow:number){
-        this.atkpow=atkpow;
+    setAtkpow(atkPow:number){
+        this.atkPow=atkPow;
     }
 
     
     //get atkpow of any character
     getAtkpow():number{
-        return this.atkpow;
+        return this.atkPow;
     }
 
 
@@ -57,52 +51,32 @@ import Hero from "./Heroes/Hero";
 
     // set name of a character
     setCharacterName(newName:string):void{
-        this.name=newName;
+        this.characterName=newName;
     }
 
     //get name of a character
     getCharacterName():string{
-       return this.name;
+       return this.characterName;
     }
 
   
-    //registers damage received by a character
-    takesDamage(dmgRecvd:number):void{
-      console.log(`${this.getCharacterName} received ${dmgRecvd} damage`)
-      let remainingHP=this.getCurrentHP()-dmgRecvd;
-      this.setHP(remainingHP);
-   }
 
-   attacks(attackUsed:attack,enemyNPC:Enemy|Hero):void{
-       
-    console.log(`${this.getCharacterName} used ${attackUsed}`);
-    console.log(`${enemyNPC.getCharacterName} received ${attackUsed.damage}`);
-
-   }
-
-
-    //set the living status of a character
-    setIsAlive(newAliveStatus:boolean):void{
-        this.isAlive=newAliveStatus;
-    }
 
 
     //checks if character is alive
     IsAlive():boolean{
-        if(this.isAlive){
+        if(this.getCurrentHP()>0){
             return true
-        }else{
-            return false
         }
+        return false
     }
 
      //checks if character is dead
     IsDead():boolean{
-        if(!this.isAlive){
+        if(this.getCurrentHP()===0){
             return true
-        }else{
-            return false
         }
+        return false
     }
 
 
