@@ -6,17 +6,19 @@ import { attack } from "../types/types_attacks";
     public hp:number;
     public characterName:string;
     private atkPow:number;
-    
+    public characterClass:string;
 
     
 
    constructor(
             characterName:string,
             hp:number,
+            characterClass:string,
             atkPow:number
             )
     {
             this.characterName=characterName;
+            this.characterClass=characterClass
             this.hp=hp;
             this.atkPow=atkPow;
                     
@@ -60,7 +62,15 @@ import { attack } from "../types/types_attacks";
        return this.characterName;
     }
 
-  
+    //set class of character 
+    setCharacterClass(newClass:string):void{
+        this.characterClass=newClass
+    }
+
+  //get cllass of character
+  getCharacterClass():string{
+    return this.characterClass
+  }
 
 
 

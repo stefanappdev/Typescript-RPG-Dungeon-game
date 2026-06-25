@@ -1,10 +1,11 @@
-import Enemy from "../characters/enemies/Enemy"
-import Hero from "../characters/Heroes/Hero";
+
 
 
 interface sessionInterface{
-      GenerateEnemies(enemyType:string):Enemy;
-      GenerateHero(heroName:string,heroType:string):Hero|any;
+      sessionHasStarted:boolean;
+      sessionHasEnded:boolean;
+      wonTheSession:boolean;
+      lostTheSession:boolean;
 }
 
 export default sessionInterface;

@@ -1,48 +1,47 @@
-import Enemy from "../Enemy.ts";
+
 import {attackTypes,attack} from "../../../types/types_attacks.ts"
-import attackSetInterface from "../../../interfaces/attackSetInterface.ts"
+import Character from "../../Character.ts";
+import EnemyInterface from "../../../interfaces/enemyInterface.ts";
 
-class Goblin extends Enemy implements attackSetInterface {
+
+class Goblin extends Character implements EnemyInterface {
 
    
-   private regularAttackMoves:attack[];
-   private specialAttackMoves:attack[];
    
+      
+    atkSets: { regular: attack[],special: attack[] };
 
    constructor(
+
+      atkSets:{regular:attack[],special:attack[]},
       name:string,
-      isAlive:boolean,
       hp:number,
-      atkpow:number,
-      className:string,
-      regularAttackMoves:attack[],
-      specialAttackMoves:attack[]
+      characterClass:string,
+      atkPow:number,
+      
       ){
       
-      super(name,isAlive,hp,atkpow,className);
-      this.regularAttackMoves=regularAttackMoves;
-      this.specialAttackMoves=specialAttackMoves
-      
+      super(name,hp,characterClass,atkPow);
+      this.atkSets=atkSets
+      }
+
    
+   setRegularAttacks(atks:attack[]):void{
+      this.atkSets.regular=atks;
    }
 
-
-   setRegularAttackMoves(regAttacks:attack[]):void{
-      this.regularAttackMoves=regAttacks
+   setSpecialAttacks(atks:attack[]):void{
+      this.atkSets.special=atks;
    }
 
-
-   setSpecialAttackMoves(specialAttacks:attack[]):void{
-      this.specialAttackMoves=specialAttacks;
-   };
-
-   getRegularAttackMoves():attack[]{
-   return this.regularAttackMoves
+   private getRegularAttacks():attack[]{
+   return this.atkSets.regular
    }
 
-   getSpecialAttackMoves():attack[]{
-   return this.specialAttackMoves
+   private getSpecialAttacks():attack[]{
+   return this.atkSets.special
    }
+
 
 
 }
