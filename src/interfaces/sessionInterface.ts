@@ -2,10 +2,11 @@
 
 
 interface sessionInterface{
-      sessionHasStarted:boolean;
-      sessionHasEnded:boolean;
-      wonTheSession:boolean;
-      lostTheSession:boolean;
+      sessionHasStarted:boolean|undefined;
+      sessionHasEnded:boolean|undefined;
+      wonTheSession:boolean|undefined;
+      lostTheSession:boolean|undefined;
+      
 }
 
 export default sessionInterface;

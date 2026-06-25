@@ -1,8 +1,8 @@
-import Enemy from "../characters/enemies/Enemy";
-import Hero from "../characters/Heroes/Hero";
 interface sessionInterface {
-    GenerateEnemies(enemyType: string): Enemy;
-    GenerateHero(heroName: string, heroType: string): Hero | any;
+    sessionHasStarted: boolean | undefined;
+    sessionHasEnded: boolean | undefined;
+    wonTheSession: boolean | undefined;
+    lostTheSession: boolean | undefined;
 }
 export default sessionInterface;
 //# sourceMappingURL=sessionInterface.d.ts.map

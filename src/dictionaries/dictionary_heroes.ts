@@ -54,11 +54,35 @@ let archerSpecialAtks:attack[]=[
 
 
 
-let heroAtkSets={
-    MAGE:{regular:mageRegularAtks,special:mageSpecialAtks},
-    WARRIOR:{regular:warriorRegularAtks,warriorSpecialAtks},
-    ARCHER:{regular:archerRegularAtks,special:archerSpecialAtks}
+let heroes={
+    MAGE:{characterClass:'mage',
+        atkSets:{
+            regular:mageRegularAtks,
+            special:mageSpecialAtks
+        },
+        hp:55,
+        atkPow:30
+    },
+
+    WARRIOR:{characterClass:'warrior',
+        atkSets:{
+        regular:warriorRegularAtks,
+        special:warriorSpecialAtks
+        },
+        hp:100,
+        atkPow:25
+    },
+
+    ARCHER:{characterClass:'archer',
+        atkSets:{regular:archerRegularAtks,
+        special:archerSpecialAtks
+        },
+        hp:75,
+        atkPow:20}
 };
 
 
-export default heroAtkSets
+ 
+
+
+export default heroes

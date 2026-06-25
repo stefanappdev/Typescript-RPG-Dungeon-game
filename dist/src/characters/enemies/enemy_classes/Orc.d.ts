@@ -1,14 +1,19 @@
-import Enemy from "../Enemy.ts";
 import { attack } from "../../../types/types_attacks.ts";
-import attackSetInterface from "../../../interfaces/attackSetInterface.ts";
-declare class Orc extends Enemy implements attackSetInterface {
-    private regularAttackMoves;
-    private specialAttackMoves;
-    constructor(name: string, isAlive: boolean, hp: number, atkpow: number, className: string, regularAttackMoves: attack[], specialAttackMoves: attack[]);
-    setRegularAttackMoves(regAttacks: attack[]): void;
-    setSpecialAttackMoves(specialAttacks: attack[]): void;
-    getRegularAttackMoves(): attack[];
-    getSpecialAttackMoves(): attack[];
+import Character from "../../Character.ts";
+import EnemyInterface from "../../../interfaces/enemyInterface.ts";
+declare class Orc extends Character implements EnemyInterface {
+    atkSets: {
+        regular: attack[];
+        special: attack[];
+    };
+    constructor(atkSets: {
+        regular: attack[];
+        special: attack[];
+    }, name: string, hp: number, characterClass: string, atkPow: number);
+    setRegularAttacks(atks: attack[]): void;
+    setSpecialAttacks(atks: attack[]): void;
+    private getRegularAttacks;
+    private getSpecialAttacks;
 }
 export default Orc;
 //# sourceMappingURL=Orc.d.ts.map

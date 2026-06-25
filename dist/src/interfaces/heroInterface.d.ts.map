@@ -1,0 +1,1 @@
+{"version":3,"file":"heroInterface.d.ts","sourceRoot":"","sources":["../../../src/interfaces/heroInterface.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,wBAAwB,CAAA;AAG/C,UAAU,aAAa;IAEnB,OAAO,EAAC;QACJ,OAAO,EAAC,MAAM,EAAE,CAAC;QACjB,OAAO,EAAC,MAAM,EAAE,CAAC;KACpB,CAAA;CAEJ;AAED,eAAe,aAAa,CAAA"}

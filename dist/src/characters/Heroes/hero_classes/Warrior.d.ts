@@ -1,14 +1,19 @@
-import Hero from "../Hero.ts";
 import { attack } from "../../../types/types_attacks.ts";
-import attackSetInterface from "../../../interfaces/attackSetInterface.ts";
-declare class Warrior extends Hero implements attackSetInterface {
-    private regularAttackMoves;
-    private specialAttackMoves;
-    constructor(name: string, isAlive: boolean, hp: number, atkpow: number, className: string, regularAttackMoves: attack[], specialAttackMoves: attack[]);
-    setRegularAttackMoves(regAttacks: attack[]): void;
-    setSpecialAttackMoves(specialAttacks: attack[]): void;
-    getRegularAttackMoves(): attack[];
-    getSpecialAttackMoves(): attack[];
+import HeroInterface from "../../../interfaces/heroInterface.ts";
+import Character from "../../Character.ts";
+declare class Warrior extends Character implements HeroInterface {
+    atkSets: {
+        regular: attack[];
+        special: attack[];
+    };
+    constructor(atkSets: {
+        regular: attack[];
+        special: attack[];
+    }, name: string, hp: number, characterClass: string, atkPow: number);
+    setRegularAttacks(atks: attack[]): void;
+    setSpecialAttacks(atks: attack[]): void;
+    private getRegularAttacks;
+    private getSpecialAttacks;
 }
 export default Warrior;
 //# sourceMappingURL=Warrior.d.ts.map

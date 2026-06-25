@@ -38,14 +38,22 @@ let orcSpecialAtks:attack[]=[
 
 
 
-let enemyAtkSets={
-    GOBLIN:{regular:goblinRegularAtks,special:goblinSpecialAtks},
-    ORC:{regular:orcRegularAtks,orcSpecialAtks},
+let enemies={
+    GOBLIN:{
+        name:'Goblin',hp:60,characterClass:'GOBLIN',
+        atkSets:{regular:goblinRegularAtks,special:goblinSpecialAtks},
+        atkPow:15,
+    },
+    
+    ORC:{name:'Orc',hp:75,characterClass:'ORC',
+        atkSets:{regular:orcRegularAtks,special:orcSpecialAtks},
+        atkPow:25,
+    },
    
 };
 
 
-export default enemyAtkSets
+export default enemies
 
 
 

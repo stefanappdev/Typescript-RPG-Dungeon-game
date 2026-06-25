@@ -3,25 +3,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Enemy_ts_1 = __importDefault(require("../Enemy.js"));
-class Orc extends Enemy_ts_1.default {
-    constructor(name, isAlive, hp, atkpow, className, regularAttackMoves, specialAttackMoves) {
-        super(name, isAlive, hp, atkpow, className);
-        this.regularAttackMoves = regularAttackMoves;
-        this.specialAttackMoves = specialAttackMoves;
+const Character_ts_1 = __importDefault(require("../../Character.js"));
+class Orc extends Character_ts_1.default {
+    constructor(atkSets, name, hp, characterClass, atkPow) {
+        super(name, hp, characterClass, atkPow);
+        this.atkSets = atkSets;
     }
-    setRegularAttackMoves(regAttacks) {
-        this.regularAttackMoves = regAttacks;
+    setRegularAttacks(atks) {
+        this.atkSets.regular = atks;
     }
-    setSpecialAttackMoves(specialAttacks) {
-        this.specialAttackMoves = specialAttacks;
+    setSpecialAttacks(atks) {
+        this.atkSets.special = atks;
     }
-    ;
-    getRegularAttackMoves() {
-        return this.regularAttackMoves;
+    getRegularAttacks() {
+        return this.atkSets.regular;
     }
-    getSpecialAttackMoves() {
-        return this.specialAttackMoves;
+    getSpecialAttacks() {
+        return this.atkSets.special;
     }
 }
 exports.default = Orc;

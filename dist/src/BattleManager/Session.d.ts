@@ -1,23 +1,16 @@
-import Enemy from "../characters/enemies/Enemy";
-import Hero from "../characters/Heroes/Hero";
-import sessionInterface from "../interfaces/sessionInterface";
-declare class Session implements sessionInterface {
-    private enemies;
-    private numEnemies;
-    achievedSessionVictory: boolean | undefined;
-    sessionInProgress: boolean | undefined;
-    player: Hero;
-    nextSession: Session | null;
-    constructor(achievedSessionVictory: boolean | undefined, enemies: Enemy[], numEnemies: number, player: Hero, nextSession: Session | null, sessionInProgress: boolean | undefined);
-    GenerateEnemies(enemyType: string): Enemy | any;
-    setSessionInProgress(state: boolean): void;
-    setAchievedSessionVictory(state: boolean): void;
-    getAchievedSessionVictory(): boolean | undefined;
-    getSessionInProgress(): boolean | undefined;
-    setNoSessionEnemies(): void;
-    generateRandomEnemies(): void;
-    GenerateHero(heroName: string, heroType: string): Hero | any;
-    turnManager(hero: Hero, enemies: Enemy[]): void;
+import Character from "../characters/Character";
+declare class Session {
+    sessionHasStarted: boolean | undefined;
+    sessionHasEnded: boolean | undefined;
+    wonTheSession: boolean | undefined;
+    lostTheSession: boolean | undefined;
+    heroPlayer: Character;
+    constructor(heroPlayer: Character, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean);
+    generateEnemies(): any[] | null;
+    setStartTheSession(state: boolean): void;
+    setEndTheSession(state: boolean): void;
+    EndTheSession(): void;
+    startTheSession(): void;
 }
 export default Session;
 //# sourceMappingURL=Session.d.ts.map

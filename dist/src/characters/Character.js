@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Character {
-    constructor(name, isAlive, hp, atkpow) {
-        this.name = name;
+    constructor(characterName, hp, characterClass, atkPow) {
+        this.characterName = characterName;
+        this.characterClass = characterClass;
         this.hp = hp;
-        this.isAlive = isAlive;
-        this.atkpow = atkpow;
+        this.atkPow = atkPow;
     }
     //set atkpow of any character
-    setAtkpow(atkpow) {
-        this.atkpow = atkpow;
+    setAtkpow(atkPow) {
+        this.atkPow = atkPow;
     }
     //get atkpow of any character
     getAtkpow() {
-        return this.atkpow;
+        return this.atkPow;
     }
     //set HP of any character
     setHP(hp) {
@@ -25,25 +25,19 @@ class Character {
     }
     // set name of a character
     setCharacterName(newName) {
-        this.name = newName;
+        this.characterName = newName;
     }
     //get name of a character
     getCharacterName() {
-        return this.name;
+        return this.characterName;
     }
-    //registers damage received by a character
-    takesDamage(dmgRecvd) {
-        console.log(`${this.getCharacterName} received ${dmgRecvd} damage`);
-        let remainingHP = this.getCurrentHP() - dmgRecvd;
-        this.setHP(remainingHP);
+    //set class of character 
+    setCharacterClass(newClass) {
+        this.characterClass = newClass;
     }
-    attacks(attackUsed, enemyNPC) {
-        console.log(`${this.getCharacterName} used ${attackUsed}`);
-        console.log(`${enemyNPC.getCharacterName} received ${attackUsed.damage}`);
-    }
-    //set the living status of a character
-    setIsAlive(newAliveStatus) {
-        this.isAlive = newAliveStatus;
+    //get cllass of character
+    getCharacterClass() {
+        return this.characterClass;
     }
     //checks if character is alive
     IsAlive() {
@@ -58,6 +52,14 @@ class Character {
             return true;
         }
         return false;
+    }
+    takesDmg(dmgRcvd) {
+        let remainingHP = this.getCurrentHP() - dmgRcvd;
+        console.log(`Received ${dmgRcvd} damage`);
+        this.setHP(remainingHP);
+    }
+    attack(atk, opponent) {
+        console.log(`${this.getCharacterName()} used ${atk.attackName} on ${opponent.getCharacterName()}`);
     }
 }
 exports.default = Character;
