@@ -3,7 +3,7 @@ import heroes from "../dictionaries/dictionary_heroes";
 import Mage from "../characters/Heroes/hero_classes/Mage";
 import Warrior from "../characters/Heroes/hero_classes/Warrior";
 import Archer from "../characters/Heroes/hero_classes/Archer";
-import { read } from "node:fs";
+
 
 const readLine=require('readline');
 
@@ -24,6 +24,18 @@ class BattleManager{
 
 
 
+    public generateSessions(hero:any,rounds:string){
+         console.log(`A new champion ${hero.characterName} has arisen`);
+         let sessionListHead=new Session(hero);
+
+         setTimeout(()=>{
+             sessionListHead.startTheSession();
+         },2000)
+         
+         let enemies=sessionListHead.generateEnemies();
+         sessionListHead.initateSessionCombat(hero,enemies)
+        
+    }
 
 
     
@@ -34,6 +46,7 @@ class BattleManager{
 
         this.battleStart=true;
         console.log('The battle has started')
+        
     }
 
     //ends battle sequence
@@ -43,102 +56,95 @@ class BattleManager{
     }
 
 
-    public GetBattleDetails():void{
-
-    let Hero:any;
-
-    interface battleDetails{
-            
-            heroName:string,
-            heroChoice:number,
-            sessions:number
-            }
-
-        let BD:battleDetails={
-            heroName:'',
-            heroChoice:0,
-            sessions:0
-        };
-
-
-        
-
-        async function readBattleDetails(){
-            
+    createHero(hname:string,hclass:string):any{
+        let hero;
+        if(hclass==='1'){
+            hero=new Warrior(
+                        heroes.WARRIOR.atkSets,
+                        hname,
+                        heroes.WARRIOR.hp,
+                        heroes.WARRIOR.characterClass,
+                        heroes.WARRIOR.characterType,
+                        heroes.WARRIOR.atkPow
+                        )
+            return hero;
+        }else if(hclass==='2'){
+            hero=new Archer(
+                        heroes.ARCHER.atkSets,
+                        hname,
+                        heroes.ARCHER.hp,
+                        heroes.ARCHER.characterClass,
+                         heroes.WARRIOR.characterType,
+                        heroes.ARCHER.atkPow
+                        )
+            return hero;
+        }else if(hclass==='3'){
+            hero=new Archer(
+                        heroes.MAGE.atkSets,
+                        hname,
+                        heroes.MAGE.hp,
+                        heroes.MAGE.characterClass,
+                         heroes.WARRIOR.characterType,
+                        heroes.MAGE.atkPow
+                        )
+            return hero;
         }
+
+
+
         
-            const readLineInterface=readLine.createInterface({
-            input:process.stdin, 
-            output:process.stdout
-        })
+    }
+ 
+    public DisplayMenu():void{
+        //dteails to generate a battle
+        
+        let questions:string[];
+        let answers:string[]=[];
 
-            readLineInterface.question('Enter your character name:'+'\n',(name:string)=>{
+             questions=["What's your hero name?",
+                `What's your hero class? 1. Warrior, 2.Mage, 3.Archer`
+                ,"How many rounds for the battle?"]
 
-                BD.heroName=name
+             const ask=(index:number):void =>{
+                console.log(questions[index])
+             }
+
+             if(answers.length===0){
+                ask(0)
+            } 
+
             
-                readLineInterface.question(`Choose your hero:\n1.Warrior\n2.Mage\n3.Archer\nyour choice:`,(chr_choice:number)=>{
-                console.log('you chose:',chr_choice);
+            process.stdin.on('data',(input:string)=>{
 
-                BD.heroChoice=chr_choice;
-
-                readLineInterface.question('Enter a number of sessions for the battle:'+'\n',(numsessions:number)=>{
-                console.log('number of rounds:'+'\n',numsessions)
-
-                BD.sessions=numsessions
+                answers.push(input.toString().trim())
                 
-                readLineInterface.close()
-                            })
-                
-
-                })
-                
-                
+                if(answers.length<questions.length){
+                    ask(answers.length)
+                }else if(answers.length===questions.length){
+                   
+                    if(answers[0]&&answers[1]&&answers[2]){
+                         
+                        let the_Hero=this.createHero(answers[0],answers[1])
+                       
+                        this.generateSessions(the_Hero,answers[2])
+                    }
+                   
+                }
             })
-
-
-
-
-            if(BD.heroChoice===1){
-                
-                            Hero=new Warrior(
-                            heroes.WARRIOR.atkSets,
-                            BD.heroName,
-                            heroes.WARRIOR.hp,
-                            heroes.WARRIOR.characterClass,
-                            heroes.WARRIOR.atkPow,
-                        )
-
-                    }else if(BD.heroChoice===2){
-                        
-                            Hero=new Archer(
-                            heroes.ARCHER.atkSets,
-                            BD.heroName,
-                            heroes.ARCHER.hp,
-                            heroes.ARCHER.characterClass,
-                            heroes.ARCHER.atkPow,
-                        )
-                    }else if(BD.heroChoice===3)
-                            Hero=new Mage(
-                            heroes.MAGE.atkSets,
-                            BD.heroName,
-                            heroes.MAGE.hp,
-                            heroes.MAGE.characterClass,
-                            heroes.MAGE.atkPow,
-                        )
+             
+           
+            
 
             
-        console.log('a new champion has arisen!!')
-
+        }        
+            
+       
     }
 
 
-
-}
+    
 
 
 
 export default BattleManager
-
-
-
 

@@ -11,6 +11,7 @@ sessionHasStarted:boolean|undefined;
 sessionHasEnded:boolean|undefined;
 wonTheSession:boolean|undefined;
 lostTheSession:boolean|undefined;
+nextSession:Session|undefined;
 heroPlayer:Character;
 
 
@@ -19,13 +20,17 @@ constructor(
     sessionHasStarted?:boolean,
     sessionHasEnded?:boolean,
     wonTheSession?:boolean,
-    lostTheSession?:boolean)
+    lostTheSession?:boolean,
+    nextSession?:Session
+
+)
     {
     this.lostTheSession=lostTheSession;
     this.sessionHasEnded=sessionHasEnded;
     this.wonTheSession=wonTheSession;
     this.heroPlayer=heroPlayer;
     this.sessionHasStarted=sessionHasStarted;
+    this.nextSession=nextSession;
     }
 
 
@@ -75,8 +80,37 @@ constructor(
         
         }
 
+        console.log('Enemies are being generated...')
+
         return sessionEnemies
                 
+    }
+
+
+
+
+    initateSessionCombat(hero:any,enemies:any):void{
+        let TurnQ=[];
+        TurnQ.push(hero);
+        TurnQ.splice(1,0,...enemies)
+        console.log(TurnQ)
+
+        const turnManager=(TurnQ)=>{
+                /* 
+                character at front of turnQ goes first attacks an enemy.
+                if the character is alive after their turn remove from front of turnQ and 
+                place at back. Repeat until either all enemies die or the hero dies. 
+                If hero dies => session is lost, 
+                if the hero slays all enemies=> session is won and should proceed to the next session.
+                */
+
+                let currentPlayer=TurnQ[0];
+                if (currentPlayer.characterType==='enemy'){
+                    currentPlayer.attack()
+                }
+        }
+
+
     }
 
 

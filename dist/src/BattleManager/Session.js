@@ -7,12 +7,13 @@ const dictionary_enemies_1 = __importDefault(require("../dictionaries/dictionary
 const Goblin_1 = __importDefault(require("../characters/enemies/enemy_classes/Goblin"));
 const Orc_1 = __importDefault(require("../characters/enemies/enemy_classes/Orc"));
 class Session {
-    constructor(heroPlayer, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession) {
+    constructor(heroPlayer, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession, nextSession) {
         this.lostTheSession = lostTheSession;
         this.sessionHasEnded = sessionHasEnded;
         this.wonTheSession = wonTheSession;
         this.heroPlayer = heroPlayer;
         this.sessionHasStarted = sessionHasStarted;
+        this.nextSession = nextSession;
     }
     generateEnemies() {
         //generates at most up to 3 enemies per session
@@ -42,7 +43,14 @@ class Session {
                 }
             }
         }
+        console.log('Enemies are being generated...');
         return sessionEnemies;
+    }
+    initateSessionCombat(hero, enemies) {
+        let TurnQ = [];
+        TurnQ.push(hero);
+        TurnQ.splice(1, 0, enemies.slice(0));
+        console.log(TurnQ);
     }
     setStartTheSession(state) {
         this.sessionHasStarted = state;

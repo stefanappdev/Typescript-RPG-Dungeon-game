@@ -15,11 +15,12 @@ class Archer extends Character implements HeroInterface {
       name:string,
       hp:number,
       characterClass:string,
+      characterType:string,
       atkPow:number,
       
       ){
       
-      super(name,hp,characterClass,atkPow);
+      super(name,hp,characterClass,characterType,atkPow);
       this.atkSets=atkSets
       }
 

@@ -7,18 +7,21 @@ import { attack } from "../types/types_attacks";
     public characterName:string;
     private atkPow:number;
     public characterClass:string;
+    public characterType:string;
 
     
 
    constructor(
             characterName:string,
             hp:number,
+            characterType:string,
             characterClass:string,
             atkPow:number
             )
     {
             this.characterName=characterName;
-            this.characterClass=characterClass
+            this.characterClass=characterClass;
+            this.characterType=characterType
             this.hp=hp;
             this.atkPow=atkPow;
                     
@@ -56,6 +59,12 @@ import { attack } from "../types/types_attacks";
     setCharacterName(newName:string):void{
         this.characterName=newName;
     }
+
+     //get type of a character: Hero or enemy
+    getCharacterType():string{
+       return this.characterType;
+    }
+
 
     //get name of a character
     getCharacterName():string{

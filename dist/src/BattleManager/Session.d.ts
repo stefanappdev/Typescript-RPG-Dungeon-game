@@ -4,9 +4,11 @@ declare class Session {
     sessionHasEnded: boolean | undefined;
     wonTheSession: boolean | undefined;
     lostTheSession: boolean | undefined;
+    nextSession: Session | undefined;
     heroPlayer: Character;
-    constructor(heroPlayer: Character, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean);
+    constructor(heroPlayer: Character, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean, nextSession?: Session);
     generateEnemies(): any[] | null;
+    initateSessionCombat(hero: any, enemies: any): void;
     setStartTheSession(state: boolean): void;
     setEndTheSession(state: boolean): void;
     EndTheSession(): void;

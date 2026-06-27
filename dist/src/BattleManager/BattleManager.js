@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const Session_1 = __importDefault(require("./Session"));
 const dictionary_heroes_1 = __importDefault(require("../dictionaries/dictionary_heroes"));
-const Mage_1 = __importDefault(require("../characters/Heroes/hero_classes/Mage"));
 const Warrior_1 = __importDefault(require("../characters/Heroes/hero_classes/Warrior"));
 const Archer_1 = __importDefault(require("../characters/Heroes/hero_classes/Archer"));
 const readLine = require('readline');
@@ -13,6 +13,15 @@ class BattleManager {
         this.battleEnd = battleEnd;
         this.battleSessions = battleSessions;
         this.battleStart = battleStart;
+    }
+    generateSessions(hero, rounds) {
+        console.log(`A new champion ${hero.characterName} has arisen`);
+        let sessionListHead = new Session_1.default(hero);
+        setTimeout(() => {
+            sessionListHead.startTheSession();
+        }, 2000);
+        let enemies = sessionListHead.generateEnemies();
+        sessionListHead.initateSessionCombat(hero, enemies);
     }
     //initates a battle sequence
     StartBattle() {
@@ -24,42 +33,46 @@ class BattleManager {
         this.battleEnd = false;
         console.log('The battle has ended');
     }
-    GetBattleDetails() {
-        let Hero;
-        let BD = {
-            heroName: '',
-            heroChoice: 0,
-            sessions: 0
+    createHero(hname, hclass) {
+        let hero;
+        if (hclass === '1') {
+            hero = new Warrior_1.default(dictionary_heroes_1.default.WARRIOR.atkSets, hname, dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.characterClass, dictionary_heroes_1.default.WARRIOR.atkPow);
+            return hero;
+        }
+        else if (hclass === '2') {
+            hero = new Archer_1.default(dictionary_heroes_1.default.ARCHER.atkSets, hname, dictionary_heroes_1.default.ARCHER.hp, dictionary_heroes_1.default.ARCHER.characterClass, dictionary_heroes_1.default.ARCHER.atkPow);
+            return hero;
+        }
+        else if (hclass === '3') {
+            hero = new Archer_1.default(dictionary_heroes_1.default.MAGE.atkSets, hname, dictionary_heroes_1.default.MAGE.hp, dictionary_heroes_1.default.MAGE.characterClass, dictionary_heroes_1.default.MAGE.atkPow);
+            return hero;
+        }
+    }
+    DisplayMenu() {
+        //dteails to generate a battle
+        let questions;
+        let answers = [];
+        questions = ["What's your hero name?",
+            `What's your hero class? 1. Warrior, 2.Mage, 3.Archer`,
+            "How many rounds for the battle?"];
+        const ask = (index) => {
+            console.log(questions[index]);
         };
-        async function inputBattleDetails() {
-            const readLineInterface = readLine.createInterface({
-                input: process.stdin,
-                output: process.stdout
-            });
-            await readLineInterface.question('Enter your character name:' + '\n', (name) => {
-                BD.heroName = name;
-                readLineInterface.question(`Choose your hero:\n1.Warrior\n2.Mage\n3.Archer\nyour choice:`, (chr_choice) => {
-                    console.log('you chose:', chr_choice);
-                    BD.heroChoice = chr_choice;
-                    readLineInterface.question('Enter a number of sessions for the battle:' + '\n', (numsessions) => {
-                        console.log('number of rounds:' + '\n', numsessions);
-                        BD.sessions = numsessions;
-                        readLineInterface.close();
-                    });
-                });
-            });
-            return BD;
+        if (answers.length === 0) {
+            ask(0);
         }
-        inputBattleDetails();
-        if (BD.heroChoice === 1) {
-            Hero = new Warrior_1.default(dictionary_heroes_1.default.WARRIOR.atkSets, BD.heroName, dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.characterClass, dictionary_heroes_1.default.WARRIOR.atkPow);
-        }
-        else if (BD.heroChoice === 2) {
-            Hero = new Archer_1.default(dictionary_heroes_1.default.ARCHER.atkSets, BD.heroName, dictionary_heroes_1.default.ARCHER.hp, dictionary_heroes_1.default.ARCHER.characterClass, dictionary_heroes_1.default.ARCHER.atkPow);
-        }
-        else if (BD.heroChoice === 3)
-            Hero = new Mage_1.default(dictionary_heroes_1.default.MAGE.atkSets, BD.heroName, dictionary_heroes_1.default.MAGE.hp, dictionary_heroes_1.default.MAGE.characterClass, dictionary_heroes_1.default.MAGE.atkPow);
-        console.log('a new champion has arisen!!', Hero);
+        process.stdin.on('data', (input) => {
+            answers.push(input.toString().trim());
+            if (answers.length < questions.length) {
+                ask(answers.length);
+            }
+            else if (answers.length === questions.length) {
+                if (answers[0] && answers[1] && answers[2]) {
+                    let the_Hero = this.createHero(answers[0], answers[1]);
+                    this.generateSessions(the_Hero, answers[2]);
+                }
+            }
+        });
     }
 }
 exports.default = BattleManager;

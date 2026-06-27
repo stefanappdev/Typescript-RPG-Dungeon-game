@@ -56,6 +56,7 @@ let archerSpecialAtks:attack[]=[
 
 let heroes={
     MAGE:{characterClass:'mage',
+          characterType:'hero',
         atkSets:{
             regular:mageRegularAtks,
             special:mageSpecialAtks
@@ -65,6 +66,7 @@ let heroes={
     },
 
     WARRIOR:{characterClass:'warrior',
+        characterType:'hero',
         atkSets:{
         regular:warriorRegularAtks,
         special:warriorSpecialAtks
@@ -74,6 +76,7 @@ let heroes={
     },
 
     ARCHER:{characterClass:'archer',
+        characterType:'hero',
         atkSets:{regular:archerRegularAtks,
         special:archerSpecialAtks
         },
