@@ -2,6 +2,7 @@ import Character from "../characters/Character";
 import enemies from "../dictionaries/dictionary_enemies";
 import Goblin from "../characters/enemies/enemy_classes/Goblin";
 import Orc from "../characters/enemies/enemy_classes/Orc";
+import { attack } from "../types/types_attacks";
 
 class Session{
 
@@ -62,6 +63,7 @@ constructor(
                             enemies.GOBLIN.name,
                             enemies.GOBLIN.hp,
                             enemies.GOBLIN.characterClass,
+                            enemies.GOBLIN.characterType,
                             enemies.GOBLIN.atkPow
                         ))
                     }else if(type==='ORC'){
@@ -70,6 +72,7 @@ constructor(
                             enemies.ORC.name,
                             enemies.ORC.hp,
                             enemies.ORC.characterClass,
+                            enemies.ORC.characterType,
                             enemies.ORC.atkPow
                         ))
                         
@@ -90,12 +93,11 @@ constructor(
 
 
     initateSessionCombat(hero:any,enemies:any):void{
-        let TurnQ=[];
-        TurnQ.push(hero);
-        TurnQ.splice(1,0,...enemies)
-        console.log(TurnQ)
-
-        const turnManager=(TurnQ)=>{
+        let TurnQ:any=[];
+        TurnQ.splice(0,0,hero,enemies);
+        let foes=TurnQ[1]
+        ///console.log(TurnQ)
+         ///console.log(TurnQ[1])
                 /* 
                 character at front of turnQ goes first attacks an enemy.
                 if the character is alive after their turn remove from front of turnQ and 
@@ -103,12 +105,58 @@ constructor(
                 If hero dies => session is lost, 
                 if the hero slays all enemies=> session is won and should proceed to the next session.
                 */
+        let currentPlayer=TurnQ.shift();
+        if(currentPlayer===hero){
 
-                let currentPlayer=TurnQ[0];
-                if (currentPlayer.characterType==='enemy'){
-                    currentPlayer.attack()
-                }
+            //hero attacks sets
+            let heroSpecialAttacks:attack[]=hero.getSpecialAttacks()
+            let heroRegularAttacks:attack[]=hero.getRegularAttacks();
+            
+            //pick random atk regular or special from attack set for hero to use
+            let heroAtks:attack[]=heroRegularAttacks.concat(heroSpecialAttacks);
+            let randAtk:attack|undefined=heroAtks[Math.floor(Math.random()*heroAtks.length+1)]
+            
+            //random chooses an enemy for the hero to attack
+            
+            let randEnemyIndex=Math.floor(Math.random()*(foes.length+1))
+            
+            if (randEnemyIndex===0){
+               while(true){
+                    randEnemyIndex=Math.floor(Math.random()*(foes.length+1))
+
+                    if (randEnemyIndex>0){
+                        break
+                    }
+               } 
+              
+            }
+
+
+           // console.log(randEnemyIndex)
+
+            let foe=foes[randEnemyIndex]
+
+
+            //displays damage taken by attack used by hero and dmg take zenemy 
+
+            hero.attack(randAtk,foe);
+            foe.takesDamage(randAtk?.damage);
+
+            //removes dead enemy from array
+            if(foe.isDead()){
+                let pos=TurnQ[1].indexOf(foe);
+                TurnQ[1].splice(pos,1)
+            }
+
+            //pushes hero back into array
+            TurnQ.push(currentPlayer)
+
+            currentPlayer=TurnQ.shift();
+
+
+            
         }
+        
 
 
     }

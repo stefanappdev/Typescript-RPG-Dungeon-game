@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Character_ts_1 = __importDefault(require("../../Character.js"));
 class Warrior extends Character_ts_1.default {
-    constructor(atkSets, name, hp, characterClass, atkPow) {
-        super(name, hp, characterClass, atkPow);
+    constructor(atkSets, name, hp, characterClass, characterType, atkPow) {
+        super(name, hp, characterClass, characterType, atkPow);
         this.atkSets = atkSets;
     }
     setRegularAttacks(atks) {

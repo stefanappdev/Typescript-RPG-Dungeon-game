@@ -1,1 +1,1 @@
-{"version":3,"file":"dictionary_heroes.d.ts","sourceRoot":"","sources":["../../../src/dictionaries/dictionary_heroes.ts"],"names":[],"mappings":"AAEA,OAAO,EAAc,MAAM,EAAI,MAAM,wBAAwB,CAAC;AAsD9D,QAAA,IAAI,MAAM;;;;;;;;;;;;;;;;;;;;;;;;;;;;CAyBT,CAAC;AAMF,eAAe,MAAM,CAAA"}
+{"version":3,"file":"dictionary_heroes.d.ts","sourceRoot":"","sources":["../../../src/dictionaries/dictionary_heroes.ts"],"names":[],"mappings":"AAEA,OAAO,EAAc,MAAM,EAAI,MAAM,wBAAwB,CAAC;AAsD9D,QAAA,IAAI,MAAM;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;CA4BT,CAAC;AAMF,eAAe,MAAM,CAAA"}

@@ -16,11 +16,12 @@ class Orc extends Character implements EnemyInterface{
       name:string,
       hp:number,
       characterClass:string,
+      characterType:string,
       atkPow:number,
       
       ){
       
-      super(name,hp,characterClass,atkPow);
+      super(name,hp,characterType,characterClass,atkPow);
       this.atkSets=atkSets
       }
 

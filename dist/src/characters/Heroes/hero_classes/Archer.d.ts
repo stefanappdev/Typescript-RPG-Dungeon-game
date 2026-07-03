@@ -9,7 +9,7 @@ declare class Archer extends Character implements HeroInterface {
     constructor(atkSets: {
         regular: attack[];
         special: attack[];
-    }, name: string, hp: number, characterClass: string, atkPow: number);
+    }, name: string, hp: number, characterClass: string, characterType: string, atkPow: number);
     setRegularAttacks(atks: attack[]): void;
     setSpecialAttacks(atks: attack[]): void;
     private getRegularAttacks;

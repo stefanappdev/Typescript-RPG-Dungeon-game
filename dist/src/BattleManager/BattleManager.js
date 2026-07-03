@@ -36,15 +36,15 @@ class BattleManager {
     createHero(hname, hclass) {
         let hero;
         if (hclass === '1') {
-            hero = new Warrior_1.default(dictionary_heroes_1.default.WARRIOR.atkSets, hname, dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.characterClass, dictionary_heroes_1.default.WARRIOR.atkPow);
+            hero = new Warrior_1.default(dictionary_heroes_1.default.WARRIOR.atkSets, hname, dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.characterClass, dictionary_heroes_1.default.WARRIOR.characterType, dictionary_heroes_1.default.WARRIOR.atkPow);
             return hero;
         }
         else if (hclass === '2') {
-            hero = new Archer_1.default(dictionary_heroes_1.default.ARCHER.atkSets, hname, dictionary_heroes_1.default.ARCHER.hp, dictionary_heroes_1.default.ARCHER.characterClass, dictionary_heroes_1.default.ARCHER.atkPow);
+            hero = new Archer_1.default(dictionary_heroes_1.default.ARCHER.atkSets, hname, dictionary_heroes_1.default.ARCHER.hp, dictionary_heroes_1.default.ARCHER.characterClass, dictionary_heroes_1.default.WARRIOR.characterType, dictionary_heroes_1.default.ARCHER.atkPow);
             return hero;
         }
         else if (hclass === '3') {
-            hero = new Archer_1.default(dictionary_heroes_1.default.MAGE.atkSets, hname, dictionary_heroes_1.default.MAGE.hp, dictionary_heroes_1.default.MAGE.characterClass, dictionary_heroes_1.default.MAGE.atkPow);
+            hero = new Archer_1.default(dictionary_heroes_1.default.MAGE.atkSets, hname, dictionary_heroes_1.default.MAGE.hp, dictionary_heroes_1.default.MAGE.characterClass, dictionary_heroes_1.default.WARRIOR.characterType, dictionary_heroes_1.default.MAGE.atkPow);
             return hero;
         }
     }

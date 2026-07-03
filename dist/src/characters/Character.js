@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Character {
-    constructor(characterName, hp, characterClass, atkPow) {
+    constructor(characterName, hp, characterType, characterClass, atkPow) {
         this.characterName = characterName;
         this.characterClass = characterClass;
+        this.characterType = characterType;
         this.hp = hp;
         this.atkPow = atkPow;
     }
@@ -26,6 +27,10 @@ class Character {
     // set name of a character
     setCharacterName(newName) {
         this.characterName = newName;
+    }
+    //get type of a character: Hero or enemy
+    getCharacterType() {
+        return this.characterType;
     }
     //get name of a character
     getCharacterName() {

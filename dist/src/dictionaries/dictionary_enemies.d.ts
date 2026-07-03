@@ -4,6 +4,7 @@ declare let enemies: {
         name: string;
         hp: number;
         characterClass: string;
+        characterType: string;
         atkSets: {
             regular: attack[];
             special: attack[];
@@ -14,6 +15,7 @@ declare let enemies: {
         name: string;
         hp: number;
         characterClass: string;
+        characterType: string;
         atkSets: {
             regular: attack[];
             special: attack[];

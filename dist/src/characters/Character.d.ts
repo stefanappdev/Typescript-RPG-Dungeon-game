@@ -4,12 +4,14 @@ declare class Character {
     characterName: string;
     private atkPow;
     characterClass: string;
-    constructor(characterName: string, hp: number, characterClass: string, atkPow: number);
+    characterType: string;
+    constructor(characterName: string, hp: number, characterType: string, characterClass: string, atkPow: number);
     setAtkpow(atkPow: number): void;
     getAtkpow(): number;
     setHP(hp: number): void;
     getCurrentHP(): number;
     setCharacterName(newName: string): void;
+    getCharacterType(): string;
     getCharacterName(): string;
     setCharacterClass(newClass: string): void;
     getCharacterClass(): string;
