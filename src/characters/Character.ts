@@ -26,13 +26,13 @@ import CharacterInterface from "../interfaces/CharacterInterface";
 
      //set atkpow of any character
 
-    private setAtkpow(atkPow:number){
+    protected setAtkpow(atkPow:number){
         this.atkPow=atkPow;
     }
 
     
     //get atkpow of any character
-   private getAtkpow():number{
+   protected getAtkpow():number{
         return this.atkPow;
     }
 
@@ -40,7 +40,7 @@ import CharacterInterface from "../interfaces/CharacterInterface";
 
     //set HP of any character
 
-    private setHP(hp:number){
+    protected setHP(hp:number){
         this.hp=hp;
     }
 
@@ -51,7 +51,7 @@ import CharacterInterface from "../interfaces/CharacterInterface";
     }
 
     // set name of a character
-    setCharacterName(newName:string):void{
+    protected setCharacterName(newName:string):void{
         this.characterName=newName;
     }
 

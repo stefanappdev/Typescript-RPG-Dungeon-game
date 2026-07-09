@@ -42,7 +42,7 @@ let archerSpecialAtks = [
 ];
 let heroes = {
     MAGE: { characterClass: 'mage',
-        characterType: 'hero',
+        isHero: true,
         atkSets: {
             regular: mageRegularAtks,
             special: mageSpecialAtks
@@ -51,7 +51,7 @@ let heroes = {
         atkPow: 30
     },
     WARRIOR: { characterClass: 'warrior',
-        characterType: 'hero',
+        isHero: true,
         atkSets: {
             regular: warriorRegularAtks,
             special: warriorSpecialAtks
@@ -60,6 +60,7 @@ let heroes = {
         atkPow: 25
     },
     ARCHER: { characterClass: 'archer',
+        isHero: true,
         characterType: 'hero',
         atkSets: { regular: archerRegularAtks,
             special: archerSpecialAtks

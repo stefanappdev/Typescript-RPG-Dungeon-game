@@ -2,7 +2,7 @@ import { attack } from "../types/types_attacks";
 declare let heroes: {
     MAGE: {
         characterClass: string;
-        characterType: string;
+        isHero: boolean;
         atkSets: {
             regular: attack[];
             special: attack[];
@@ -12,7 +12,7 @@ declare let heroes: {
     };
     WARRIOR: {
         characterClass: string;
-        characterType: string;
+        isHero: boolean;
         atkSets: {
             regular: attack[];
             special: attack[];
@@ -22,6 +22,7 @@ declare let heroes: {
     };
     ARCHER: {
         characterClass: string;
+        isHero: boolean;
         characterType: string;
         atkSets: {
             regular: attack[];

@@ -4,7 +4,7 @@ import { attack } from "../types/types_attacks"
 interface HeroInterface{
 
     characterClass:string,
-    isHeroType:boolean,
+    isHero:boolean,
     atkSets:{
         regular:attack[],
         special:attack[],

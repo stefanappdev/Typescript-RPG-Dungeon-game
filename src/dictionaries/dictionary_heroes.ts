@@ -1,5 +1,4 @@
-import Archer from "../characters/Heroes/hero_classes/Archer";
-import Warrior from "../characters/Heroes/hero_classes/Warrior";
+
 import { attackTypes,attack,  } from "../types/types_attacks";
 
 
@@ -56,7 +55,7 @@ let archerSpecialAtks:attack[]=[
 
 let heroes={
     MAGE:{characterClass:'mage',
-          characterType:'hero',
+          isHero:true,
         atkSets:{
             regular:mageRegularAtks,
             special:mageSpecialAtks
@@ -66,7 +65,7 @@ let heroes={
     },
 
     WARRIOR:{characterClass:'warrior',
-        characterType:'hero',
+        isHero:true,
         atkSets:{
         regular:warriorRegularAtks,
         special:warriorSpecialAtks
@@ -76,6 +75,7 @@ let heroes={
     },
 
     ARCHER:{characterClass:'archer',
+        isHero:true,
         characterType:'hero',
         atkSets:{regular:archerRegularAtks,
         special:archerSpecialAtks

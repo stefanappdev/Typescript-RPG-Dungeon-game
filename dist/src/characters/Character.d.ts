@@ -1,24 +1,17 @@
-import { attack } from "../types/types_attacks";
-declare class Character {
+import CharacterInterface from "../interfaces/CharacterInterface";
+declare class Character implements CharacterInterface {
     hp: number;
     characterName: string;
-    private atkPow;
-    characterClass: string;
-    characterType: string;
-    constructor(characterName: string, hp: number, characterType: string, characterClass: string, atkPow: number);
-    setAtkpow(atkPow: number): void;
-    getAtkpow(): number;
-    setHP(hp: number): void;
+    atkPow: number;
+    constructor(characterName: string, hp: number, atkPow: number);
+    protected setAtkpow(atkPow: number): void;
+    protected getAtkpow(): number;
+    protected setHP(hp: number): void;
     getCurrentHP(): number;
-    setCharacterName(newName: string): void;
-    getCharacterType(): string;
+    protected setCharacterName(newName: string): void;
     getCharacterName(): string;
-    setCharacterClass(newClass: string): void;
-    getCharacterClass(): string;
     IsAlive(): boolean;
     IsDead(): boolean;
-    takesDmg(dmgRcvd: number): void;
-    attack(atk: attack, opponent: Character): void;
 }
 export default Character;
 //# sourceMappingURL=Character.d.ts.map

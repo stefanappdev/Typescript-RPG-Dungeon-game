@@ -5,8 +5,10 @@ import Character from "../../Character";
 
 class Hero <T  extends HeroInterface> extends Character{
 
-    private heroInterface:T|undefined;
-    public isHeroType:boolean|undefined;
+    /*class to create new Heroes */
+
+    protected heroInterface:HeroInterface|undefined;
+    public isHero:boolean|undefined;
     public characterClass:string|undefined;
 
     constructor(
@@ -14,28 +16,30 @@ class Hero <T  extends HeroInterface> extends Character{
         hp:number,
         atkPow:number,
         heroInterface?:T|undefined,
-        isHeroType?:boolean|undefined,
+        isHero?:boolean|undefined,
         characterClass?:string|undefined,
     ){
         super(characterName,atkPow,hp);
         this.heroInterface=heroInterface;
-        this.isHeroType=isHeroType;
+        this.isHero=isHero;
         this.characterClass=characterClass
 
     }
 
     
-    setHeroInterface(characterClass:string,isHeroType:boolean,atkSets:{regular:attack[],special:attack[]}):void{
-            this.heroInterface===undefined?{
+    setHeroInterface(characterClass:string,isHero:boolean,atkSets:{regular:attack[],special:attack[]}):void{
+            
+        
+        this.heroInterface===undefined?this.heroInterface={
                 characterClass,
-                isHeroType,
+                isHero,
                 atkSets,
             }:undefined
     }
 
-    isAHero():string{
+    public isAHero():string{
           if(this.heroInterface){
-            if(this.heroInterface.isHeroType===true){
+            if(this.heroInterface.isHero===true){
                 return "Yes"
             }else{
                 return "No"
@@ -47,7 +51,7 @@ class Hero <T  extends HeroInterface> extends Character{
     }
 
 
-    getCharacterClass():string{
+   public getCharacterClass():string{
          if(this.heroInterface){
             return this.heroInterface.characterClass
          }else{
@@ -56,7 +60,7 @@ class Hero <T  extends HeroInterface> extends Character{
     }
 
 
-    getRegularAtks():attack[]{
+    public getRegularAtks():attack[]{
         if(this.heroInterface){
             return this.heroInterface.atkSets.regular
         }else{
@@ -66,13 +70,18 @@ class Hero <T  extends HeroInterface> extends Character{
     }
 
 
-     getSpecialAtks():attack[]{
+     public getSpecialAtks():attack[]{
         if(this.heroInterface){
             return this.heroInterface.atkSets.special
         }else{
             let empty:attack[]=[]
             return empty
         }
+    }
+
+
+    public setHeroHP(hp:number){
+        super.setHP(hp);
     }
 
 }

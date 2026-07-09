@@ -1,12 +1,5 @@
 import Session from "./Session";
 import heroes from "../dictionaries/dictionary_heroes";
-import Mage from "../characters/Heroes/hero_classes/Mage";
-import Warrior from "../characters/Heroes/hero_classes/Warrior";
-import Archer from "../characters/Heroes/hero_classes/Archer";
-
-
-const readLine=require('readline');
-
 
 
 class BattleManager{
@@ -22,7 +15,8 @@ class BattleManager{
         this.battleStart=battleStart
     }
 
-
+    
+    /*
 
     public generateSessions(hero:any,rounds:string){
          console.log(`A new champion ${hero.characterName} has arisen`);
@@ -35,7 +29,7 @@ class BattleManager{
          let enemies=sessionListHead.generateEnemies();
          sessionListHead.initateSessionCombat(hero,enemies)
         
-    }
+    }*/
 
 
     
@@ -49,13 +43,14 @@ class BattleManager{
         
     }
 
+
     //ends battle sequence
     public EndBattle():void{
         this.battleEnd=false;
         console.log('The battle has ended')
     }
 
-
+/*
     createHero(hname:string,hclass:string):any{
         let hero;
         if(hclass==='1'){
@@ -138,7 +133,9 @@ class BattleManager{
             
         }        
             
-       
+     */
+
+
     }
 
 

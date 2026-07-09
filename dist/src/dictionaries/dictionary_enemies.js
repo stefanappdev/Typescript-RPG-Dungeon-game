@@ -27,13 +27,18 @@ let orcSpecialAtks = [
 ];
 let enemies = {
     GOBLIN: {
-        name: 'Goblin', hp: 60, characterClass: 'GOBLIN',
+        name: 'Goblin',
+        hp: 60,
+        characterClass: 'GOBLIN',
         characterType: 'enemy',
+        isHero: false,
         atkSets: { regular: goblinRegularAtks, special: goblinSpecialAtks },
         atkPow: 15,
     },
-    ORC: { name: 'Orc', hp: 75, characterClass: 'ORC',
+    ORC: { name: 'Orc', hp: 75,
+        characterClass: 'ORC',
         characterType: 'enemy',
+        isHero: false,
         atkSets: { regular: orcRegularAtks, special: orcSpecialAtks },
         atkPow: 25,
     },

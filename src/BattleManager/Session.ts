@@ -1,7 +1,5 @@
 import Character from "../characters/Character";
 import enemies from "../dictionaries/dictionary_enemies";
-import Goblin from "../characters/enemies/enemy_classes/Goblin";
-import Orc from "../characters/enemies/enemy_classes/Orc";
 import { attack } from "../types/types_attacks";
 
 class Session{
@@ -34,7 +32,7 @@ constructor(
     this.nextSession=nextSession;
     }
 
-
+/*
     generateEnemies():any[]|null{
         //generates at most up to 3 enemies per session
         let max=4;
@@ -104,7 +102,7 @@ constructor(
                 place at back. Repeat until either all enemies die or the hero dies. 
                 If hero dies => session is lost, 
                 if the hero slays all enemies=> session is won and should proceed to the next session.
-                */
+                
         let currentPlayer=TurnQ.shift();
         if(currentPlayer===hero){
 
@@ -185,6 +183,7 @@ constructor(
     }
 
 
+*/
 
 }
 
