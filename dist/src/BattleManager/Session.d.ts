@@ -10,8 +10,15 @@ declare class Session {
     nextSession: Session | undefined;
     heroPlayer: Hero<HeroInterface> | undefined;
     sessionEnemies: Enemy<EnemyInterface>[] | undefined;
-    constructor(heroPlayer?: Hero<HeroInterface> | undefined, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean, nextSession?: Session, sessionEnemies?: Enemy<EnemyInterface>[]);
-    generateEnemies(numEnemies?: number): void;
+    constructor(heroPlayer?: Hero<HeroInterface>, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean, nextSession?: Session, sessionEnemies?: Enemy<EnemyInterface>[]);
+    setSessionEnemies(enemies: Enemy<EnemyInterface>[]): void;
+    setWonTheSession(sessionState: boolean): void;
+    setLostTheSession(sessionState: boolean): void;
+    setNextSession(nxtSession: Session): void;
+    setHeroPlayer(H: Hero<HeroInterface>): void;
+    getHeroPlayer(): Hero<HeroInterface> | undefined;
+    getSessionEnemies(): Enemy<EnemyInterface>[] | undefined;
+    generateEnemies(): void;
 }
 export default Session;
 //# sourceMappingURL=Session.d.ts.map

@@ -19,7 +19,7 @@ heroPlayer:Hero<HeroInterface>|undefined;
 sessionEnemies:Enemy<EnemyInterface>[]|undefined;
 
 constructor(
-    heroPlayer?:Hero<HeroInterface>|undefined,
+    heroPlayer?:Hero<HeroInterface>,
     sessionHasStarted?:boolean,
     sessionHasEnded?:boolean,
     wonTheSession?:boolean,
@@ -39,7 +39,68 @@ constructor(
     }
 
 
-    generateEnemies(numEnemies?:number):void{
+    setSessionEnemies(enemies:Enemy<EnemyInterface>[]):void{
+        /*set the enemies for a session */
+        this.sessionEnemies=enemies;
+    }
+
+    setWonTheSession(sessionState:boolean):void{
+        /*this is set if a player wins the session */
+        this.wonTheSession=sessionState;
+    }
+
+
+    setLostTheSession(sessionState:boolean):void{
+        /*this is set if a player loses the session */
+        this.lostTheSession=sessionState
+    }
+
+
+    setNextSession(nxtSession:Session):void{
+        /*Sets the next session of applicable */
+        this.nextSession=nxtSession
+    }
+
+    setHeroPlayer(H:Hero<HeroInterface>):void{
+        /**set the hero to be used for a session */
+        this.heroPlayer=H;
+    }
+
+
+    getHeroPlayer():Hero<HeroInterface>|undefined{
+
+        try{
+            if(this.heroPlayer){
+                return this.heroPlayer
+            }else{
+                throw new Error("This hero does not exist")
+            }
+
+        }catch(err){
+            if(err instanceof Error){
+                console.log(err.message)
+            }
+
+        }
+    }
+
+
+    getSessionEnemies():Enemy<EnemyInterface>[]|undefined{
+        try{
+            if(this.sessionEnemies){
+                return this.sessionEnemies
+            }else{
+            throw new Error('Hmm...not finding any enemies for this session');
+            }
+        }catch(err){
+            if(err instanceof Error){
+                console.log(err.message)
+            }
+        }
+    }
+
+
+    generateEnemies():void{
                 
         ///creates a predetermined set of enemies for a session
         
@@ -77,28 +138,48 @@ constructor(
                 return generatedFoe;
            
         }
+
+        ///generates a fixed number of enemies randomly 
         
-        ///tests if enemy generation works--> OK! 
-        let theRandEnemy:Enemy<EnemyInterface>=createRandomEnemy();
-        console.log("Enemy generated was:",theRandEnemy.getCharacterName())
+
+        const genRandNum=():number=>{
+            let maxEnemies=5;
+            let randnum=Math.floor(Math.random()*maxEnemies);
+            while (randnum<1){
+                genRandNum()
+            }
+
+            return randnum
+
+        }
+       
+        let randnum=genRandNum();
+        
+        let sessionEnemies:Enemy<EnemyInterface>[]=[]
+        for (let x=0;x<randnum;x++){
+            ///tests if enemy generation works
+            let theRandEnemy:Enemy<EnemyInterface>=createRandomEnemy();
+            sessionEnemies.push(theRandEnemy)
+        } 
+
+        this.setSessionEnemies(sessionEnemies);
 
 
-        ///generates a fixed number of enemies based params of generateEnemies() 
-        //or do it randomly
+         console.log("enemies generated for this session:");
+        if(this.sessionEnemies){
+           
+            this.sessionEnemies.forEach(enemy=>{
+                console.log(enemy.getCharacterName())
+            })
+        }
         
-        
+
     }
 
-
-
     
-/*
+    initateSessionCombat():void{
+        
 
-
-    initateSessionCombat(hero:any,enemies:any):void{
-        let TurnQ:any=[];
-        TurnQ.splice(0,0,hero,enemies);
-        let foes=TurnQ[1]
         ///console.log(TurnQ)
          ///console.log(TurnQ[1])
                 /* 
@@ -107,8 +188,9 @@ constructor(
                 place at back. Repeat until either all enemies die or the hero dies. 
                 If hero dies => session is lost, 
                 if the hero slays all enemies=> session is won and should proceed to the next session.
-                
-        let currentPlayer=TurnQ.shift();
+                */
+
+        /*let currentPlayer=TurnQ.shift();
         if(currentPlayer===hero){
 
             //hero attacks sets
@@ -158,37 +240,10 @@ constructor(
 
 
             
-        }
-        
-
-
+        }*/
     }
 
 
-    setStartTheSession(state:boolean):void{
-        this.sessionHasStarted=state;
-    }
-
-    setEndTheSession(state:boolean):void{
-        this.sessionHasEnded=state;
-    }
-
-
-    EndTheSession():void{
-        this.setEndTheSession(true)
-        this.setStartTheSession(false)
-        console.log('Round over')
-    }
-
-
-    startTheSession():void{
-        this.setStartTheSession(true);
-        this.setEndTheSession(false);
-        console.log('Begin!')
-    }
-
-
-*/
 
 }
 

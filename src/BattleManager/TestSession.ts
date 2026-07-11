@@ -4,4 +4,5 @@ import Session from "./Session";
 let testSession:Session=new Session()
 
 
-testSession.generateEnemies()
+testSession.generateEnemies();
+
