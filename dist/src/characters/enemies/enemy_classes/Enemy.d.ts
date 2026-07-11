@@ -12,6 +12,7 @@ declare class Enemy<T extends EnemyInterface> extends Character {
     }): void;
     isAHero(): string;
     getCharacterClass(): string;
+    getCharacterType(): string;
     setEnemyHP(hp: number): void;
     getRegularAtks(): attack[];
     getSpecialAtks(): attack[];

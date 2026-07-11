@@ -60,6 +60,15 @@ constructor(
          }
     }
 
+
+     getCharacterType():string{
+         if(this.EnemyInterface){
+            return this.EnemyInterface.characterType
+         }else{
+            return "Enemy is undefined"
+         }
+    }
+
     setEnemyHP(hp:number){
         super.setHP(hp)
     }

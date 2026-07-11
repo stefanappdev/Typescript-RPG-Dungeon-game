@@ -1,5 +1,9 @@
 import Character from "../characters/Character";
+import Hero from "../characters/Heroes/hero_classes/Hero";
+import Enemy from "../characters/enemies/enemy_classes/Enemy";
 import enemies from "../dictionaries/dictionary_enemies";
+import EnemyInterface from "../interfaces/enemyInterface";
+import HeroInterface from "../interfaces/heroInterface";
 import { attack } from "../types/types_attacks";
 
 class Session{
@@ -11,16 +15,17 @@ sessionHasEnded:boolean|undefined;
 wonTheSession:boolean|undefined;
 lostTheSession:boolean|undefined;
 nextSession:Session|undefined;
-heroPlayer:Character;
-
+heroPlayer:Hero<HeroInterface>|undefined;
+sessionEnemies:Enemy<EnemyInterface>[]|undefined;
 
 constructor(
-    heroPlayer:Character,
+    heroPlayer?:Hero<HeroInterface>|undefined,
     sessionHasStarted?:boolean,
     sessionHasEnded?:boolean,
     wonTheSession?:boolean,
     lostTheSession?:boolean,
-    nextSession?:Session
+    nextSession?:Session,
+    sessionEnemies?:Enemy<EnemyInterface>[],
 
 )
     {
@@ -30,64 +35,64 @@ constructor(
     this.heroPlayer=heroPlayer;
     this.sessionHasStarted=sessionHasStarted;
     this.nextSession=nextSession;
+    this.sessionEnemies=sessionEnemies
     }
 
-/*
-    generateEnemies():any[]|null{
-        //generates at most up to 3 enemies per session
-        let max=4;
-        let randomNumberEnemies=Math.floor(Math.random()*max);
-        let sessionEnemies:any=[]
-        let EnemyTypes=Object.keys(enemies)
-        let randomIndex=Math.floor(Math.random()*EnemyTypes.length);
 
-        //if number of random enemies generated is zero regenerate until bigger than zero
-        if(randomNumberEnemies===0){
-            while(true){
-                randomNumberEnemies=Math.floor(Math.random()*max)
-                if(randomNumberEnemies>0){
-                    break
-                }
-            }
-        }
-
-        //adds random number of enemies to the sessionEnemies list 
-        while(sessionEnemies.length<=randomNumberEnemies){
-            for(let i=0;i<EnemyTypes.length;i++){
-                    let type=EnemyTypes[randomIndex]
-                    if(type==='GOBLIN'){
-                        sessionEnemies.push(new Goblin(
-                            enemies.GOBLIN.atkSets,
-                            enemies.GOBLIN.name,
-                            enemies.GOBLIN.hp,
-                            enemies.GOBLIN.characterClass,
-                            enemies.GOBLIN.characterType,
-                            enemies.GOBLIN.atkPow
-                        ))
-                    }else if(type==='ORC'){
-                    sessionEnemies.push(new Orc(
-                            enemies.ORC.atkSets,
-                            enemies.ORC.name,
-                            enemies.ORC.hp,
-                            enemies.ORC.characterClass,
-                            enemies.ORC.characterType,
-                            enemies.ORC.atkPow
-                        ))
-                        
-                    
-                    }
-
-            }
-        
-        }
-
-        console.log('Enemies are being generated...')
-
-        return sessionEnemies
+    generateEnemies(numEnemies?:number):void{
                 
+        ///creates a predetermined set of enemies for a session
+        
+        
+        //generates a random enemy
+
+        const createRandomEnemy=():Enemy<EnemyInterface>=>{
+            
+            let foes:any=Object.values(enemies);
+            
+            
+            let randIndex:number=Math.floor(Math.random()*foes.length);
+            let foe=foes[randIndex];
+            
+            let generatedFoe:Enemy<EnemyInterface>=new Enemy(foe.name,foe.hp,foe.atkPow);
+                
+                 generatedFoe.setEnemyInterface(
+                foe.characterClass,
+                foe.characterType,
+                foe.isHero,
+                foe.atkSets);
+
+                try{
+                    
+                    if(generatedFoe===undefined){
+                
+                        throw new Error('Something went wrong in enemy creation...');
+                    }
+                }catch(error){
+                    if(error instanceof Error){
+                        console.log(error.message)
+                    }
+                }
+
+                return generatedFoe;
+           
+        }
+        
+        ///tests if enemy generation works--> OK! 
+        let theRandEnemy:Enemy<EnemyInterface>=createRandomEnemy();
+        console.log("Enemy generated was:",theRandEnemy.getCharacterName())
+
+
+        ///generates a fixed number of enemies based params of generateEnemies() 
+        //or do it randomly
+        
+        
     }
 
 
+
+    
+/*
 
 
     initateSessionCombat(hero:any,enemies:any):void{

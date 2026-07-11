@@ -40,6 +40,14 @@ class Enemy extends Character_1.default {
             return "Enemy is undefined";
         }
     }
+    getCharacterType() {
+        if (this.EnemyInterface) {
+            return this.EnemyInterface.characterType;
+        }
+        else {
+            return "Enemy is undefined";
+        }
+    }
     setEnemyHP(hp) {
         super.setHP(hp);
     }
