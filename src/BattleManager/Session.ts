@@ -5,6 +5,7 @@ import enemies from "../dictionaries/dictionary_enemies";
 import EnemyInterface from "../interfaces/enemyInterface";
 import HeroInterface from "../interfaces/heroInterface";
 import { attack } from "../types/types_attacks";
+const readLineSync=require('readline-sync')
 
 class Session{
 
@@ -146,7 +147,10 @@ constructor(
             let maxEnemies=5;
             let randnum=Math.floor(Math.random()*maxEnemies);
             while (randnum<1){
-                genRandNum()
+                randnum=Math.floor(Math.random()*maxEnemies);
+                if(randnum>=1){
+                    break
+                }
             }
 
             return randnum
@@ -180,7 +184,13 @@ constructor(
     initateSessionCombat():void{
         
 
-        ///console.log(TurnQ)
+        const manageHeroPhase=():void=>{
+            /*Allow player to manage hero actions */
+        }
+       
+        manageHeroPhase()
+
+         ///console.log(TurnQ)
          ///console.log(TurnQ[1])
                 /* 
                 character at front of turnQ goes first attacks an enemy.

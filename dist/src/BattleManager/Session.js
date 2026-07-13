@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Enemy_1 = __importDefault(require("../characters/enemies/enemy_classes/Enemy"));
 const dictionary_enemies_1 = __importDefault(require("../dictionaries/dictionary_enemies"));
+const readLineSync = require('readline-sync');
 class Session {
     constructor(heroPlayer, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession, nextSession, sessionEnemies) {
         this.lostTheSession = lostTheSession;
@@ -91,7 +92,10 @@ class Session {
             let maxEnemies = 5;
             let randnum = Math.floor(Math.random() * maxEnemies);
             while (randnum < 1) {
-                genRandNum();
+                randnum = Math.floor(Math.random() * maxEnemies);
+                if (randnum >= 1) {
+                    break;
+                }
             }
             return randnum;
         };
@@ -109,6 +113,115 @@ class Session {
                 console.log(enemy.getCharacterName());
             });
         }
+    }
+    initateSessionCombat() {
+        const manageHeroPhase = async () => {
+            /*Allow player to manage hero actions */
+            try {
+                let hero = this.getHeroPlayer();
+                if (hero) {
+                    console.log('---HERO PHASE---');
+                    console.log('----Attack Options Menu---');
+                    let heroClass = hero.getCharacterClass();
+                    console.log(`Regular Attacks:`);
+                    console.log(`${hero.getRegularAtks().map(atk => console.log(atk.attackName))}`);
+                    console.log(`Special Attacks:`);
+                    console.log(`${hero.getSpecialAtks().map(atk => console.log(atk.attackName))}`);
+                    console.log('input some data here:');
+                    const testprocess = async () => {
+                        process.stdin.on('data', (input) => {
+                            if (input) {
+                                console.log(input.toString().trim());
+                                async () => {
+                                    await process.stdin.on('end', () => {
+                                        console.log('destroying process...');
+                                        process.stdin.destroy();
+                                    });
+                                };
+                            }
+                            else
+                                process.stdin.on('error', (err) => {
+                                    if (err instanceof Error) {
+                                        err.message = 'There was aproblem reading input';
+                                        console.log(err);
+                                    }
+                                });
+                        });
+                    };
+                    testprocess();
+                    console.log('Rest of program after porcess');
+                }
+                else {
+                    throw new Error('Error occured in retreiving Hero');
+                }
+            }
+            catch (err) {
+                if (err instanceof Error) {
+                    console.log(err.message);
+                }
+            }
+        };
+        manageHeroPhase();
+        ///console.log(TurnQ)
+        ///console.log(TurnQ[1])
+        /*
+        character at front of turnQ goes first attacks an enemy.
+        if the character is alive after their turn remove from front of turnQ and
+        place at back. Repeat until either all enemies die or the hero dies.
+        If hero dies => session is lost,
+        if the hero slays all enemies=> session is won and should proceed to the next session.
+        */
+        /*let currentPlayer=TurnQ.shift();
+        if(currentPlayer===hero){
+
+            //hero attacks sets
+            let heroSpecialAttacks:attack[]=hero.getSpecialAttacks()
+            let heroRegularAttacks:attack[]=hero.getRegularAttacks();
+            
+            //pick random atk regular or special from attack set for hero to use
+            let heroAtks:attack[]=heroRegularAttacks.concat(heroSpecialAttacks);
+            let randAtk:attack|undefined=heroAtks[Math.floor(Math.random()*heroAtks.length+1)]
+            
+            //random chooses an enemy for the hero to attack
+            
+            let randEnemyIndex=Math.floor(Math.random()*(foes.length+1))
+            
+            if (randEnemyIndex===0){
+               while(true){
+                    randEnemyIndex=Math.floor(Math.random()*(foes.length+1))
+
+                    if (randEnemyIndex>0){
+                        break
+                    }
+               }
+              
+            }
+
+
+           // console.log(randEnemyIndex)
+
+            let foe=foes[randEnemyIndex]
+
+
+            //displays damage taken by attack used by hero and dmg take zenemy
+
+            hero.attack(randAtk,foe);
+            foe.takesDamage(randAtk?.damage);
+
+            //removes dead enemy from array
+            if(foe.isDead()){
+                let pos=TurnQ[1].indexOf(foe);
+                TurnQ[1].splice(pos,1)
+            }
+
+            //pushes hero back into array
+            TurnQ.push(currentPlayer)
+
+            currentPlayer=TurnQ.shift();
+
+
+            
+        }*/
     }
 }
 exports.default = Session;

@@ -19,6 +19,7 @@ declare class Session {
     getHeroPlayer(): Hero<HeroInterface> | undefined;
     getSessionEnemies(): Enemy<EnemyInterface>[] | undefined;
     generateEnemies(): void;
+    initateSessionCombat(): void;
 }
 export default Session;
 //# sourceMappingURL=Session.d.ts.map
