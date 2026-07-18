@@ -1,6 +1,8 @@
 import EnemyInterface from "../../../interfaces/enemyInterface";
+import HeroInterface from "../../../interfaces/heroInterface";
 import { attack } from "../../../types/types_attacks";
 import Character from "../../Character";
+import Hero from "../../Heroes/hero_classes/Hero";
 declare class Enemy<T extends EnemyInterface> extends Character {
     characterType: string | undefined;
     protected EnemyInterface: EnemyInterface | undefined;
@@ -15,6 +17,8 @@ declare class Enemy<T extends EnemyInterface> extends Character {
     getCharacterType(): string;
     setEnemyHP(hp: number): void;
     getRegularAtks(): attack[];
+    recvDMG(DMG: number, H: Hero<HeroInterface>): void;
+    attackHero(H: Hero<HeroInterface>, atk: attack): void;
     getSpecialAtks(): attack[];
 }
 export default Enemy;

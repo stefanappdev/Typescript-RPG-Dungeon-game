@@ -1,6 +1,8 @@
 import EnemyInterface from "../../../interfaces/enemyInterface";
+import HeroInterface from "../../../interfaces/heroInterface";
 import { attack } from "../../../types/types_attacks";
 import Character from "../../Character";
+import Hero from "../../Heroes/hero_classes/Hero";
 
 class Enemy <T extends EnemyInterface> extends Character{
 
@@ -81,6 +83,36 @@ constructor(
             let empty:attack[]=[]
             return empty
         }
+    }
+
+
+
+      public recvDMG(DMG:number,H:Hero<HeroInterface>){
+
+        //display info about received damage from enemy
+        console.log(`${this.getCharacterName()} received ${DMG} damage from ${H.getCharacterName()}` )
+        let newHP:number=this.getCurrentHP()-DMG
+        this.setEnemyHP(newHP)
+
+
+    }
+
+
+
+    public attackHero(H:Hero<HeroInterface>,atk:attack):void{
+            /*attack function of hero*/
+        try{
+            if(H){
+                {`${this.getCharacterName()} attacked ${H.getCharacterName()} with ${atk.attackName}`}
+            }else{
+                throw new Error('The hero does not not exist')
+            }
+        }catch(err){
+            if(err instanceof Error){
+                console.log(err.message)
+            }
+        }
+
     }
 
 

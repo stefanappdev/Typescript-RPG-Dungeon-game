@@ -60,6 +60,30 @@ class Enemy extends Character_1.default {
             return empty;
         }
     }
+    recvDMG(DMG, H) {
+        //display info about received damage from enemy
+        console.log(`${this.getCharacterName()} received ${DMG} damage from ${H.getCharacterName()}`);
+        let newHP = this.getCurrentHP() - DMG;
+        this.setEnemyHP(newHP);
+    }
+    attackHero(H, atk) {
+        /*attack function of hero*/
+        try {
+            if (H) {
+                {
+                    `${this.getCharacterName()} attacked ${H.getCharacterName()} with ${atk.attackName}`;
+                }
+            }
+            else {
+                throw new Error('The hero does not not exist');
+            }
+        }
+        catch (err) {
+            if (err instanceof Error) {
+                console.log(err.message);
+            }
+        }
+    }
     getSpecialAtks() {
         if (this.EnemyInterface) {
             return this.EnemyInterface.atkSets.special;

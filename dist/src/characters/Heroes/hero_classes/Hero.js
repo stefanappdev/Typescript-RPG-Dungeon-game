@@ -57,7 +57,29 @@ class Hero extends Character_1.default {
             return empty;
         }
     }
+    recvDMG(DMG, E) {
+        //display info about received damage from enemy
+        console.log(`${this.getCharacterName()} received ${DMG} damage from ${E.getCharacterName()}`);
+        let newHP = this.getCurrentHP() - DMG;
+        this.setHeroHP(newHP);
+    }
+    attackEnemy(E, atk) {
+        try {
+            if (E) {
+                console.log(`${this.getCharacterName()} attacked the ${E.getCharacterName()} with ${atk.attackName}`);
+            }
+            else {
+                throw new Error('The enemy does not not exist');
+            }
+        }
+        catch (Err) {
+            if (Err instanceof Error) {
+                console.log(Err.message);
+            }
+        }
+    }
     setHeroHP(hp) {
+        //set Hp of Hero
         super.setHP(hp);
     }
 }
