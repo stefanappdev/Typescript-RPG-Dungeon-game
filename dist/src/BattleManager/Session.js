@@ -5,7 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Enemy_1 = __importDefault(require("../characters/enemies/enemy_classes/Enemy"));
 const dictionary_enemies_1 = __importDefault(require("../dictionaries/dictionary_enemies"));
-const readLineSync = require('readline-sync');
+const readLine = require('readline/promises');
+const RLI = readLine.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 class Session {
     constructor(heroPlayer, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession, nextSession, sessionEnemies) {
         this.lostTheSession = lostTheSession;
@@ -110,49 +114,207 @@ class Session {
         console.log("enemies generated for this session:");
         if (this.sessionEnemies) {
             this.sessionEnemies.forEach(enemy => {
-                console.log(enemy.getCharacterName());
+                console.log(`${enemy.getCharacterName()} \n`);
             });
         }
     }
     initateSessionCombat() {
         const manageHeroPhase = async () => {
             /*Allow player to manage hero actions */
+            let Hero = this.getHeroPlayer();
             try {
-                let hero = this.getHeroPlayer();
-                if (hero) {
-                    console.log('---HERO PHASE---');
-                    console.log('----Attack Options Menu---');
-                    let heroClass = hero.getCharacterClass();
-                    console.log(`Regular Attacks:`);
-                    console.log(`${hero.getRegularAtks().map(atk => console.log(atk.attackName))}`);
-                    console.log(`Special Attacks:`);
-                    console.log(`${hero.getSpecialAtks().map(atk => console.log(atk.attackName))}`);
-                    console.log('input some data here:');
-                    const testprocess = async () => {
-                        process.stdin.on('data', (input) => {
-                            if (input) {
-                                console.log(input.toString().trim());
-                                async () => {
-                                    await process.stdin.on('end', () => {
-                                        console.log('destroying process...');
-                                        process.stdin.destroy();
-                                    });
-                                };
-                            }
-                            else
-                                process.stdin.on('error', (err) => {
-                                    if (err instanceof Error) {
-                                        err.message = 'There was aproblem reading input';
-                                        console.log(err);
+                if (Hero) {
+                    //attack menu options for hero
+                    let choosenAtk;
+                    console.log(`Choose an attack for ${Hero.getCharacterName()}\n`);
+                    console.log(`======Hero Attack Menu======\n\n`);
+                    if (Hero.getCharacterClass() === 'archer') {
+                        const archerAttackHandler = async () => {
+                            const archerAttackType = await RLI.question("choose your attack type: 1.Regular or 2.Special\n>");
+                            if (archerAttackType === '1') {
+                                console.log("=====Regular Attacks====");
+                                console.log(`1.bow strike\n`);
+                                const attack = await RLI.question('choose your attack:\n>');
+                                if (attack === '1') {
+                                    choosenAtk = Hero.getRegularAtks()[0];
+                                }
+                                else {
+                                    console.log("Invalid attack move Selection, Please try Again.");
+                                    while (true) {
+                                        const reconfirmAttack = await RLI.question('choose your attack:\n>');
+                                        if (reconfirmAttack === '1') {
+                                            choosenAtk = Hero.getRegularAtks()[0];
+                                            break;
+                                        }
+                                        else {
+                                            console.log("Invalid attack move Selection, Please try Again.");
+                                        }
                                     }
-                                });
-                        });
-                    };
-                    testprocess();
-                    console.log('Rest of program after porcess');
+                                }
+                            }
+                            else if (archerAttackType === '2') {
+                                console.log("=====Special Attacks====");
+                                console.log(`1.critical shot\n`);
+                                const attack = await RLI.question('choose your attack:\n>');
+                                if (attack === '1') {
+                                    choosenAtk = Hero.getSpecialAtks()[0];
+                                }
+                                else {
+                                    console.log("Invalid attack move Selection, Please try Again.");
+                                    while (true) {
+                                        const reconfirmAttack = await RLI.question('choose your attack:\n>');
+                                        if (reconfirmAttack === '1') {
+                                            choosenAtk = Hero.getSpecialAtks()[0];
+                                            break;
+                                        }
+                                        else {
+                                            console.log("Invalid attack move Selection, Please try Again.");
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                console.log("Invalid attack type Selection, Please try Again.");
+                                await archerAttackHandler();
+                            }
+                        };
+                        await archerAttackHandler();
+                    }
+                    else if (Hero.getCharacterClass() === 'mage') {
+                        const mageAttackHandler = async () => {
+                            const mageAttackType = await RLI.question("choose your attack type: 1.Regular or 2.Special\n>");
+                            if (mageAttackType === '1') {
+                                console.log("=====Regular Attacks====\n");
+                                console.log(`1.fireball\n`);
+                                console.log(`2. staff poke\n`);
+                                const attack = await RLI.question('choose your attack:\n>');
+                                if (attack === '1') {
+                                    choosenAtk = Hero.getRegularAtks()[0];
+                                }
+                                else if (attack === '2') {
+                                    choosenAtk = Hero.getRegularAtks()[1];
+                                }
+                                else {
+                                    console.log("Invalid attack move Selection, Please try Again.");
+                                    while (true) {
+                                        const reconfirmAttack = await RLI.question('choose your attack:\n>');
+                                        if (reconfirmAttack === '1') {
+                                            choosenAtk = Hero.getRegularAtks()[0];
+                                            break;
+                                        }
+                                        else if (reconfirmAttack === '2') {
+                                            choosenAtk = Hero.getRegularAtks()[1];
+                                            break;
+                                        }
+                                        else {
+                                            console.log("Invalid attack move Selection, Please try Again.");
+                                        }
+                                    }
+                                }
+                            }
+                            else if (mageAttackType === '2') {
+                                console.log("=====Special Attacks====");
+                                console.log(`1.inferno\n`);
+                                const attack = await RLI.question('choose your attack:\n>');
+                                if (attack === '1') {
+                                    choosenAtk = Hero.getSpecialAtks()[0];
+                                }
+                                else {
+                                    console.log("Invalid attack move Selection, Please try Again.");
+                                    while (true) {
+                                        const reconfirmAttack = await RLI.question('choose your attack:\n>');
+                                        if (reconfirmAttack === '1') {
+                                            choosenAtk = Hero.getSpecialAtks()[0];
+                                            break;
+                                        }
+                                        else {
+                                            console.log("Invalid attack move Selection, Please try Again.");
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                console.log("Invalid attack type Selection, Please try Again.");
+                                await mageAttackHandler();
+                            }
+                        };
+                        await mageAttackHandler();
+                    }
+                    else if (Hero.getCharacterClass() === 'warrior') {
+                        const warriorAttackHandler = async () => {
+                            const warriorAttackType = await RLI.question("choose your attack type: 1.Regular or 2.Special\n>");
+                            if (warriorAttackType === '1') {
+                                console.log("=====Regular Attacks====");
+                                console.log(`1.sword strike\n`);
+                                const attack = await RLI.question('choose your attack:\n>');
+                                if (attack === '1') {
+                                    choosenAtk = Hero.getRegularAtks()[0];
+                                }
+                                else {
+                                    console.log("Invalid attack move Selection, Please try Again.");
+                                    while (true) {
+                                        const reconfirmAttack = await RLI.question('choose your attack:\n>');
+                                        if (reconfirmAttack === '1') {
+                                            choosenAtk = Hero.getRegularAtks()[0];
+                                            break;
+                                        }
+                                        else {
+                                            console.log("Invalid attack move Selection, Please try Again.");
+                                        }
+                                    }
+                                }
+                            }
+                            else if (warriorAttackType === '2') {
+                                console.log("=====Special Attacks====");
+                                console.log(`1.power strike\n`);
+                                const attack = await RLI.question('choose your attack:\n>');
+                                if (attack === '1') {
+                                    choosenAtk = Hero.getSpecialAtks()[0];
+                                }
+                                else {
+                                    console.log("Invalid attack move Selection, Please try Again.");
+                                    while (true) {
+                                        const reconfirmAttack = await RLI.question('choose your attack:\n>');
+                                        if (reconfirmAttack === '1') {
+                                            choosenAtk = Hero.getSpecialAtks()[0];
+                                            break;
+                                        }
+                                        else {
+                                            console.log("Invalid attack move Selection, Please try Again.");
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                console.log("Invalid attack type Selection, Please try Again.");
+                                await warriorAttackHandler();
+                            }
+                        };
+                        await warriorAttackHandler();
+                    }
+                    let enemies = this.getSessionEnemies();
+                    //implement attack function of hero and enemy
+                    try {
+                        if (enemies && choosenAtk) 
+                        /*hero selects a random enemy to attack from set of enemies */
+                        {
+                            let randIndex = Math.floor(Math.random() * enemies.length);
+                            Hero.attackEnemy(enemies[randIndex], choosenAtk);
+                            enemies[randIndex]?.recvDMG(choosenAtk.damage, Hero);
+                        }
+                        else {
+                            throw new Error("error occured in attack selection");
+                        }
+                    }
+                    catch (Err) {
+                        if (Err instanceof Error) {
+                            console.log(Err);
+                        }
+                    }
+                    console.log("+++++END OF HERO PHASE+++++\n");
                 }
                 else {
-                    throw new Error('Error occured in retreiving Hero');
+                    throw new Error("The hero does not exist");
                 }
             }
             catch (err) {
