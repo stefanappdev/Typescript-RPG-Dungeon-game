@@ -29,10 +29,12 @@ wonTheSession:boolean|undefined;
 lostTheSession:boolean|undefined;
 nextSession:Session|undefined;
 heroPlayer:Hero<HeroInterface>|undefined;
+sessionQ:any;
 sessionEnemies:Enemy<EnemyInterface>[]|undefined;
 
 constructor(
     heroPlayer?:Hero<HeroInterface>,
+    sessionQ?:any,
     sessionHasStarted?:boolean,
     sessionHasEnded?:boolean,
     wonTheSession?:boolean,
@@ -45,6 +47,7 @@ constructor(
     this.lostTheSession=lostTheSession;
     this.sessionHasEnded=sessionHasEnded;
     this.wonTheSession=wonTheSession;
+    this.sessionQ=sessionQ;
     this.heroPlayer=heroPlayer;
     this.sessionHasStarted=sessionHasStarted;
     this.nextSession=nextSession;
@@ -99,18 +102,12 @@ constructor(
 
 
     getSessionEnemies():Enemy<EnemyInterface>[]|undefined{
-        try{
+    
             if(this.sessionEnemies){
                 return this.sessionEnemies
-            }else{
-            throw new Error('Hmm...not finding any enemies for this session');
             }
-        }catch(err){
-            if(err instanceof Error){
-                console.log(err.message)
-            }
-        }
     }
+    
 
 
     generateEnemies():void{
@@ -180,27 +177,20 @@ constructor(
 
         this.setSessionEnemies(sessionEnemies);
 
-
-         console.log("enemies generated for this session:");
-        if(this.sessionEnemies){
-           
-            this.sessionEnemies.forEach(enemy=>{
-                console.log(`${enemy.getCharacterName()} \n`)
-            })
-        }
-        
-
     }
 
     
     initateSessionCombat():void{
-        
+        /*Start the combat session */
+       this.manageSessionTurns()
+    }
 
-        const manageHeroPhase=async():Promise<void>=>{
+
+  manageHeroPhase=async():Promise<void>=>{
             /*Allow player to manage hero actions */
 
         let Hero:Hero<HeroInterface>|undefined=this.getHeroPlayer();
-        
+         console.log(`Its your turn\n`)    
         
             try{
                 if(Hero){
@@ -208,6 +198,7 @@ constructor(
     
 
                 let choosenAtk:attack|undefined;
+               
 
                 console.log(`Choose an attack for ${Hero.getCharacterName()}\n`)    
 
@@ -391,6 +382,7 @@ constructor(
                                         }
                                      }
                                     
+
                                 }
                         }else{
                             console.log("Invalid attack type Selection, Please try Again.")
@@ -403,23 +395,51 @@ constructor(
                    
                 }
 
-            let enemies:Enemy<EnemyInterface>[]|undefined=this.getSessionEnemies()
                 
                
             //implement attack function of hero and enemy
 
             try{
-                if(enemies&&choosenAtk)
 
-                    /*hero selects a random enemy to attack from set of enemies */
+            let enemies:Enemy<EnemyInterface>[]|undefined=this.getSessionEnemies()
+            
 
-                    {
-                        let randIndex:number=Math.floor(Math.random()*enemies.length)
-                        Hero.attackEnemy(enemies[randIndex],choosenAtk)
-                        enemies[randIndex]?.recvDMG(choosenAtk.damage,Hero)
+                    if(enemies) {
+                        
+                        if(enemies.length>0){
+                        /*hero selects a enemy to attack from set of enemies */
+                            
+                        if(choosenAtk){
+                            console.log('===Enemies===')
+                            for(let x=0;x<enemies.length;x++){
+                                let enemy=enemies[x];
+                                let option:number=x+1;
+                               
+                                console.log(`${option}: ${enemy?.getCharacterName()}`)
+                            }
+
+                            const enemyChoice=await RLI.question("choose an enemy to attack:\n>");
+                            let index:number=parseInt(enemyChoice)-1;
+                            
+                            while(index>enemies.length||index<0){
+                                    console.log("Invalid choice, please try again");
+                                    const reconfirmEnemyChoice=await RLI.question("choose an enemy to attack:\n>");
+                                    let reconfirmIndex:number=parseInt(reconfirmEnemyChoice)-1;
+                                    if(reconfirmIndex<enemies.length&&reconfirmIndex>=0){
+                                        index=reconfirmIndex;
+                                        break
+                                    }
+                                     
+                                                              
+                            }
+                            Hero.attackEnemy(enemies[index],choosenAtk)
+                            enemies[index]?.recvDMG(choosenAtk.damage,Hero)
+                        }   
+        
+                        
+                    }else{
+                        throw new Error("error occured in attack selection")
                     }
-                else{
-                    throw new Error("error occured in attack selection")
                 }
             }catch(Err){
                 if(Err instanceof Error){
@@ -443,76 +463,83 @@ constructor(
                 
                 
         }      
-            
 
-        
-        
-       
-        manageHeroPhase()
 
-         ///console.log(TurnQ)
-         ///console.log(TurnQ[1])
-                /* 
-                character at front of turnQ goes first attacks an enemy.
-                if the character is alive after their turn remove from front of turnQ and 
-                place at back. Repeat until either all enemies die or the hero dies. 
-                If hero dies => session is lost, 
-                if the hero slays all enemies=> session is won and should proceed to the next session.
-                */
+    /** this function adds the hero and enemies as characters for the session */
+    setSessionQ=(H:Hero<HeroInterface>,Enemies:Enemy<EnemyInterface>[]):void=>{
+       try{ 
+            if(this.sessionQ===undefined){
+                
+                    this.sessionQ=[H,...Enemies]
+                    
+                
+             }else{
+                    throw Error("An error occured in generating the characters for this session")
 
-        /*let currentPlayer=TurnQ.shift();
-        if(currentPlayer===hero){
-
-            //hero attacks sets
-            let heroSpecialAttacks:attack[]=hero.getSpecialAttacks()
-            let heroRegularAttacks:attack[]=hero.getRegularAttacks();
-            
-            //pick random atk regular or special from attack set for hero to use
-            let heroAtks:attack[]=heroRegularAttacks.concat(heroSpecialAttacks);
-            let randAtk:attack|undefined=heroAtks[Math.floor(Math.random()*heroAtks.length+1)]
-            
-            //random chooses an enemy for the hero to attack
-            
-            let randEnemyIndex=Math.floor(Math.random()*(foes.length+1))
-            
-            if (randEnemyIndex===0){
-               while(true){
-                    randEnemyIndex=Math.floor(Math.random()*(foes.length+1))
-
-                    if (randEnemyIndex>0){
-                        break
-                    }
-               } 
-              
+                
             }
 
-
-           // console.log(randEnemyIndex)
-
-            let foe=foes[randEnemyIndex]
-
-
-            //displays damage taken by attack used by hero and dmg take zenemy 
-
-            hero.attack(randAtk,foe);
-            foe.takesDamage(randAtk?.damage);
-
-            //removes dead enemy from array
-            if(foe.isDead()){
-                let pos=TurnQ[1].indexOf(foe);
-                TurnQ[1].splice(pos,1)
+        }catch(err){
+            if(err instanceof Error){
+                console.log(err.message)
             }
-
-            //pushes hero back into array
-            TurnQ.push(currentPlayer)
-
-            currentPlayer=TurnQ.shift();
-
-
-            
-        }*/
+        }
     }
 
+
+    getSessionQ():Character[]|undefined{
+       try{
+            if(this.sessionQ){
+            return this.sessionQ
+         }else{
+             throw Error("An error occured in retrieving the characters for this session")
+            }
+       
+        }catch(err){
+            if(err instanceof Error){
+                console.log(err.message)
+            }
+        }
+    }
+
+
+    /**this function manages the execution of turns for hero and enemies */
+
+    manageSessionTurns():void{
+        
+            let sessionQ:any=this.getSessionQ()?this.getSessionQ():undefined;
+            if(sessionQ===undefined){
+                throw new Error("Error occured in retrieving characters for this session")
+            }else{
+                let currentPlayer=sessionQ.shift();
+                
+                if(currentPlayer.isAlive()){
+                       /*if hero is currentPlayer,check if he is alive, execute turn, push to end of Q
+                       check if all enemies dead or alive,then switch to enemy turn if any enemies are alive*/
+
+                    
+                    if(currentPlayer.isAHero()){
+                        
+                        this.manageHeroPhase();
+
+                        //check on health of enemies and check for possible victory
+                        const checkEnemiesHP=():void =>{
+                            
+                        }
+
+
+                        checkEnemiesHP()
+                        sessionQ.push(currentPlayer)
+                        currentPlayer=sessionQ.shift();
+                    }
+                    
+                      
+                }
+            
+            }
+            
+            
+    }
 
 
 }

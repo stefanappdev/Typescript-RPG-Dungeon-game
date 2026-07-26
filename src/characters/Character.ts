@@ -64,7 +64,7 @@ import CharacterInterface from "../interfaces/CharacterInterface";
 
     
     //checks if character is alive
-    public IsAlive():boolean{
+    public isAlive():boolean{
         if(this.getCurrentHP()>0){
             return true
         }
@@ -72,7 +72,7 @@ import CharacterInterface from "../interfaces/CharacterInterface";
     }
 
      //checks if character is dead
-    public IsDead():boolean{
+    public isDead():boolean{
         if(this.getCurrentHP()===0){
             return true
         }

@@ -9,7 +9,7 @@ let Jarcher = new Hero_1.default("John", dictionary_heroes_1.default.ARCHER.hp, 
 let Mike = new Hero_1.default("Mike", dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.atkPow);
 Mike.setHeroInterface(dictionary_heroes_1.default.WARRIOR.characterClass, dictionary_heroes_1.default.WARRIOR.isHero, dictionary_heroes_1.default.WARRIOR.atkSets);
 Jarcher.setHeroInterface(dictionary_heroes_1.default.ARCHER.characterClass, dictionary_heroes_1.default.ARCHER.isHero, dictionary_heroes_1.default.ARCHER.atkSets);
-if (Jarcher.IsAlive()) {
+if (Jarcher.isAlive()) {
     console.log(`${Jarcher.getCharacterName()} is alive!`);
 }
 if (Jarcher.isAHero()) {
@@ -18,7 +18,7 @@ if (Jarcher.isAHero()) {
 console.log(`what's your class?`, Mike.getCharacterClass());
 console.log(`your HP:`, Mike.getCurrentHP());
 console.log("Your abilities are?", Mike.getRegularAtks(), Mike.getSpecialAtks());
-if (Mike.IsAlive()) {
+if (Mike.isAlive()) {
     console.log(`${Mike.getCharacterName()} is alive!`);
 }
 if (Mike.isAHero()) {
@@ -28,7 +28,7 @@ Mike.setHeroHP(0);
 console.log(`what's your class?`, Mike.getCharacterClass());
 console.log(`your HP:`, Mike.getCurrentHP());
 console.log("Your abilities are?", Mike.getRegularAtks(), Mike.getSpecialAtks());
-if (Mike.IsDead()) {
+if (Mike.isDead()) {
     console.log(`The Hero ${Mike.getCharacterName()} has fallen`);
 }
 //# sourceMappingURL=testHeroes.js.map

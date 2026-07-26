@@ -17,7 +17,7 @@ Jarcher.setHeroInterface(
     dictionary_heroes.ARCHER.atkSets
 )
 
-if(Jarcher.IsAlive()){
+if(Jarcher.isAlive()){
     console.log(`${Jarcher.getCharacterName()} is alive!`)
 }
 
@@ -32,7 +32,7 @@ console.log(`your HP:`,Mike.getCurrentHP())
 console.log("Your abilities are?",Mike.getRegularAtks(), Mike.getSpecialAtks())
 
 
-if(Mike.IsAlive()){
+if(Mike.isAlive()){
     console.log(`${Mike.getCharacterName()} is alive!`)
 }
 
@@ -47,7 +47,7 @@ console.log(`what's your class?`,Mike.getCharacterClass());
 console.log(`your HP:`,Mike.getCurrentHP())
 console.log("Your abilities are?",Mike.getRegularAtks(), Mike.getSpecialAtks())
 
-if(Mike.IsDead()){
+if(Mike.isDead()){
 console.log(`The Hero ${Mike.getCharacterName()} has fallen`)
 }
 

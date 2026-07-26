@@ -31,14 +31,14 @@ class Character {
         return this.characterName;
     }
     //checks if character is alive
-    IsAlive() {
+    isAlive() {
         if (this.getCurrentHP() > 0) {
             return true;
         }
         return false;
     }
     //checks if character is dead
-    IsDead() {
+    isDead() {
         if (this.getCurrentHP() === 0) {
             return true;
         }

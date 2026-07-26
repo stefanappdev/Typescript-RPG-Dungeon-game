@@ -12,7 +12,7 @@ declare class Enemy<T extends EnemyInterface> extends Character {
         regular: attack[];
         special: attack[];
     }): void;
-    isAHero(): string;
+    isAHero(): boolean | undefined;
     getCharacterClass(): string;
     getCharacterType(): string;
     setEnemyHP(hp: number): void;

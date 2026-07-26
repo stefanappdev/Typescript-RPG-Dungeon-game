@@ -9,7 +9,7 @@ let orc = new Enemy_1.default('orc', dictionary_enemies_1.default.ORC.hp, dictio
 let mobgoblin = new Enemy_1.default("Mobgoblin", dictionary_enemies_1.default.GOBLIN.hp, dictionary_enemies_1.default.GOBLIN.atkPow);
 orc.setEnemyInterface(dictionary_enemies_1.default.ORC.characterClass, dictionary_enemies_1.default.ORC.characterType, dictionary_enemies_1.default.ORC.isHero, dictionary_enemies_1.default.ORC.atkSets);
 mobgoblin.setEnemyInterface(dictionary_enemies_1.default.GOBLIN.characterClass, dictionary_enemies_1.default.GOBLIN.characterType, dictionary_enemies_1.default.GOBLIN.isHero, dictionary_enemies_1.default.GOBLIN.atkSets);
-if (mobgoblin.IsAlive()) {
+if (mobgoblin.isAlive()) {
     console.log(`${mobgoblin.getCharacterName()} is alive!`);
 }
 if (mobgoblin.isAHero()) {
@@ -18,14 +18,14 @@ if (mobgoblin.isAHero()) {
 console.log(`what's your class?`, mobgoblin.getCharacterClass());
 console.log(`your HP:`, mobgoblin.getCurrentHP());
 console.log("Your abilities are?", mobgoblin.getRegularAtks(), mobgoblin.getSpecialAtks());
-if (mobgoblin.IsAlive()) {
+if (mobgoblin.isAlive()) {
     console.log(`${mobgoblin.getCharacterName()} is alive!`);
 }
 if (mobgoblin.isAHero()) {
     console.log(`${mobgoblin.getCharacterName()} is a Hero!`);
 }
 mobgoblin.setEnemyHP(0);
-if (mobgoblin.IsDead()) {
+if (mobgoblin.isDead()) {
     console.log(`The enemy ${mobgoblin.getCharacterName()} has fallen`);
 }
 console.log(`what's your class?`, orc.getCharacterClass());

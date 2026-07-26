@@ -4,6 +4,7 @@ import Hero from "../characters/Heroes/hero_classes/Hero";
 import Enemy from "../characters/enemies/enemy_classes/Enemy";
 import dictionary_heroes from "../dictionaries/dictionary_heroes";
 import dictionary_enemies from "../dictionaries/dictionary_enemies"
+import test from "node:test";
 
 let testSession:Session=new Session()
 
@@ -50,6 +51,9 @@ orc.setEnemyInterface(
 //testSession.setHeroPlayer(Mike);
 testSession.setHeroPlayer(rokya)
 testSession.generateEnemies();
+let Enemies=testSession?.getSessionEnemies();
+if(Enemies){
+    testSession.setSessionQ(rokya,Enemies)
+}
+
 testSession.initateSessionCombat()
-
-

@@ -12,7 +12,7 @@ declare class Hero<T extends HeroInterface> extends Character {
         regular: attack[];
         special: attack[];
     }): void;
-    isAHero(): string;
+    isAHero(): boolean | undefined;
     getCharacterClass(): string;
     getRegularAtks(): attack[];
     getSpecialAtks(): attack[];

@@ -20,7 +20,7 @@ mobgoblin.setEnemyInterface(
     dictionary_enemies.GOBLIN.atkSets
 )
 
-if(mobgoblin.IsAlive()){
+if(mobgoblin.isAlive()){
     console.log(`${mobgoblin.getCharacterName()} is alive!`)
 }
 
@@ -35,7 +35,7 @@ console.log(`your HP:`,mobgoblin.getCurrentHP())
 console.log("Your abilities are?",mobgoblin.getRegularAtks(), mobgoblin.getSpecialAtks())
 
 
-if(mobgoblin.IsAlive()){
+if(mobgoblin.isAlive()){
     console.log(`${mobgoblin.getCharacterName()} is alive!`)
 }
 
@@ -44,7 +44,7 @@ if(mobgoblin.isAHero()){
 }
 
 mobgoblin.setEnemyHP(0)
-if(mobgoblin.IsDead()){
+if(mobgoblin.isDead()){
 console.log(`The enemy ${mobgoblin.getCharacterName()} has fallen`)
 }
 

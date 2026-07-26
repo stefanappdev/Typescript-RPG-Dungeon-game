@@ -40,15 +40,13 @@ constructor(
             }:undefined
     }
 
-    isAHero():string{
+    isAHero():boolean|undefined{
           if(this.EnemyInterface){
-            if(this.EnemyInterface.isHeroType===true){
-                return "Yes"
+            if(this.EnemyInterface.isHeroType){
+                return true
             }else{
-                return "No"
+                return false
             }
-         }else{
-            return "Enemy is undefined"
          }
     
     }

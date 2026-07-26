@@ -39,15 +39,13 @@ class Hero <T  extends HeroInterface> extends Character{
             }:undefined
     }
 
-    public isAHero():string{
+    public isAHero():boolean|undefined{
           if(this.heroInterface){
-            if(this.heroInterface.isHero===true){
-                return "Yes"
+            if(this.heroInterface.isHero){
+                return true
             }else{
-                return "No"
+                return false
             }
-         }else{
-            return "hero is undefined"
          }
     
     }

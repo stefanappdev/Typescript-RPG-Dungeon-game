@@ -20,15 +20,12 @@ class Hero extends Character_1.default {
     }
     isAHero() {
         if (this.heroInterface) {
-            if (this.heroInterface.isHero === true) {
-                return "Yes";
+            if (this.heroInterface.isHero) {
+                return true;
             }
             else {
-                return "No";
+                return false;
             }
-        }
-        else {
-            return "hero is undefined";
         }
     }
     getCharacterClass() {

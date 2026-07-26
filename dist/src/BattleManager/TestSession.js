@@ -21,5 +21,9 @@ orc.setEnemyInterface(dictionary_enemies_1.default.ORC.characterClass, dictionar
 //testSession.setHeroPlayer(Mike);
 testSession.setHeroPlayer(rokya);
 testSession.generateEnemies();
+let Enemies = testSession?.getSessionEnemies();
+if (Enemies) {
+    testSession.setSessionQ(rokya, Enemies);
+}
 testSession.initateSessionCombat();
 //# sourceMappingURL=TestSession.js.map

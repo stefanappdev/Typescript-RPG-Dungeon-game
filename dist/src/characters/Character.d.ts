@@ -10,8 +10,8 @@ declare class Character implements CharacterInterface {
     getCurrentHP(): number;
     protected setCharacterName(newName: string): void;
     getCharacterName(): string;
-    IsAlive(): boolean;
-    IsDead(): boolean;
+    isAlive(): boolean;
+    isDead(): boolean;
 }
 export default Character;
 //# sourceMappingURL=Character.d.ts.map
