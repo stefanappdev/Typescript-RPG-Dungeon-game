@@ -1,0 +1,1 @@
+{"version":3,"file":"sessionInterface.d.ts","sourceRoot":"","sources":["../../../src/interfaces/sessionInterface.ts"],"names":[],"mappings":"AAGA,UAAU,gBAAgB;IACpB,iBAAiB,EAAC,OAAO,GAAC,SAAS,CAAC;IACpC,eAAe,EAAC,OAAO,GAAC,SAAS,CAAC;IAClC,aAAa,EAAC,OAAO,GAAC,SAAS,CAAC;IAChC,cAAc,EAAC,OAAO,GAAC,SAAS,CAAC;CAEtC;AAED,eAAe,gBAAgB,CAAC"}
