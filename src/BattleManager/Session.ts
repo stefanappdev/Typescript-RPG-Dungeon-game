@@ -411,6 +411,7 @@ constructor(
                             
                         if(choosenAtk){
                             console.log('===Enemies===')
+                            console.log("Remaining Enemies:",enemies.length)
                             for(let x=0;x<enemies.length;x++){
                                 let enemy=enemies[x];
                                 let option:number=x+1;
@@ -434,6 +435,11 @@ constructor(
                             }
                             Hero.attackEnemy(enemies[index],choosenAtk)
                             enemies[index]?.recvDMG(choosenAtk.damage,Hero)
+                            if(enemies[index]?.isDead()){
+                                console.log(`${Hero.getCharacterName()} defeated the ${enemies[index]?.getCharacterName()}`)
+                            }
+
+                            
                         }   
         
                         
@@ -523,12 +529,7 @@ constructor(
                         this.manageHeroPhase();
 
                         //check on health of enemies and check for possible victory
-                        const checkEnemiesHP=():void =>{
-                            
-                        }
-
-
-                        checkEnemiesHP()
+                        
                         sessionQ.push(currentPlayer)
                         currentPlayer=sessionQ.shift();
                     }

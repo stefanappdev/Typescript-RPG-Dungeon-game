@@ -194,6 +194,7 @@ class Session {
                                 /*hero selects a enemy to attack from set of enemies */
                                 if (choosenAtk) {
                                     console.log('===Enemies===');
+                                    console.log("Remaining Enemies:", enemies.length);
                                     for (let x = 0; x < enemies.length; x++) {
                                         let enemy = enemies[x];
                                         let option = x + 1;
@@ -211,7 +212,10 @@ class Session {
                                         }
                                     }
                                     Hero.attackEnemy(enemies[index], choosenAtk);
-                                    enemies[index]?.recvDMG(choosenAtk.damage, Hero);
+                                    enemies[index]?.recvDMG(1200, Hero);
+                                    if (enemies[index]?.isDead()) {
+                                        console.log(`${Hero.getCharacterName()} defeated the ${enemies[index]?.getCharacterName()}`);
+                                    }
                                 }
                             }
                             else {
@@ -376,9 +380,6 @@ class Session {
                 if (currentPlayer.isAHero()) {
                     this.manageHeroPhase();
                     //check on health of enemies and check for possible victory
-                    const checkEnemiesHP = () => {
-                    };
-                    checkEnemiesHP();
                     sessionQ.push(currentPlayer);
                     currentPlayer = sessionQ.shift();
                 }
