@@ -13,6 +13,7 @@ declare class Session {
     sessionQ: any;
     sessionEnemies: Enemy<EnemyInterface>[] | undefined;
     constructor(heroPlayer?: Hero<HeroInterface>, sessionQ?: any, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean, nextSession?: Session, sessionEnemies?: Enemy<EnemyInterface>[]);
+    generateSessionCombatants(): Promise<void>;
     setSessionEnemies(enemies: Enemy<EnemyInterface>[]): void;
     setWonTheSession(sessionState: boolean): void;
     setLostTheSession(sessionState: boolean): void;
@@ -20,7 +21,6 @@ declare class Session {
     setHeroPlayer(H: Hero<HeroInterface>): void;
     getHeroPlayer(): Hero<HeroInterface> | undefined;
     getSessionEnemies(): Enemy<EnemyInterface>[] | undefined;
-    generateEnemies(): void;
     initateSessionCombat(): void;
     manageHeroPhase: () => Promise<void>;
     /** this function adds the hero and enemies as characters for the session */

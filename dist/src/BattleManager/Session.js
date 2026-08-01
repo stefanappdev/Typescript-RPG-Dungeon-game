@@ -3,17 +3,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Enemy_1 = __importDefault(require("../characters/enemies/enemy_classes/Enemy"));
-const dictionary_enemies_1 = __importDefault(require("../dictionaries/dictionary_enemies"));
+const generatorEnemies_1 = __importDefault(require("./generators/generatorEnemies"));
+const generatorHero_1 = __importDefault(require("./generators/generatorHero"));
 const readLine = require('readline/promises');
-const RLI = readLine.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
 class Session {
     constructor(heroPlayer, sessionQ, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession, nextSession, sessionEnemies) {
         this.manageHeroPhase = async () => {
             /*Allow player to manage hero actions */
+            const RLI = readLine.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+            });
             let Hero = this.getHeroPlayer();
             console.log(`Its your turn\n`);
             try {
@@ -212,7 +212,7 @@ class Session {
                                         }
                                     }
                                     Hero.attackEnemy(enemies[index], choosenAtk);
-                                    enemies[index]?.recvDMG(1200, Hero);
+                                    enemies[index]?.recvDMG(choosenAtk.damage, Hero);
                                     if (enemies[index]?.isDead()) {
                                         console.log(`${Hero.getCharacterName()} defeated the ${enemies[index]?.getCharacterName()}`);
                                     }
@@ -265,6 +265,14 @@ class Session {
         this.nextSession = nextSession;
         this.sessionEnemies = sessionEnemies;
     }
+    async generateSessionCombatants() {
+        let enemies = await (0, generatorEnemies_1.default)();
+        let hero = await (0, generatorHero_1.default)();
+        this.setHeroPlayer(hero);
+        console.log('hero generation sucessful');
+        this.setSessionEnemies(enemies);
+        console.log('enemies generation sucessful');
+    }
     setSessionEnemies(enemies) {
         /*set the enemies for a session */
         this.sessionEnemies = enemies;
@@ -304,48 +312,6 @@ class Session {
         if (this.sessionEnemies) {
             return this.sessionEnemies;
         }
-    }
-    generateEnemies() {
-        ///creates a predetermined set of enemies for a session
-        //generates a random enemy
-        const createRandomEnemy = () => {
-            let foes = Object.values(dictionary_enemies_1.default);
-            let randIndex = Math.floor(Math.random() * foes.length);
-            let foe = foes[randIndex];
-            let generatedFoe = new Enemy_1.default(foe.name, foe.hp, foe.atkPow);
-            generatedFoe.setEnemyInterface(foe.characterClass, foe.characterType, foe.isHero, foe.atkSets);
-            try {
-                if (generatedFoe === undefined) {
-                    throw new Error('Something went wrong in enemy creation...');
-                }
-            }
-            catch (error) {
-                if (error instanceof Error) {
-                    console.log(error.message);
-                }
-            }
-            return generatedFoe;
-        };
-        ///generates a fixed number of enemies randomly 
-        const genRandNum = () => {
-            let maxEnemies = 5;
-            let randnum = Math.floor(Math.random() * maxEnemies);
-            while (randnum < 1) {
-                randnum = Math.floor(Math.random() * maxEnemies);
-                if (randnum >= 1) {
-                    break;
-                }
-            }
-            return randnum;
-        };
-        let randnum = genRandNum();
-        let sessionEnemies = [];
-        for (let x = 0; x < randnum; x++) {
-            ///tests if enemy generation works
-            let theRandEnemy = createRandomEnemy();
-            sessionEnemies.push(theRandEnemy);
-        }
-        this.setSessionEnemies(sessionEnemies);
     }
     initateSessionCombat() {
         /*Start the combat session */
