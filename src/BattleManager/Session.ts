@@ -1,12 +1,10 @@
-import Character from "../characters/Character";
 import Hero from "../characters/Heroes/hero_classes/Hero";
 import Enemy from "../characters/enemies/enemy_classes/Enemy";
-
 import EnemyInterface from "../interfaces/enemyInterface";
 import HeroInterface from "../interfaces/heroInterface";
 import { attack } from "../types/types_attacks";
 import generatorEnemies from "./generators/generatorEnemies";
-import generatorHero from "./generators/generatorHero";
+
 const readLine=require('readline/promises')
 
 
@@ -27,17 +25,18 @@ sessionHasEnded:boolean|undefined;
 wonTheSession:boolean|undefined;
 lostTheSession:boolean|undefined;
 nextSession:Session|undefined;
-heroPlayer:Hero<HeroInterface>|undefined;
-sessionEnemies:Enemy<EnemyInterface>[]|undefined;
+heroPlayer:Hero<HeroInterface>;
+sessionEnemies:Enemy<EnemyInterface>[];
 
 constructor(
-    heroPlayer?:Hero<HeroInterface>,
+    heroPlayer:Hero<HeroInterface>,
+    sessionEnemies:Enemy<EnemyInterface>[],
     sessionHasStarted?:boolean,
     sessionHasEnded?:boolean,
     wonTheSession?:boolean,
     lostTheSession?:boolean,
     nextSession?:Session,
-    sessionEnemies?:Enemy<EnemyInterface>[],
+    
 
 )
     {
@@ -51,13 +50,7 @@ constructor(
     }
 
 
-    async generateSessionCombatants():Promise<void>{
-        let enemies=await generatorEnemies();
-        let hero=await generatorHero();
-        this.setHeroPlayer(hero);
-        this.setSessionEnemies(enemies) 
-        
-    }
+   
 
 
     setSessionEnemies(enemies:Enemy<EnemyInterface>[]):void{
@@ -88,28 +81,23 @@ constructor(
     }
 
 
-    getHeroPlayer():Hero<HeroInterface>|undefined{
+    getHeroPlayer():Hero<HeroInterface>{
 
         try{
-            if(this.heroPlayer){
-                return this.heroPlayer
-            }else{
-                throw new Error("This hero does not exist")
-            }
-
+            return this.heroPlayer
         }catch(err){
-            if(err instanceof Error){
-                console.log(err.message)
-            }
-
+            throw new Error("An error occured in fetching Hero Data")
         }
+                
     }
 
 
-    getSessionEnemies():Enemy<EnemyInterface>[]|undefined{
+    getSessionEnemies():Enemy<EnemyInterface>[]{
     
-            if(this.sessionEnemies){
+           try{
                 return this.sessionEnemies
+            }catch(err){
+                throw new Error("An error occur in generating seesion enemies")
             }
     }
     
@@ -341,7 +329,7 @@ constructor(
 
             try{
 
-            let enemies:Enemy<EnemyInterface>[]|undefined=this.getSessionEnemies()
+            let enemies:Enemy<EnemyInterface>[]=this.getSessionEnemies()
             
 
                     if(enemies) {
@@ -423,18 +411,10 @@ constructor(
      
     
     async manageEnemyPhase():Promise<void>{
-        let enemies:Enemy<EnemyInterface>[]|undefined=this.getSessionEnemies();
-        let H:Hero<HeroInterface>|undefined=this.getHeroPlayer();
+        let enemies:Enemy<EnemyInterface>[]=this.getSessionEnemies();
+        let H:Hero<HeroInterface>=this.getHeroPlayer();
 
-       /*
 
-        if(H&&enemies){
-            for(let x=0;x<enemies.length;x++){
-                enemies[x]?.attackHero(H,)
-            }
-
-        }*/
-        
     }
  
 
@@ -443,9 +423,7 @@ constructor(
 
     manageSessionTurns():void{
         
-            
-            
-            
+            this.manageHeroPhase()
     }
 
 

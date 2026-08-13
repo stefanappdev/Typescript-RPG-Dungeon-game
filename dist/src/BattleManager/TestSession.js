@@ -4,11 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Session_1 = __importDefault(require("./Session"));
-let testSession = new Session_1.default();
+const generatorHero_1 = __importDefault(require("./generators/generatorHero"));
+const generatorEnemies_1 = __importDefault(require("./generators/generatorEnemies"));
 async function executeSession() {
-    await testSession.generateSessionCombatants();
-    let Enemies = testSession?.getSessionEnemies();
-    let Player = testSession.getHeroPlayer();
+    let HERO = await (0, generatorHero_1.default)();
+    let ENEMIES = await (0, generatorEnemies_1.default)();
+    let testSession = new Session_1.default(HERO, ENEMIES);
     testSession.initateSessionCombat();
 }
 executeSession();

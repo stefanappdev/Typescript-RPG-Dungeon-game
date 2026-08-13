@@ -1,13 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const generatorEnemies_1 = __importDefault(require("./generators/generatorEnemies"));
-const generatorHero_1 = __importDefault(require("./generators/generatorHero"));
 const readLine = require('readline/promises');
 class Session {
-    constructor(heroPlayer, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession, nextSession, sessionEnemies) {
+    constructor(heroPlayer, sessionEnemies, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession, nextSession) {
         this.manageHeroPhase = async () => {
             /*Allow player to manage hero actions */
             const RLI = readLine.createInterface({
@@ -254,12 +249,6 @@ class Session {
         this.nextSession = nextSession;
         this.sessionEnemies = sessionEnemies;
     }
-    async generateSessionCombatants() {
-        let enemies = await (0, generatorEnemies_1.default)();
-        let hero = await (0, generatorHero_1.default)();
-        this.setHeroPlayer(hero);
-        this.setSessionEnemies(enemies);
-    }
     setSessionEnemies(enemies) {
         /*set the enemies for a session */
         this.sessionEnemies = enemies;
@@ -282,22 +271,18 @@ class Session {
     }
     getHeroPlayer() {
         try {
-            if (this.heroPlayer) {
-                return this.heroPlayer;
-            }
-            else {
-                throw new Error("This hero does not exist");
-            }
+            return this.heroPlayer;
         }
         catch (err) {
-            if (err instanceof Error) {
-                console.log(err.message);
-            }
+            throw new Error("An error occured in fetching Hero Data");
         }
     }
     getSessionEnemies() {
-        if (this.sessionEnemies) {
+        try {
             return this.sessionEnemies;
+        }
+        catch (err) {
+            throw new Error("An error occur in generating seesion enemies");
         }
     }
     initateSessionCombat() {
@@ -307,17 +292,10 @@ class Session {
     async manageEnemyPhase() {
         let enemies = this.getSessionEnemies();
         let H = this.getHeroPlayer();
-        /*
- 
-         if(H&&enemies){
-             for(let x=0;x<enemies.length;x++){
-                 enemies[x]?.attackHero(H,)
-             }
- 
-         }*/
     }
     /**this function manages the execution of turns for hero and enemies */
     manageSessionTurns() {
+        this.manageHeroPhase();
     }
 }
 exports.default = Session;
