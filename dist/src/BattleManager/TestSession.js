@@ -9,9 +9,6 @@ async function executeSession() {
     await testSession.generateSessionCombatants();
     let Enemies = testSession?.getSessionEnemies();
     let Player = testSession.getHeroPlayer();
-    if (Enemies && Player) {
-        testSession.setSessionQ(Player, Enemies);
-    }
     testSession.initateSessionCombat();
 }
 executeSession();

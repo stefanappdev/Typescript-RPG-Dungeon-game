@@ -53,5 +53,5 @@ console.log(`your HP:`,orc.getCurrentHP())
 console.log("Your abilities are?",orc.getRegularAtks(), orc.getSpecialAtks())
 
 
-
+console.log("Random attack:",mobgoblin.chooseRandomAtk())
 

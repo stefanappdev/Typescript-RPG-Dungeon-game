@@ -28,12 +28,10 @@ wonTheSession:boolean|undefined;
 lostTheSession:boolean|undefined;
 nextSession:Session|undefined;
 heroPlayer:Hero<HeroInterface>|undefined;
-sessionQ:any;
 sessionEnemies:Enemy<EnemyInterface>[]|undefined;
 
 constructor(
     heroPlayer?:Hero<HeroInterface>,
-    sessionQ?:any,
     sessionHasStarted?:boolean,
     sessionHasEnded?:boolean,
     wonTheSession?:boolean,
@@ -46,7 +44,6 @@ constructor(
     this.lostTheSession=lostTheSession;
     this.sessionHasEnded=sessionHasEnded;
     this.wonTheSession=wonTheSession;
-    this.sessionQ=sessionQ;
     this.heroPlayer=heroPlayer;
     this.sessionHasStarted=sessionHasStarted;
     this.nextSession=nextSession;
@@ -58,9 +55,7 @@ constructor(
         let enemies=await generatorEnemies();
         let hero=await generatorHero();
         this.setHeroPlayer(hero);
-        console.log('hero generation sucessful')
         this.setSessionEnemies(enemies) 
-        console.log('enemies generation sucessful')
         
     }
 
@@ -378,11 +373,21 @@ constructor(
                                      
                                                               
                             }
+                            
+                            //hero executes attack on enemy
                             Hero.attackEnemy(enemies[index],choosenAtk)
                             enemies[index]?.recvDMG(choosenAtk.damage,Hero)
-                            if(enemies[index]?.isDead()){
+
+                            /*
+                            updates status of enemies in session, 
+                            to ensure info on all living enemies*/
+                            
+                            if(enemies[index]?.isDead()){   
                                 console.log(`${Hero.getCharacterName()} defeated the ${enemies[index]?.getCharacterName()}`)
                             }
+
+                            let enemiesAlive=enemies.filter(enemy=>enemy.isAlive());
+                            this.setSessionEnemies(enemiesAlive)
 
                             
                         }   
@@ -415,74 +420,30 @@ constructor(
                 
         }      
 
+     
+    
+    async manageEnemyPhase():Promise<void>{
+        let enemies:Enemy<EnemyInterface>[]|undefined=this.getSessionEnemies();
+        let H:Hero<HeroInterface>|undefined=this.getHeroPlayer();
 
-    /** this function adds the hero and enemies as characters for the session */
-    setSessionQ=(H:Hero<HeroInterface>,Enemies:Enemy<EnemyInterface>[]):void=>{
-       try{ 
-            if(this.sessionQ===undefined){
-                
-                    this.sessionQ=[H,...Enemies]
-                    
-                
-             }else{
-                    throw Error("An error occured in generating the characters for this session")
+       /*
 
-                
+        if(H&&enemies){
+            for(let x=0;x<enemies.length;x++){
+                enemies[x]?.attackHero(H,)
             }
 
-        }catch(err){
-            if(err instanceof Error){
-                console.log(err.message)
-            }
-        }
+        }*/
+        
     }
-
-
-    getSessionQ():Character[]|undefined{
-       try{
-            if(this.sessionQ){
-            return this.sessionQ
-         }else{
-             throw Error("An error occured in retrieving the characters for this session")
-            }
-       
-        }catch(err){
-            if(err instanceof Error){
-                console.log(err.message)
-            }
-        }
-    }
+ 
 
 
     /**this function manages the execution of turns for hero and enemies */
 
     manageSessionTurns():void{
         
-            let sessionQ:any=this.getSessionQ()?this.getSessionQ():undefined;
-            if(sessionQ===undefined){
-                throw new Error("Error occured in retrieving characters for this session")
-            }else{
-                let currentPlayer=sessionQ.shift();
-                
-                if(currentPlayer.isAlive()){
-                       /*if hero is currentPlayer,check if he is alive, execute turn, push to end of Q
-                       check if all enemies dead or alive,then switch to enemy turn if any enemies are alive*/
-
-                    
-                    if(currentPlayer.isAHero()){
-                        
-                        this.manageHeroPhase();
-
-                        //check on health of enemies and check for possible victory
-                        
-                        sessionQ.push(currentPlayer)
-                        currentPlayer=sessionQ.shift();
-                    }
-                    
-                      
-                }
             
-            }
             
             
     }

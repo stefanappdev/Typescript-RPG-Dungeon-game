@@ -17,6 +17,9 @@ declare class Enemy<T extends EnemyInterface> extends Character {
     getCharacterType(): string;
     setEnemyHP(hp: number): void;
     getRegularAtks(): attack[];
+    chooseRandomRegAttack: () => attack | undefined;
+    chooseRandomSpecialAttack: () => attack | undefined;
+    chooseRandomAtk(): attack | undefined;
     recvDMG(DMG: number, H: Hero<HeroInterface>): void;
     attackHero(H: Hero<HeroInterface>, atk: attack): void;
     getSpecialAtks(): attack[];

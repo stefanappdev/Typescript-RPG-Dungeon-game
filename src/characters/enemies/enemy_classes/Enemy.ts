@@ -84,6 +84,35 @@ constructor(
     }
 
 
+     chooseRandomRegAttack=():attack|undefined=>{
+
+            let regularAtks:attack[]=this.getRegularAtks()
+            let randindex:number=Math.floor(Math.random()*regularAtks.length);
+            return regularAtks[randindex]
+     
+    }
+
+    chooseRandomSpecialAttack=():attack|undefined=>{
+
+            let specialAtks:attack[]=this.getSpecialAtks()
+            let randindex:number=Math.floor(Math.random()*specialAtks.length);
+            return specialAtks[randindex]
+     
+    }
+
+
+    chooseRandomAtk():attack|undefined{
+
+        let randindex:number=Math.floor(Math.random()*2);
+        if(randindex===0){
+            return this.chooseRandomRegAttack()
+        }
+        else{
+            return this.chooseRandomSpecialAttack()
+        }
+    }
+
+
 
       public recvDMG(DMG:number,H:Hero<HeroInterface>){
 

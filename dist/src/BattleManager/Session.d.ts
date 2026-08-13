@@ -1,4 +1,3 @@
-import Character from "../characters/Character";
 import Hero from "../characters/Heroes/hero_classes/Hero";
 import Enemy from "../characters/enemies/enemy_classes/Enemy";
 import EnemyInterface from "../interfaces/enemyInterface";
@@ -10,9 +9,8 @@ declare class Session {
     lostTheSession: boolean | undefined;
     nextSession: Session | undefined;
     heroPlayer: Hero<HeroInterface> | undefined;
-    sessionQ: any;
     sessionEnemies: Enemy<EnemyInterface>[] | undefined;
-    constructor(heroPlayer?: Hero<HeroInterface>, sessionQ?: any, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean, nextSession?: Session, sessionEnemies?: Enemy<EnemyInterface>[]);
+    constructor(heroPlayer?: Hero<HeroInterface>, sessionHasStarted?: boolean, sessionHasEnded?: boolean, wonTheSession?: boolean, lostTheSession?: boolean, nextSession?: Session, sessionEnemies?: Enemy<EnemyInterface>[]);
     generateSessionCombatants(): Promise<void>;
     setSessionEnemies(enemies: Enemy<EnemyInterface>[]): void;
     setWonTheSession(sessionState: boolean): void;
@@ -23,9 +21,7 @@ declare class Session {
     getSessionEnemies(): Enemy<EnemyInterface>[] | undefined;
     initateSessionCombat(): void;
     manageHeroPhase: () => Promise<void>;
-    /** this function adds the hero and enemies as characters for the session */
-    setSessionQ: (H: Hero<HeroInterface>, Enemies: Enemy<EnemyInterface>[]) => void;
-    getSessionQ(): Character[] | undefined;
+    manageEnemyPhase(): Promise<void>;
     /**this function manages the execution of turns for hero and enemies */
     manageSessionTurns(): void;
 }

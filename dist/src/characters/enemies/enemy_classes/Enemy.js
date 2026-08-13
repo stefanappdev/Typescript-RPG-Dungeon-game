@@ -7,6 +7,16 @@ const Character_1 = __importDefault(require("../../Character"));
 class Enemy extends Character_1.default {
     constructor(characterName, hp, atkPow, characterType, EnemyInterface, characterClass) {
         super(characterName, hp, atkPow);
+        this.chooseRandomRegAttack = () => {
+            let regularAtks = this.getRegularAtks();
+            let randindex = Math.floor(Math.random() * regularAtks.length);
+            return regularAtks[randindex];
+        };
+        this.chooseRandomSpecialAttack = () => {
+            let specialAtks = this.getSpecialAtks();
+            let randindex = Math.floor(Math.random() * specialAtks.length);
+            return specialAtks[randindex];
+        };
         this.EnemyInterface = EnemyInterface;
         this.characterType = characterType;
         this.characterClass = characterClass;
@@ -55,6 +65,15 @@ class Enemy extends Character_1.default {
         else {
             let empty = [];
             return empty;
+        }
+    }
+    chooseRandomAtk() {
+        let randindex = Math.floor(Math.random() * 2);
+        if (randindex === 0) {
+            return this.chooseRandomRegAttack();
+        }
+        else {
+            return this.chooseRandomSpecialAttack();
         }
     }
     recvDMG(DMG, H) {

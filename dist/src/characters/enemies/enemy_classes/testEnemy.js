@@ -31,4 +31,5 @@ if (mobgoblin.isDead()) {
 console.log(`what's your class?`, orc.getCharacterClass());
 console.log(`your HP:`, orc.getCurrentHP());
 console.log("Your abilities are?", orc.getRegularAtks(), orc.getSpecialAtks());
+console.log("Random attack:", mobgoblin.chooseRandomAtk());
 //# sourceMappingURL=testEnemy.js.map

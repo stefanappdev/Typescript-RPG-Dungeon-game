@@ -15,9 +15,6 @@ await testSession.generateSessionCombatants();
 
 let Enemies=testSession?.getSessionEnemies();
 let Player:Hero<HeroInterface>|undefined=testSession.getHeroPlayer()
-if(Enemies&&Player){
-    testSession.setSessionQ(Player,Enemies)
-}
 
 testSession.initateSessionCombat()
 
