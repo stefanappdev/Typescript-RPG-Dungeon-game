@@ -21,7 +21,7 @@ declare class Enemy<T extends EnemyInterface> extends Character {
     chooseRandomSpecialAttack: () => attack | undefined;
     chooseRandomAtk(): attack | undefined;
     recvDMG(DMG: number, H: Hero<HeroInterface>): void;
-    attackHero(H: Hero<HeroInterface>, atk: attack): void;
+    attackHero(H: Hero<HeroInterface>, atk: attack): Promise<void>;
     getSpecialAtks(): attack[];
 }
 export default Enemy;

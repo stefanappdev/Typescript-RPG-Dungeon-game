@@ -290,12 +290,29 @@ class Session {
         this.manageSessionTurns();
     }
     async manageEnemyPhase() {
-        let enemies = this.getSessionEnemies();
-        let H = this.getHeroPlayer();
+        /*Excutes enemy phase */
+        const startPhaseNotifier = async () => {
+            await setTimeout(() => { console.log("===START OF ENEMY PHASE===="); }, 1000);
+        };
+        await startPhaseNotifier();
+        let ENEMIES = this.getSessionEnemies();
+        let HERO = this.getHeroPlayer();
+        const executeAtk = async () => {
+            for (let x = 0; x < ENEMIES.length; x++) {
+                let randomAtk = ENEMIES[x]?.chooseRandomAtk();
+                randomAtk ? ENEMIES[x]?.attackHero(HERO, randomAtk) : '';
+            }
+        };
+        await executeAtk();
+        const endPhaseNotifier = async () => {
+            await setTimeout(() => { console.log("===END OF ENEMY PHASE===="); }, 5000);
+        };
+        await endPhaseNotifier();
     }
     /**this function manages the execution of turns for hero and enemies */
-    manageSessionTurns() {
-        this.manageHeroPhase();
+    async manageSessionTurns() {
+        await this.manageHeroPhase();
+        await this.manageEnemyPhase();
     }
 }
 exports.default = Session;

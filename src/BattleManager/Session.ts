@@ -411,19 +411,53 @@ constructor(
      
     
     async manageEnemyPhase():Promise<void>{
+        /*Excutes enemy phase */
+        
+        const startOfPhaseNotifier=async():Promise<void> =>{
+            await setTimeout(()=>{console.log("===START OF ENEMY PHASE====")},1000)
+        }
+
+        await startOfPhaseNotifier()
+
         let ENEMIES:Enemy<EnemyInterface>[]=this.getSessionEnemies();
         let HERO:Hero<HeroInterface>=this.getHeroPlayer();
+
+        const executeAtk= async():Promise<void>=>{
+            
+            for (let x=0;x<ENEMIES.length;x++){
+            let randomAtk:attack|undefined=ENEMIES[x]?.chooseRandomAtk();
+            randomAtk?ENEMIES[x]?.attackHero(HERO,randomAtk):''
+            
+            
+            }
+    
+        }
+
+        await executeAtk()
+
+         const endOfPhaseNotifier=async():Promise<void>=>{
+            await setTimeout(()=>{console.log("===END OF ENEMY PHASE====")},5000)
+        }
+
+        await endOfPhaseNotifier()
+
 
 
     }
  
 
 
-    /**this function manages the execution of turns for hero and enemies */
+    /**this function manages the execution of turns for hero and enemies
+     * This function should keep excuting until either victory or loss conditons are met
+     * Loss: If hero dies before enemies are defeated (game over)
+     * victory:hero defeats all enemies
+     */ 
 
-    manageSessionTurns():void{
+    async manageSessionTurns():Promise<void>{
         
-            this.manageHeroPhase()
+            await this.manageHeroPhase();
+            await this.manageEnemyPhase();
+
     }
 
 

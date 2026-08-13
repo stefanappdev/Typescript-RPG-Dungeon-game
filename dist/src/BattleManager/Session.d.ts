@@ -22,7 +22,7 @@ declare class Session {
     manageHeroPhase: () => Promise<void>;
     manageEnemyPhase(): Promise<void>;
     /**this function manages the execution of turns for hero and enemies */
-    manageSessionTurns(): void;
+    manageSessionTurns(): Promise<void>;
 }
 export default Session;
 //# sourceMappingURL=Session.d.ts.map

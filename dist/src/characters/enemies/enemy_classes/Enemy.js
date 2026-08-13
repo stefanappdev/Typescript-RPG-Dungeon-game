@@ -82,22 +82,18 @@ class Enemy extends Character_1.default {
         let newHP = this.getCurrentHP() - DMG;
         this.setEnemyHP(newHP);
     }
-    attackHero(H, atk) {
+    async attackHero(H, atk) {
         /*attack function of hero*/
         try {
-            if (H) {
-                {
-                    `${this.getCharacterName()} attacked ${H.getCharacterName()} with ${atk.attackName}`;
-                }
-            }
-            else {
-                throw new Error('The hero does not not exist');
-            }
+            await setTimeout(() => {
+                console.log(`${this.getCharacterName()} attacked ${H.getCharacterName()} with ${atk.attackName}`);
+            }, 2000);
+            await setTimeout(() => {
+                console.log(`${H.getCharacterName()} received ${atk.damage} damage`);
+            }, 3000);
         }
         catch (err) {
-            if (err instanceof Error) {
-                console.log(err.message);
-            }
+            throw new Error("Failed to execute enemy attack");
         }
     }
     getSpecialAtks() {
