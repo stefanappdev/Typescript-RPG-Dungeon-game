@@ -411,8 +411,8 @@ constructor(
      
     
     async manageEnemyPhase():Promise<void>{
-        let enemies:Enemy<EnemyInterface>[]=this.getSessionEnemies();
-        let H:Hero<HeroInterface>=this.getHeroPlayer();
+        let ENEMIES:Enemy<EnemyInterface>[]=this.getSessionEnemies();
+        let HERO:Hero<HeroInterface>=this.getHeroPlayer();
 
 
     }
