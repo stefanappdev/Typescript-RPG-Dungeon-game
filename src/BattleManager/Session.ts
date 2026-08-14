@@ -23,7 +23,6 @@ class Session{
 sessionHasStarted:boolean|undefined;
 sessionHasEnded:boolean|undefined;
 wonTheSession:boolean|undefined;
-lostTheSession:boolean|undefined;
 nextSession:Session|undefined;
 heroPlayer:Hero<HeroInterface>;
 sessionEnemies:Enemy<EnemyInterface>[];
@@ -34,13 +33,11 @@ constructor(
     sessionHasStarted?:boolean,
     sessionHasEnded?:boolean,
     wonTheSession?:boolean,
-    lostTheSession?:boolean,
     nextSession?:Session,
     
 
 )
     {
-    this.lostTheSession=lostTheSession;
     this.sessionHasEnded=sessionHasEnded;
     this.wonTheSession=wonTheSession;
     this.heroPlayer=heroPlayer;
@@ -64,10 +61,6 @@ constructor(
     }
 
 
-    setLostTheSession(sessionState:boolean):void{
-        /*this is set if a player loses the session */
-        this.lostTheSession=sessionState
-    }
 
 
     setNextSession(nxtSession:Session):void{
@@ -390,9 +383,13 @@ constructor(
                     console.log(Err)
                 }
             }
+
+
+
+            RLI.close()
                
 
-              console.log("+++++END OF HERO PHASE+++++\n")
+            console.log("+++++END OF HERO PHASE+++++\n")
 
                 }else{
                     throw new Error("The hero does not exist")
@@ -428,6 +425,8 @@ constructor(
             let randomAtk:attack|undefined=ENEMIES[x]?.chooseRandomAtk();
             randomAtk?ENEMIES[x]?.attackHero(HERO,randomAtk):''
             
+            //update hero status after enemy attack
+            this.setHeroPlayer(HERO)
             
             }
     
@@ -454,10 +453,21 @@ constructor(
      */ 
 
     async manageSessionTurns():Promise<void>{
-        
-            await this.manageHeroPhase();
-            await this.manageEnemyPhase();
 
+        const runWinSequence=():void=>{
+            console.log("Congrats,you won the round!")
+        }
+
+         const runLossSequence=():void=>{
+            console.log("You lost the round,game over")
+        }
+
+
+
+        let ENEMIES:Enemy<EnemyInterface>[]=this.getSessionEnemies();
+        let HERO:Hero<HeroInterface>=this.getHeroPlayer();
+        
+    /*finish session manage r*/
     }
 
 

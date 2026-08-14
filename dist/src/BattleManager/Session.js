@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const readLine = require('readline/promises');
 class Session {
-    constructor(heroPlayer, sessionEnemies, sessionHasStarted, sessionHasEnded, wonTheSession, lostTheSession, nextSession) {
+    constructor(heroPlayer, sessionEnemies, sessionHasStarted, sessionHasEnded, wonTheSession, nextSession) {
         this.manageHeroPhase = async () => {
             /*Allow player to manage hero actions */
             const RLI = readLine.createInterface({
@@ -229,6 +229,7 @@ class Session {
                             console.log(Err);
                         }
                     }
+                    RLI.close();
                     console.log("+++++END OF HERO PHASE+++++\n");
                 }
                 else {
@@ -241,7 +242,6 @@ class Session {
                 }
             }
         };
-        this.lostTheSession = lostTheSession;
         this.sessionHasEnded = sessionHasEnded;
         this.wonTheSession = wonTheSession;
         this.heroPlayer = heroPlayer;
@@ -256,10 +256,6 @@ class Session {
     setWonTheSession(sessionState) {
         /*this is set if a player wins the session */
         this.wonTheSession = sessionState;
-    }
-    setLostTheSession(sessionState) {
-        /*this is set if a player loses the session */
-        this.lostTheSession = sessionState;
     }
     setNextSession(nxtSession) {
         /*Sets the next session of applicable */
@@ -291,28 +287,41 @@ class Session {
     }
     async manageEnemyPhase() {
         /*Excutes enemy phase */
-        const startPhaseNotifier = async () => {
+        const startOfPhaseNotifier = async () => {
             await setTimeout(() => { console.log("===START OF ENEMY PHASE===="); }, 1000);
         };
-        await startPhaseNotifier();
+        await startOfPhaseNotifier();
         let ENEMIES = this.getSessionEnemies();
         let HERO = this.getHeroPlayer();
         const executeAtk = async () => {
             for (let x = 0; x < ENEMIES.length; x++) {
                 let randomAtk = ENEMIES[x]?.chooseRandomAtk();
                 randomAtk ? ENEMIES[x]?.attackHero(HERO, randomAtk) : '';
+                //update hero status after enemy attack
+                this.setHeroPlayer(HERO);
             }
         };
         await executeAtk();
-        const endPhaseNotifier = async () => {
+        const endOfPhaseNotifier = async () => {
             await setTimeout(() => { console.log("===END OF ENEMY PHASE===="); }, 5000);
         };
-        await endPhaseNotifier();
+        await endOfPhaseNotifier();
     }
-    /**this function manages the execution of turns for hero and enemies */
+    /**this function manages the execution of turns for hero and enemies
+     * This function should keep excuting until either victory or loss conditons are met
+     * Loss: If hero dies before enemies are defeated (game over)
+     * victory:hero defeats all enemies
+     */
     async manageSessionTurns() {
-        await this.manageHeroPhase();
-        await this.manageEnemyPhase();
+        const runWinSequence = () => {
+            console.log("Congrats,you won the round!");
+        };
+        const runLossSequence = () => {
+            console.log("You lost the round,game over");
+        };
+        let ENEMIES = this.getSessionEnemies();
+        let HERO = this.getHeroPlayer();
+        /*finish session manage r*/
     }
 }
 exports.default = Session;
