@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Character_1 = __importDefault(require("../../Character"));
 class Enemy extends Character_1.default {
-    constructor(characterName, hp, atkPow, characterType, EnemyInterface, characterClass) {
-        super(characterName, hp, atkPow);
+    constructor(characterName, hp, currentHP, atkPow, characterType, EnemyInterface, characterClass) {
+        super(characterName, hp, currentHP, atkPow);
         this.chooseRandomRegAttack = () => {
             let regularAtks = this.getRegularAtks();
             let randindex = Math.floor(Math.random() * regularAtks.length);
@@ -55,8 +55,8 @@ class Enemy extends Character_1.default {
             return "Enemy is undefined";
         }
     }
-    setEnemyHP(hp) {
-        super.setHP(hp);
+    setEnemyCurrentHP(hp) {
+        super.setCurrentHP(hp);
     }
     getRegularAtks() {
         if (this.EnemyInterface) {
@@ -80,13 +80,13 @@ class Enemy extends Character_1.default {
         //display info about received damage from enemy
         console.log(`${this.getCharacterName()} received ${DMG} damage from ${H.getCharacterName()}`);
         let newHP = this.getCurrentHP() - DMG;
-        this.setEnemyHP(newHP);
+        this.setEnemyCurrentHP(newHP);
     }
     async attackHero(H, atk) {
         /*attack function of hero*/
         try {
             await setTimeout(() => {
-                console.log(`${this.getCharacterName()} attacked ${H.getCharacterName()} with ${atk.attackName}`);
+                console.log(`${this.getCharacterName()} attacked ${atk.attackName}`);
             }, 2000);
             await setTimeout(() => {
                 console.log(`${H.getCharacterName()} received ${atk.damage} damage`);

@@ -17,6 +17,7 @@ constructor(
     
     characterName:string,
     hp:number,
+    currentHP:number,
     atkPow:number,
     characterType?:string|undefined,
     EnemyInterface?:EnemyInterface|undefined,
@@ -24,7 +25,7 @@ constructor(
 
 )
 {
-    super(characterName,hp,atkPow);
+    super(characterName,hp,currentHP,atkPow);
     this.EnemyInterface=EnemyInterface;
     this.characterType=characterType;
     this.characterClass=characterClass
@@ -69,8 +70,8 @@ constructor(
          }
     }
 
-    setEnemyHP(hp:number){
-        super.setHP(hp)
+    setEnemyCurrentHP(hp:number){
+        super.setCurrentHP(hp)
     }
 
 
@@ -119,7 +120,7 @@ constructor(
         //display info about received damage from enemy
         console.log(`${this.getCharacterName()} received ${DMG} damage from ${H.getCharacterName()}` )
         let newHP:number=this.getCurrentHP()-DMG
-        this.setEnemyHP(newHP)
+        this.setEnemyCurrentHP(newHP)
 
 
     }
@@ -130,7 +131,7 @@ constructor(
             /*attack function of hero*/
         try{
             await setTimeout(()=>{
-                 console.log(`${this.getCharacterName()} attacked ${H.getCharacterName()} with ${atk.attackName}`)
+                 console.log(`${this.getCharacterName()} attacked ${atk.attackName}`)
 
             },2000)
 

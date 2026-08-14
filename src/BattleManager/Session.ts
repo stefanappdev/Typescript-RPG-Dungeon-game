@@ -110,8 +110,9 @@ constructor(
         output:process.stdout,
         })
 
-        let Hero:Hero<HeroInterface>|undefined=this.getHeroPlayer();
-         console.log(`Its your turn\n`)    
+        let Hero:Hero<HeroInterface>=this.getHeroPlayer();
+         console.log(`Its your turn\n`)
+         console.log(`Your HP:${Hero.getCurrentHP()}/${Hero.getMaxHP()}`)    
         
             try{
                 if(Hero){
@@ -337,7 +338,7 @@ constructor(
                                 let enemy=enemies[x];
                                 let option:number=x+1;
                                
-                                console.log(`${option}: ${enemy?.getCharacterName()}`)
+                                console.log(`${option}: ${enemy?.getCharacterName()} HP:${enemy?.getCurrentHP()}/${enemy?.getMaxHP()}`)
                             }
 
                             const enemyChoice=await RLI.question("choose an enemy to attack:\n>");
@@ -424,12 +425,11 @@ constructor(
             for (let x=0;x<ENEMIES.length;x++){
             let randomAtk:attack|undefined=ENEMIES[x]?.chooseRandomAtk();
             randomAtk?ENEMIES[x]?.attackHero(HERO,randomAtk):''
+            HERO.recvDMG(randomAtk?randomAtk.damage:-1) 
+            }
             
             //update hero status after enemy attack
             this.setHeroPlayer(HERO)
-            
-            }
-    
         }
 
         await executeAtk()
@@ -467,7 +467,9 @@ constructor(
         let ENEMIES:Enemy<EnemyInterface>[]=this.getSessionEnemies();
         let HERO:Hero<HeroInterface>=this.getHeroPlayer();
         
-    /*finish session manage r*/
+    /*finish session manager*/
+    await this.manageHeroPhase();
+    await this.manageEnemyPhase();
     }
 
 

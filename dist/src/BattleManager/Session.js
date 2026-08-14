@@ -11,6 +11,7 @@ class Session {
             });
             let Hero = this.getHeroPlayer();
             console.log(`Its your turn\n`);
+            console.log(`Your HP:${Hero.getCurrentHP()}/${Hero.getMaxHP()}`);
             try {
                 if (Hero) {
                     //attack menu options for hero
@@ -193,7 +194,7 @@ class Session {
                                     for (let x = 0; x < enemies.length; x++) {
                                         let enemy = enemies[x];
                                         let option = x + 1;
-                                        console.log(`${option}: ${enemy?.getCharacterName()}`);
+                                        console.log(`${option}: ${enemy?.getCharacterName()} HP:${enemy?.getCurrentHP()}/${enemy?.getMaxHP()}`);
                                     }
                                     const enemyChoice = await RLI.question("choose an enemy to attack:\n>");
                                     let index = parseInt(enemyChoice) - 1;
@@ -297,9 +298,10 @@ class Session {
             for (let x = 0; x < ENEMIES.length; x++) {
                 let randomAtk = ENEMIES[x]?.chooseRandomAtk();
                 randomAtk ? ENEMIES[x]?.attackHero(HERO, randomAtk) : '';
-                //update hero status after enemy attack
-                this.setHeroPlayer(HERO);
+                HERO.recvDMG(randomAtk ? randomAtk.damage : -1);
             }
+            //update hero status after enemy attack
+            this.setHeroPlayer(HERO);
         };
         await executeAtk();
         const endOfPhaseNotifier = async () => {
@@ -321,7 +323,9 @@ class Session {
         };
         let ENEMIES = this.getSessionEnemies();
         let HERO = this.getHeroPlayer();
-        /*finish session manage r*/
+        /*finish session manager*/
+        await this.manageHeroPhase();
+        await this.manageEnemyPhase();
     }
 }
 exports.default = Session;

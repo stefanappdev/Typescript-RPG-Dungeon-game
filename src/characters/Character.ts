@@ -4,6 +4,7 @@ import CharacterInterface from "../interfaces/CharacterInterface";
 /// defines basics for a character
   
     public hp:number;
+    public currentHP:number;
     public characterName:string;
     public atkPow:number;
 
@@ -13,11 +14,13 @@ import CharacterInterface from "../interfaces/CharacterInterface";
    constructor(
             characterName:string,
             hp:number,
+            currentHP:number,
             atkPow:number
             )
     {
             this.characterName=characterName;
             this.hp=hp;
+            this.currentHP=currentHP;
             this.atkPow=atkPow;
                     
    }
@@ -36,17 +39,27 @@ import CharacterInterface from "../interfaces/CharacterInterface";
         return this.atkPow;
     }
 
+ //set current HP of any character
 
+    protected setCurrentHP(hp:number){
+        this.currentHP=hp;
+    }
 
-    //set HP of any character
+    
+    //get maxHP of any character
+    public getCurrentHP():number{
+        return this.currentHP;
+    }
 
-    protected setHP(hp:number){
+    //set max HP of any character
+
+    protected setMaxHP(hp:number){
         this.hp=hp;
     }
 
     
-    //get current HP of any character
-    public getCurrentHP():number{
+    //get maxHP of any character
+    public getMaxHP():number{
         return this.hp;
     }
 

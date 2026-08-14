@@ -7,7 +7,7 @@ declare class Enemy<T extends EnemyInterface> extends Character {
     characterType: string | undefined;
     protected EnemyInterface: EnemyInterface | undefined;
     characterClass: string | undefined;
-    constructor(characterName: string, hp: number, atkPow: number, characterType?: string | undefined, EnemyInterface?: EnemyInterface | undefined, characterClass?: string | undefined);
+    constructor(characterName: string, hp: number, currentHP: number, atkPow: number, characterType?: string | undefined, EnemyInterface?: EnemyInterface | undefined, characterClass?: string | undefined);
     setEnemyInterface(characterClass: string, characterType: string, isHeroType: boolean, atkSets: {
         regular: attack[];
         special: attack[];
@@ -15,7 +15,7 @@ declare class Enemy<T extends EnemyInterface> extends Character {
     isAHero(): boolean | undefined;
     getCharacterClass(): string;
     getCharacterType(): string;
-    setEnemyHP(hp: number): void;
+    setEnemyCurrentHP(hp: number): void;
     getRegularAtks(): attack[];
     chooseRandomRegAttack: () => attack | undefined;
     chooseRandomSpecialAttack: () => attack | undefined;

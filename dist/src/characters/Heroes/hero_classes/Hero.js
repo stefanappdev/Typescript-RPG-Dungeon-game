@@ -5,8 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Character_1 = __importDefault(require("../../Character"));
 class Hero extends Character_1.default {
-    constructor(characterName, hp, atkPow, heroInterface, isHero, characterClass) {
-        super(characterName, atkPow, hp);
+    constructor(characterName, hp, currentHP, atkPow, heroInterface, isHero, characterClass) {
+        super(characterName, hp, currentHP, atkPow);
         this.heroInterface = heroInterface;
         this.isHero = isHero;
         this.characterClass = characterClass;
@@ -54,11 +54,11 @@ class Hero extends Character_1.default {
             return empty;
         }
     }
-    recvDMG(DMG, E) {
+    recvDMG(DMG) {
         //display info about received damage from enemy
-        console.log(`${this.getCharacterName()} received ${DMG} damage from ${E.getCharacterName()}`);
+        console.log(`${this.getCharacterName()} received ${DMG} damage`);
         let newHP = this.getCurrentHP() - DMG;
-        this.setHeroHP(newHP);
+        this.setHeroCurrentHP(newHP);
     }
     attackEnemy(E, atk) {
         try {
@@ -75,9 +75,9 @@ class Hero extends Character_1.default {
             }
         }
     }
-    setHeroHP(hp) {
+    setHeroCurrentHP(hp) {
         //set Hp of Hero
-        super.setHP(hp);
+        super.setCurrentHP(hp);
     }
 }
 exports.default = Hero;

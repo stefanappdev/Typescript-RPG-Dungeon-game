@@ -16,12 +16,13 @@ class Hero <T  extends HeroInterface> extends Character{
     constructor(
         characterName:string,
         hp:number,
+        currentHP:number,
         atkPow:number,
         heroInterface?:T|undefined,
         isHero?:boolean|undefined,
         characterClass?:string|undefined,
     ){
-        super(characterName,atkPow,hp);
+        super(characterName,hp,currentHP,atkPow);
         this.heroInterface=heroInterface;
         this.isHero=isHero;
         this.characterClass=characterClass
@@ -80,12 +81,12 @@ class Hero <T  extends HeroInterface> extends Character{
     }
 
 
-    public recvDMG(DMG:number,E:Enemy<EnemyInterface>){
+    public recvDMG(DMG:number){
 
         //display info about received damage from enemy
-        console.log(`${this.getCharacterName()} received ${DMG} damage from ${E.getCharacterName()}` )
+        console.log(`${this.getCharacterName()} received ${DMG} damage` )
         let newHP:number=this.getCurrentHP()-DMG
-        this.setHeroHP(newHP)
+        this.setHeroCurrentHP(newHP)
     }
 
 
@@ -108,9 +109,9 @@ class Hero <T  extends HeroInterface> extends Character{
     }
 
 
-    public setHeroHP(hp:number){
+    public setHeroCurrentHP(hp:number){
         //set Hp of Hero
-        super.setHP(hp);
+        super.setCurrentHP(hp);
     }
 
 }

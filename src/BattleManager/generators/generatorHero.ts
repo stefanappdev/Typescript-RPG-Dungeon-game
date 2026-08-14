@@ -30,7 +30,7 @@ async function generatorHero():Promise<Hero<HeroInterface>>{
 
         if(choice===1){
     
-        H=new Hero(name,dictionary_heroes.WARRIOR.hp,dictionary_heroes.WARRIOR.atkPow);
+        H=new Hero(name,dictionary_heroes.WARRIOR.hp,dictionary_heroes.WARRIOR.hp,dictionary_heroes.WARRIOR.atkPow);
 
         H.setHeroInterface(
             dictionary_heroes.WARRIOR.characterClass,
@@ -42,7 +42,7 @@ async function generatorHero():Promise<Hero<HeroInterface>>{
         
         }else if (choice===2){
         
-        H=new Hero(name,dictionary_heroes.MAGE.hp,dictionary_heroes.MAGE.atkPow);
+        H=new Hero(name,dictionary_heroes.MAGE.hp,dictionary_heroes.MAGE.hp,dictionary_heroes.MAGE.atkPow);
 
         H.setHeroInterface(
             dictionary_heroes.MAGE.characterClass,
@@ -53,7 +53,7 @@ async function generatorHero():Promise<Hero<HeroInterface>>{
 
         }else if (choice===3){
             
-        H=new Hero(name,dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.atkPow);
+        H=new Hero(name,dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.atkPow);
 
         H.setHeroInterface(
             dictionary_heroes.ARCHER.characterClass,

@@ -12,7 +12,7 @@ async function generatorEnemies() {
         let foes = Object.values(dictionary_enemies_1.default);
         let randIndex = Math.floor(Math.random() * foes.length);
         let foe = foes[randIndex];
-        let generatedFoe = new Enemy_1.default(foe.name, foe.hp, foe.atkPow);
+        let generatedFoe = new Enemy_1.default(foe.name, foe.hp, foe.hp, foe.atkPow);
         generatedFoe.setEnemyInterface(foe.characterClass, foe.characterType, foe.isHero, foe.atkSets);
         try {
             if (generatedFoe === undefined) {

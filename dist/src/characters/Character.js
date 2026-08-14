@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Character {
-    constructor(characterName, hp, atkPow) {
+    constructor(characterName, hp, currentHP, atkPow) {
         this.characterName = characterName;
         this.hp = hp;
+        this.currentHP = currentHP;
         this.atkPow = atkPow;
     }
     //set atkpow of any character
@@ -14,12 +15,20 @@ class Character {
     getAtkpow() {
         return this.atkPow;
     }
-    //set HP of any character
-    setHP(hp) {
+    //set current HP of any character
+    setCurrentHP(hp) {
+        this.currentHP = hp;
+    }
+    //get maxHP of any character
+    getCurrentHP() {
+        return this.currentHP;
+    }
+    //set max HP of any character
+    setMaxHP(hp) {
         this.hp = hp;
     }
-    //get current HP of any character
-    getCurrentHP() {
+    //get maxHP of any character
+    getMaxHP() {
         return this.hp;
     }
     // set name of a character

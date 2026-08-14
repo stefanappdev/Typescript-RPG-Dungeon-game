@@ -2,8 +2,8 @@ import Hero from "./Hero";
 import dictionary_heroes from "../../../dictionaries/dictionary_heroes"
 
 
-let Jarcher=new Hero("John",dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.atkPow);
-let Mike=new Hero("Mike",dictionary_heroes.WARRIOR.hp,dictionary_heroes.WARRIOR.atkPow);
+let Jarcher=new Hero("John",dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.atkPow);
+let Mike=new Hero("Mike",dictionary_heroes.WARRIOR.hp,dictionary_heroes.WARRIOR.hp,dictionary_heroes.WARRIOR.atkPow);
 
 Mike.setHeroInterface(
     dictionary_heroes.WARRIOR.characterClass,
@@ -40,7 +40,7 @@ if(Mike.isAHero()){
    console.log(`${Mike.getCharacterName()} is a Hero!`)  
 }
 
-Mike.setHeroHP(0)
+Mike.setHeroCurrentHP(0)
 
 
 console.log(`what's your class?`,Mike.getCharacterClass());

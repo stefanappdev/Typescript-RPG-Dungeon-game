@@ -3,8 +3,8 @@ import dictionary_enemies from "../../../dictionaries/dictionary_enemies"
 
 
 
-let orc=new Enemy('orc',dictionary_enemies.ORC.hp,dictionary_enemies.ORC.atkPow)
-let mobgoblin=new Enemy("Mobgoblin",dictionary_enemies.GOBLIN.hp,dictionary_enemies.GOBLIN.atkPow);
+let orc=new Enemy('orc',dictionary_enemies.ORC.hp,dictionary_enemies.ORC.hp,dictionary_enemies.ORC.atkPow)
+let mobgoblin=new Enemy("Mobgoblin",dictionary_enemies.GOBLIN.hp,dictionary_enemies.GOBLIN.hp,dictionary_enemies.GOBLIN.atkPow);
 
 orc.setEnemyInterface(
     dictionary_enemies.ORC.characterClass,
@@ -43,7 +43,7 @@ if(mobgoblin.isAHero()){
    console.log(`${mobgoblin.getCharacterName()} is a Hero!`)  
 }
 
-mobgoblin.setEnemyHP(0)
+mobgoblin.setEnemyCurrentHP(0)
 
 if(mobgoblin.isDead()){
 console.log(`The enemy ${mobgoblin.getCharacterName()} has fallen`)

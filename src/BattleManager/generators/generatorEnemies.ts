@@ -19,7 +19,7 @@ import Enemy from "../../characters/enemies/enemy_classes/Enemy";
             let randIndex:number=Math.floor(Math.random()*foes.length);
             let foe=foes[randIndex];
             
-            let generatedFoe:Enemy<EnemyInterface>=new Enemy(foe.name,foe.hp,foe.atkPow);
+            let generatedFoe:Enemy<EnemyInterface>=new Enemy(foe.name,foe.hp,foe.hp,foe.atkPow);
                 
                  generatedFoe.setEnemyInterface(
                 foe.characterClass,

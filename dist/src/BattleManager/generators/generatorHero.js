@@ -19,15 +19,15 @@ async function generatorHero() {
         const choice = parseInt(classChoice);
         let H;
         if (choice === 1) {
-            H = new Hero_1.default(name, dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.atkPow);
+            H = new Hero_1.default(name, dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.hp, dictionary_heroes_1.default.WARRIOR.atkPow);
             H.setHeroInterface(dictionary_heroes_1.default.WARRIOR.characterClass, dictionary_heroes_1.default.WARRIOR.isHero, dictionary_heroes_1.default.WARRIOR.atkSets);
         }
         else if (choice === 2) {
-            H = new Hero_1.default(name, dictionary_heroes_1.default.MAGE.hp, dictionary_heroes_1.default.MAGE.atkPow);
+            H = new Hero_1.default(name, dictionary_heroes_1.default.MAGE.hp, dictionary_heroes_1.default.MAGE.hp, dictionary_heroes_1.default.MAGE.atkPow);
             H.setHeroInterface(dictionary_heroes_1.default.MAGE.characterClass, dictionary_heroes_1.default.MAGE.isHero, dictionary_heroes_1.default.MAGE.atkSets);
         }
         else if (choice === 3) {
-            H = new Hero_1.default(name, dictionary_heroes_1.default.ARCHER.hp, dictionary_heroes_1.default.ARCHER.atkPow);
+            H = new Hero_1.default(name, dictionary_heroes_1.default.ARCHER.hp, dictionary_heroes_1.default.ARCHER.hp, dictionary_heroes_1.default.ARCHER.atkPow);
             H.setHeroInterface(dictionary_heroes_1.default.ARCHER.characterClass, dictionary_heroes_1.default.ARCHER.isHero, dictionary_heroes_1.default.ARCHER.atkSets);
         }
         RLI.close();
