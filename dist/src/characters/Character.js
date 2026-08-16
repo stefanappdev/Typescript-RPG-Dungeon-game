@@ -17,7 +17,10 @@ class Character {
     }
     //set current HP of any character
     setCurrentHP(hp) {
-        this.currentHP = hp;
+        if (hp < 0) {
+            hp = 0;
+        }
+        return this.currentHP = hp;
     }
     //get maxHP of any character
     getCurrentHP() {
@@ -42,13 +45,6 @@ class Character {
     //checks if character is alive
     isAlive() {
         if (this.getCurrentHP() > 0) {
-            return true;
-        }
-        return false;
-    }
-    //checks if character is dead
-    isDead() {
-        if (this.getCurrentHP() === 0) {
             return true;
         }
         return false;

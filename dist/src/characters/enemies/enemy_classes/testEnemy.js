@@ -25,7 +25,7 @@ if (mobgoblin.isAHero()) {
     console.log(`${mobgoblin.getCharacterName()} is a Hero!`);
 }
 mobgoblin.setEnemyCurrentHP(0);
-if (mobgoblin.isDead()) {
+if (mobgoblin.isAlive() === false) {
     console.log(`The enemy ${mobgoblin.getCharacterName()} has fallen`);
 }
 console.log(`what's your class?`, orc.getCharacterClass());

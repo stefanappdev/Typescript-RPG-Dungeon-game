@@ -45,7 +45,7 @@ if(mobgoblin.isAHero()){
 
 mobgoblin.setEnemyCurrentHP(0)
 
-if(mobgoblin.isDead()){
+if(mobgoblin.isAlive()===false){
 console.log(`The enemy ${mobgoblin.getCharacterName()} has fallen`)
 }
 

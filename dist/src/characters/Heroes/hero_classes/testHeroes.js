@@ -28,7 +28,7 @@ Mike.setHeroCurrentHP(0);
 console.log(`what's your class?`, Mike.getCharacterClass());
 console.log(`your HP:`, Mike.getCurrentHP());
 console.log("Your abilities are?", Mike.getRegularAtks(), Mike.getSpecialAtks());
-if (Mike.isDead()) {
+if (Mike.isAlive() === false) {
     console.log(`The Hero ${Mike.getCharacterName()} has fallen`);
 }
 //# sourceMappingURL=testHeroes.js.map

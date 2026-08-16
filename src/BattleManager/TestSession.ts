@@ -15,7 +15,7 @@ async function executeSession(){
 let HERO:Hero<HeroInterface>=await generatorHero()
 let ENEMIES:Enemy<EnemyInterface>[]=await generatorEnemies()
 
-let testSession:Session=new Session(HERO,ENEMIES)
+let testSession:Session=new Session(HERO,ENEMIES,false,false,false,false)
 
 
 testSession.initateSessionCombat()

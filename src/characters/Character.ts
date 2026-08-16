@@ -42,7 +42,11 @@ import CharacterInterface from "../interfaces/CharacterInterface";
  //set current HP of any character
 
     protected setCurrentHP(hp:number){
-        this.currentHP=hp;
+        if(hp<0){
+            hp=0
+        }
+        
+        return this.currentHP=hp;
     }
 
     
@@ -84,13 +88,7 @@ import CharacterInterface from "../interfaces/CharacterInterface";
         return false
     }
 
-     //checks if character is dead
-    public isDead():boolean{
-        if(this.getCurrentHP()===0){
-            return true
-        }
-        return false
-    }
+   
 
 
 

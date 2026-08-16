@@ -9,7 +9,7 @@ const generatorEnemies_1 = __importDefault(require("./generators/generatorEnemie
 async function executeSession() {
     let HERO = await (0, generatorHero_1.default)();
     let ENEMIES = await (0, generatorEnemies_1.default)();
-    let testSession = new Session_1.default(HERO, ENEMIES);
+    let testSession = new Session_1.default(HERO, ENEMIES, false, false, false, false);
     testSession.initateSessionCombat();
 }
 executeSession();

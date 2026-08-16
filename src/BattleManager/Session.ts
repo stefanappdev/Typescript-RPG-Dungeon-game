@@ -20,9 +20,10 @@ class Session{
 
     /*class to manage the round for the battle */
 
-sessionHasStarted:boolean|undefined;
-sessionHasEnded:boolean|undefined;
-wonTheSession:boolean|undefined;
+sessionHasStarted:boolean;
+sessionHasEnded:boolean;
+wonTheSession:boolean;
+LostTheSession:boolean;
 nextSession:Session|undefined;
 heroPlayer:Hero<HeroInterface>;
 sessionEnemies:Enemy<EnemyInterface>[];
@@ -30,9 +31,10 @@ sessionEnemies:Enemy<EnemyInterface>[];
 constructor(
     heroPlayer:Hero<HeroInterface>,
     sessionEnemies:Enemy<EnemyInterface>[],
-    sessionHasStarted?:boolean,
-    sessionHasEnded?:boolean,
-    wonTheSession?:boolean,
+    wonTheSession:boolean,
+    LostTheSession:boolean,
+    sessionHasStarted:boolean,
+    sessionHasEnded:boolean,
     nextSession?:Session,
     
 
@@ -40,6 +42,7 @@ constructor(
     {
     this.sessionHasEnded=sessionHasEnded;
     this.wonTheSession=wonTheSession;
+    this.LostTheSession=LostTheSession
     this.heroPlayer=heroPlayer;
     this.sessionHasStarted=sessionHasStarted;
     this.nextSession=nextSession;
@@ -55,9 +58,24 @@ constructor(
         this.sessionEnemies=enemies;
     }
 
+    setSessionStarted(sessionState:boolean):void{
+        /**Set start of session */
+        this.sessionHasStarted=sessionState
+    }
+
+     setSessionEnded(sessionState:boolean):void{
+        /**Set start of session */
+        this.sessionHasEnded=sessionState
+    }
+
     setWonTheSession(sessionState:boolean):void{
         /*this is set if a player wins the session */
         this.wonTheSession=sessionState;
+    }
+
+     setLostTheSession(sessionState:boolean):void{
+        /*this is set if a player wins the session */
+        this.LostTheSession=sessionState;
     }
 
 
@@ -94,10 +112,30 @@ constructor(
             }
     }
     
+    getWonTheSession():boolean{
+        return this.wonTheSession
+    }
 
+
+
+    getLostTheSession():boolean{
+        return this.wonTheSession
+    }
+
+    getSessionHasEnded():boolean{
+        return this.sessionHasEnded
+    }
+    
+    getSessionHasStarted():boolean{
+        return this.sessionHasStarted
+    }
     
     initateSessionCombat():void{
         /*Start the combat session */
+        this.setLostTheSession(false);
+        this.setWonTheSession(false);
+        this.setSessionStarted(true)
+        /*manages session turns */
        this.manageSessionTurns()
     }
 
@@ -364,13 +402,15 @@ constructor(
                             updates status of enemies in session, 
                             to ensure info on all living enemies*/
                             
-                            if(enemies[index]?.isDead()){   
+                            if(enemies[index]?.isAlive()===false){   
                                 console.log(`${Hero.getCharacterName()} defeated the ${enemies[index]?.getCharacterName()}`)
                             }
 
                             let enemiesAlive=enemies.filter(enemy=>enemy.isAlive());
                             this.setSessionEnemies(enemiesAlive)
 
+                            
+                          
                             
                         }   
         
@@ -427,12 +467,14 @@ constructor(
             randomAtk?ENEMIES[x]?.attackHero(HERO,randomAtk):''
             HERO.recvDMG(randomAtk?randomAtk.damage:-1) 
             }
-            
-            //update hero status after enemy attack
-            this.setHeroPlayer(HERO)
         }
 
         await executeAtk()
+
+        //update hero status after enemy attack
+        this.setHeroPlayer(HERO)
+
+     
 
          const endOfPhaseNotifier=async():Promise<void>=>{
             await setTimeout(()=>{console.log("===END OF ENEMY PHASE====")},5000)
@@ -455,21 +497,66 @@ constructor(
     async manageSessionTurns():Promise<void>{
 
         const runWinSequence=():void=>{
+            this.setSessionEnded(true)
+            this.setSessionStarted(false)
             console.log("Congrats,you won the round!")
+            
         }
 
          const runLossSequence=():void=>{
+        
             console.log("You lost the round,game over")
         }
 
 
 
-        let ENEMIES:Enemy<EnemyInterface>[]=this.getSessionEnemies();
-        let HERO:Hero<HeroInterface>=this.getHeroPlayer();
-        
-    /*finish session manager*/
-    await this.manageHeroPhase();
-    await this.manageEnemyPhase();
+    
+        let isEnemyPhase:boolean=false;
+        let isHeroPhase:boolean=false;
+        /*finish session manager*/
+
+         const isStartOfSession=():boolean=>{
+                if(this.getSessionHasStarted()){
+                    return true
+                }else{
+                    return false
+                }
+            }
+
+
+        if(this.getWonTheSession()===false&&this.getLostTheSession()===false){
+           
+            while(isStartOfSession()){
+
+                isHeroPhase=true
+                await this.manageHeroPhase();
+                isHeroPhase=false;
+                //check if hero is alive and enemies defeated
+                if(this.getHeroPlayer().isAlive()===true && this.getSessionEnemies().length===0){
+                    this.setLostTheSession(false)
+                    this.setWonTheSession(true)
+                    runWinSequence()
+                    break;
+                }
+
+                isEnemyPhase=true;
+                await this.manageEnemyPhase()
+                isEnemyPhase=false;
+                    
+                //check if enemies alive and hero defeated
+                if(this.getHeroPlayer().isAlive()===false&&this.getSessionEnemies().length>0){
+                    this.setLostTheSession(true)
+                    this.setWonTheSession(false)
+                    runLossSequence()
+                    break;
+                }
+               
+            }
+            
+
+
+        }
+       
     }
 
 
