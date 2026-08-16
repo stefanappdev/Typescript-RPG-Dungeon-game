@@ -136,7 +136,7 @@ constructor(
                 }))
             }
 
-            delay(2000)
+           await delay(2000)
             console.log(`${this.getCharacterName()} attacked ${atk.attackName}`)
         
 

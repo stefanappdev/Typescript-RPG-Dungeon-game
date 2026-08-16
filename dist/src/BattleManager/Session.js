@@ -199,7 +199,7 @@ class Session {
                                     }
                                     const enemyChoice = await RLI.question("choose an enemy to attack:\n>");
                                     let index = parseInt(enemyChoice) - 1;
-                                    while (index > enemies.length || index < 0) {
+                                    while (index >= enemies.length || index < 0) {
                                         console.log("Invalid choice, please try again");
                                         const reconfirmEnemyChoice = await RLI.question("choose an enemy to attack:\n>");
                                         let reconfirmIndex = parseInt(reconfirmEnemyChoice) - 1;
@@ -334,8 +334,10 @@ class Session {
         const executeAtk = async (Enemies) => {
             for (let x = 0; x < Enemies.length; x++) {
                 let randomAtk = Enemies[x]?.chooseRandomAtk();
-                randomAtk ? Enemies[x]?.attackHero(HERO, randomAtk) : '';
-                HERO.recvDMG(randomAtk ? randomAtk.damage : -1);
+                if (randomAtk) {
+                    Enemies[x]?.attackHero(HERO, randomAtk);
+                    HERO.recvDMG(randomAtk.damage);
+                }
             }
         };
         await executeAtk(ENEMIES);
@@ -353,15 +355,15 @@ class Session {
      * victory:hero defeats all enemies
      */
     async manageSessionTurns() {
-        const runWinSequence = () => {
+        const runWinSequence = async () => {
             this.setSessionEnded(true);
             this.setSessionStarted(false);
-            this.delay(1000);
+            await this.delay(1000);
             console.log('All enemies defeated');
-            this.delay(1000);
+            await this.delay(1000);
             console.log("Congrats,you won the round!");
         };
-        const runLossSequence = () => {
+        const runLossSequence = async () => {
             this.setSessionEnded(true);
             this.setSessionStarted(false);
             console.log("You lost the round,game over");
@@ -386,7 +388,7 @@ class Session {
                 if (this.getHeroPlayer().isAlive() === true && this.getSessionEnemies().length === 0) {
                     this.setLostTheSession(false);
                     this.setWonTheSession(true);
-                    runWinSequence();
+                    await runWinSequence();
                     break;
                 }
                 isEnemyPhase = true;
@@ -396,7 +398,7 @@ class Session {
                 if (this.getHeroPlayer().isAlive() === false && this.getSessionEnemies().length > 0) {
                     this.setLostTheSession(true);
                     this.setWonTheSession(false);
-                    runLossSequence();
+                    await runLossSequence();
                     break;
                 }
             }

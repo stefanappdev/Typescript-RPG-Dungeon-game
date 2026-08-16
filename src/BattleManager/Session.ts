@@ -388,7 +388,7 @@ constructor(
                             const enemyChoice=await RLI.question("choose an enemy to attack:\n>");
                             let index:number=parseInt(enemyChoice)-1;
                             
-                            while(index>enemies.length||index<0){
+                            while(index>=enemies.length||index<0){
                                     console.log("Invalid choice, please try again");
                                     const reconfirmEnemyChoice=await RLI.question("choose an enemy to attack:\n>");
                                     let reconfirmIndex:number=parseInt(reconfirmEnemyChoice)-1;
@@ -471,8 +471,12 @@ constructor(
             
             for (let x=0;x<Enemies.length;x++){
             let randomAtk:attack|undefined=Enemies[x]?.chooseRandomAtk();
-            randomAtk?Enemies[x]?.attackHero(HERO,randomAtk):''
-            HERO.recvDMG(randomAtk?randomAtk.damage:-1) 
+            if(randomAtk){
+                    Enemies[x]?.attackHero(HERO,randomAtk)
+                    HERO.recvDMG(randomAtk.damage) 
+
+                }
+            
             }
         }
 
@@ -504,17 +508,17 @@ constructor(
 
     async manageSessionTurns():Promise<void>{
 
-        const runWinSequence=():void=>{
+        const runWinSequence=async():Promise<void>=>{
             this.setSessionEnded(true)
             this.setSessionStarted(false)
-            this.delay(1000)
+            await this.delay(1000)
             console.log('All enemies defeated')
-            this.delay(1000)
+            await this.delay(1000)
             console.log("Congrats,you won the round!")
             
         }
 
-         const runLossSequence=():void=>{
+         const runLossSequence=async():Promise<void>=>{
             this.setSessionEnded(true)
             this.setSessionStarted(false)
             console.log("You lost the round,game over")
@@ -547,7 +551,7 @@ constructor(
                 if(this.getHeroPlayer().isAlive()===true && this.getSessionEnemies().length===0){
                     this.setLostTheSession(false)
                     this.setWonTheSession(true)
-                    runWinSequence()
+                    await runWinSequence()
                     break;
                 }
 
@@ -559,7 +563,7 @@ constructor(
                 if(this.getHeroPlayer().isAlive()===false&&this.getSessionEnemies().length>0){
                     this.setLostTheSession(true)
                     this.setWonTheSession(false)
-                    runLossSequence()
+                    await runLossSequence()
                     break;
                 }
                
