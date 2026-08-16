@@ -130,15 +130,16 @@ constructor(
     public  async attackHero(H:Hero<HeroInterface>,atk:attack):Promise<void>{
             /*attack function of hero*/
         try{
-            await setTimeout(()=>{
-                 console.log(`${this.getCharacterName()} attacked ${atk.attackName}`)
+            const delay=(delayTime:number)=>{
+                return(new Promise((resolve)=>{
+                    setTimeout(resolve,delayTime);
+                }))
+            }
 
-            },2000)
+            delay(2000)
+            console.log(`${this.getCharacterName()} attacked ${atk.attackName}`)
+        
 
-             await setTimeout(()=>{
-                 console.log(`${H.getCharacterName()} received ${atk.damage} damage`)
-
-            },3000)
 
 
 

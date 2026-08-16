@@ -119,7 +119,7 @@ constructor(
 
 
     getLostTheSession():boolean{
-        return this.wonTheSession
+        return this.LostTheSession
     }
 
     getSessionHasEnded():boolean{
@@ -130,16 +130,21 @@ constructor(
         return this.sessionHasStarted
     }
     
-    initateSessionCombat():void{
+    async initateSessionCombat():Promise<void>{
         /*Start the combat session */
         this.setLostTheSession(false);
         this.setWonTheSession(false);
         this.setSessionStarted(true)
         /*manages session turns */
-       this.manageSessionTurns()
+      await this.manageSessionTurns()
     }
 
+    delay(ms:number):Promise<void>{
 
+        return new Promise((resolve)=>{
+            setTimeout(resolve,ms)
+        })
+    }
   manageHeroPhase=async():Promise<void>=>{
             /*Allow player to manage hero actions */
 
@@ -149,6 +154,7 @@ constructor(
         })
 
         let Hero:Hero<HeroInterface>=this.getHeroPlayer();
+         await this.delay(2000);
          console.log(`Its your turn\n`)
          console.log(`Your HP:${Hero.getCurrentHP()}/${Hero.getMaxHP()}`)    
         
@@ -429,7 +435,7 @@ constructor(
 
             RLI.close()
                
-
+            this.delay(2000)
             console.log("+++++END OF HERO PHASE+++++\n")
 
                 }else{
@@ -452,7 +458,8 @@ constructor(
         /*Excutes enemy phase */
         
         const startOfPhaseNotifier=async():Promise<void> =>{
-            await setTimeout(()=>{console.log("===START OF ENEMY PHASE====")},1000)
+            await this.delay(3000)
+            console.log("===START OF ENEMY PHASE====")
         }
 
         await startOfPhaseNotifier()
@@ -460,16 +467,16 @@ constructor(
         let ENEMIES:Enemy<EnemyInterface>[]=this.getSessionEnemies();
         let HERO:Hero<HeroInterface>=this.getHeroPlayer();
 
-        const executeAtk= async():Promise<void>=>{
+        const executeAtk= async(Enemies:Enemy<EnemyInterface>[]):Promise<void>=>{
             
-            for (let x=0;x<ENEMIES.length;x++){
-            let randomAtk:attack|undefined=ENEMIES[x]?.chooseRandomAtk();
-            randomAtk?ENEMIES[x]?.attackHero(HERO,randomAtk):''
+            for (let x=0;x<Enemies.length;x++){
+            let randomAtk:attack|undefined=Enemies[x]?.chooseRandomAtk();
+            randomAtk?Enemies[x]?.attackHero(HERO,randomAtk):''
             HERO.recvDMG(randomAtk?randomAtk.damage:-1) 
             }
         }
 
-        await executeAtk()
+        await executeAtk(ENEMIES)
 
         //update hero status after enemy attack
         this.setHeroPlayer(HERO)
@@ -477,7 +484,8 @@ constructor(
      
 
          const endOfPhaseNotifier=async():Promise<void>=>{
-            await setTimeout(()=>{console.log("===END OF ENEMY PHASE====")},5000)
+            await this.delay(3000)
+            console.log("===END OF ENEMY PHASE====")
         }
 
         await endOfPhaseNotifier()
@@ -499,12 +507,16 @@ constructor(
         const runWinSequence=():void=>{
             this.setSessionEnded(true)
             this.setSessionStarted(false)
+            this.delay(1000)
+            console.log('All enemies defeated')
+            this.delay(1000)
             console.log("Congrats,you won the round!")
             
         }
 
          const runLossSequence=():void=>{
-        
+            this.setSessionEnded(true)
+            this.setSessionStarted(false)
             console.log("You lost the round,game over")
         }
 

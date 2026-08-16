@@ -24,7 +24,8 @@ declare class Session {
     getLostTheSession(): boolean;
     getSessionHasEnded(): boolean;
     getSessionHasStarted(): boolean;
-    initateSessionCombat(): void;
+    initateSessionCombat(): Promise<void>;
+    delay(ms: number): Promise<void>;
     manageHeroPhase: () => Promise<void>;
     manageEnemyPhase(): Promise<void>;
     /**this function manages the execution of turns for hero and enemies

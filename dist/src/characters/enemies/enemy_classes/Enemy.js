@@ -85,12 +85,13 @@ class Enemy extends Character_1.default {
     async attackHero(H, atk) {
         /*attack function of hero*/
         try {
-            await setTimeout(() => {
-                console.log(`${this.getCharacterName()} attacked ${atk.attackName}`);
-            }, 2000);
-            await setTimeout(() => {
-                console.log(`${H.getCharacterName()} received ${atk.damage} damage`);
-            }, 3000);
+            const delay = (delayTime) => {
+                return (new Promise((resolve) => {
+                    setTimeout(resolve, delayTime);
+                }));
+            };
+            delay(2000);
+            console.log(`${this.getCharacterName()} attacked ${atk.attackName}`);
         }
         catch (err) {
             throw new Error("Failed to execute enemy attack");
