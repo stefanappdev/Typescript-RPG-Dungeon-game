@@ -1,5 +1,5 @@
-import Hero from "./Hero";
-import dictionary_heroes from "../../../dictionaries/dictionary_heroes"
+import Hero from "../characters/Heroes/hero_classes/Hero";
+import dictionary_heroes from "../dictionaries/dictionary_heroes"
 
 
 let Jarcher=new Hero("John",dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.hp,dictionary_heroes.ARCHER.atkPow);

@@ -435,7 +435,7 @@ constructor(
 
             RLI.close()
                
-            this.delay(2000)
+            await this.delay(2000)
             console.log("+++++END OF HERO PHASE+++++\n")
 
                 }else{

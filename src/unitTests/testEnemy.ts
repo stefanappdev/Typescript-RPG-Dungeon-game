@@ -1,5 +1,5 @@
-import Enemy from "./Enemy";
-import dictionary_enemies from "../../../dictionaries/dictionary_enemies"
+import Enemy from "../characters/enemies/enemy_classes/Enemy";
+import dictionary_enemies from "../dictionaries/dictionary_enemies"
 
 
 
