@@ -2,10 +2,10 @@
 import Session from "../BattleManager/Session";
 import Hero from "../characters/Heroes/hero_classes/Hero";
 import HeroInterface from "../interfaces/heroInterface";
-import generatorHero from "../BattleManager/generators/generatorHero";
+const generatorHero=require("../BattleManager/generators/generatorHero");
 import Enemy from "../characters/enemies/enemy_classes/Enemy";
 import EnemyInterface from "../interfaces/enemyInterface";
-import generatorEnemies from "../BattleManager/generators/generatorEnemies";
+const generatorEnemies =require("../BattleManager/generators/generatorEnemies");
 
 
 

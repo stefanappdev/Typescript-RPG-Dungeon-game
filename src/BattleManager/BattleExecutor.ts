@@ -1,6 +1,6 @@
 import BattleManager from "../BattleManager/BattleManager";
-import generatorHero from "../BattleManager/generators/generatorHero";
-
+const generatorHero=require("../BattleManager/generators/generatorHero");
+/**this function executes a Battle */
 const BattleExecutor=async()=>{
     let HERO=await generatorHero()
 

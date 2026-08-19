@@ -1,5 +1,4 @@
-import generatorEnemies from "./generators/generatorEnemies";
-import generatorHero from "./generators/generatorHero";
+const generatorEnemies=require("./generators/generatorEnemies");
 import Hero from "../characters/Heroes/hero_classes/Hero";
 import HeroInterface from "../interfaces/heroInterface";
 import Enemy from "../characters/enemies/enemy_classes/Enemy";

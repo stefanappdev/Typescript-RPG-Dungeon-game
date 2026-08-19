@@ -49,5 +49,5 @@ async function generatorHero() {
         throw new Error('Hero creation failed');
     }
 }
-exports.default = generatorHero;
+module.exports = generatorHero;
 //# sourceMappingURL=generatorHero.js.map

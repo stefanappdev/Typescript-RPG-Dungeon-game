@@ -97,4 +97,4 @@ async function generatorHero():Promise<Hero<HeroInterface>>{
 
 
 
-export default generatorHero
+module.exports=generatorHero

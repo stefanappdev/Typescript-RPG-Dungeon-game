@@ -4,9 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const BattleManager_1 = __importDefault(require("../BattleManager/BattleManager"));
-const generatorHero_1 = __importDefault(require("../BattleManager/generators/generatorHero"));
+const generatorHero = require("../BattleManager/generators/generatorHero");
+/**this function executes a Battle */
 const BattleExecutor = async () => {
-    let HERO = await (0, generatorHero_1.default)();
+    let HERO = await generatorHero();
     let BM = new BattleManager_1.default(false, false, HERO);
     try {
         console.log(`The hero ${BM.getHero().getCharacterName()} was sucessfully generated`);

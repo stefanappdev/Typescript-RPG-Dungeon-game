@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const generatorEnemies_1 = __importDefault(require("./generators/generatorEnemies"));
+const generatorEnemies = require("./generators/generatorEnemies");
 const Session_1 = __importDefault(require("./Session"));
 class BattleManager {
     constructor(startBattle, endBattle, theHero) {
@@ -32,7 +32,7 @@ class BattleManager {
     }
     async createNewSession() {
         /**creates a new Session  */
-        let ENEMIES = await (0, generatorEnemies_1.default)();
+        let ENEMIES = await generatorEnemies();
         let HERO = this.getHero();
         let newSession = new Session_1.default(HERO, ENEMIES, false, false, false, false);
         newSession.initateSessionCombat();

@@ -54,5 +54,5 @@ async function generatorEnemies() {
         }
     });
 }
-exports.default = generatorEnemies;
+module.exports = generatorEnemies;
 //# sourceMappingURL=generatorEnemies.js.map

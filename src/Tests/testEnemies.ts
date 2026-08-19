@@ -2,7 +2,6 @@ import Enemy from "../characters/enemies/enemy_classes/Enemy";
 import dictionary_enemies from "../dictionaries/dictionary_enemies"
 
 
-
 let orc=new Enemy('orc',dictionary_enemies.ORC.hp,dictionary_enemies.ORC.hp,dictionary_enemies.ORC.atkPow)
 let mobgoblin=new Enemy("Mobgoblin",dictionary_enemies.GOBLIN.hp,dictionary_enemies.GOBLIN.hp,dictionary_enemies.GOBLIN.atkPow);
 

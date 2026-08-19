@@ -3,7 +3,6 @@ import Enemy from "../characters/enemies/enemy_classes/Enemy";
 import EnemyInterface from "../interfaces/enemyInterface";
 import HeroInterface from "../interfaces/heroInterface";
 import { attack } from "../types/types_attacks";
-import generatorEnemies from "./generators/generatorEnemies";
 
 const readLine=require('readline/promises')
 
