@@ -17,7 +17,7 @@ class Session{
 
 
 
-    /*class to manage the round for the battle */
+/*class to manage the round for the battle */
 
 sessionHasStarted:boolean;
 sessionHasEnded:boolean;
