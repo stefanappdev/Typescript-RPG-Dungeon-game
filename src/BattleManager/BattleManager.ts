@@ -1,5 +1,5 @@
 import Session from "./Session";
-import heroes from "../dictionaries/dictionary_heroes";
+
 
 
 class BattleManager{
