@@ -1,147 +1,61 @@
+const generatorEnemies=require("./generators/generatorEnemies");
+import Hero from "../characters/Heroes/hero_classes/Hero";
+import HeroInterface from "../interfaces/heroInterface";
+import Enemy from "../characters/enemies/enemy_classes/Enemy";
+import EnemyInterface from "../interfaces/enemyInterface";
 import Session from "./Session";
 
-
-
 class BattleManager{
-    public battleStart:boolean|undefined;
-    public battleEnd:boolean|undefined
-    public battleSessions:Session[]|undefined;
-   
+/*this class manages the key parts of a battle */
+public startBattle:boolean;
+public endBattle:boolean;
+public theHero:Hero<HeroInterface>;
+
+constructor(startBattle:boolean,endBattle:boolean,theHero:Hero<HeroInterface>){
+    this.startBattle=startBattle;
+    this.endBattle=endBattle;
+    this.theHero=theHero;
+}
+
+setStartOfBattle(state:boolean):void{
+/*sets the start of a battle*/
+    this.startBattle=state
+}
+
+setEndOfBattle(state:boolean):void{
+    /*sets the end of a battle*/
+    this.endBattle=state
+}
+
+getEndOfBattle():boolean{
+    /*returns the end of battle state*/
+    return this.endBattle
+}
+
+
+getStartOfBattle():boolean{
+    /*returns the start of battle state*/
+    return this.startBattle
+}
+
+
+
+getHero():Hero<HeroInterface>{
+    return this.theHero
+}
+
+async createNewSession():Promise<void>{
+    /**creates a new Session  */
     
-
-    constructor(battleStart?:boolean,battleEnd?:boolean,battleSessions?:Session[]) {
-        this.battleEnd=battleEnd;
-        this.battleSessions=battleSessions;
-        this.battleStart=battleStart
-    }
-
+    let ENEMIES:Enemy<EnemyInterface>[]= await generatorEnemies()
+    let HERO=this.getHero()
+    let newSession:Session=new Session(HERO,ENEMIES,false,false,false,false)
+    newSession.initateSessionCombat()
     
-    /*
-
-    public generateSessions(hero:any,rounds:string){
-         console.log(`A new champion ${hero.characterName} has arisen`);
-         let sessionListHead=new Session(hero);
-
-         setTimeout(()=>{
-             sessionListHead.startTheSession();
-         },2000)
-         
-         let enemies=sessionListHead.generateEnemies();
-         sessionListHead.initateSessionCombat(hero,enemies)
-        
-    }*/
-
-
-    
-
-     //initates a battle sequence
-
-    public StartBattle():void{
-
-        this.battleStart=true;
-        console.log('The battle has started')
-        
-    }
-
-
-    //ends battle sequence
-    public EndBattle():void{
-        this.battleEnd=false;
-        console.log('The battle has ended')
-    }
-
-/*
-    createHero(hname:string,hclass:string):any{
-        let hero;
-        if(hclass==='1'){
-            hero=new Warrior(
-                        heroes.WARRIOR.atkSets,
-                        hname,
-                        heroes.WARRIOR.hp,
-                        heroes.WARRIOR.characterClass,
-                        heroes.WARRIOR.characterType,
-                        heroes.WARRIOR.atkPow
-                        )
-            return hero;
-        }else if(hclass==='2'){
-            hero=new Archer(
-                        heroes.ARCHER.atkSets,
-                        hname,
-                        heroes.ARCHER.hp,
-                        heroes.ARCHER.characterClass,
-                         heroes.WARRIOR.characterType,
-                        heroes.ARCHER.atkPow
-                        )
-            return hero;
-        }else if(hclass==='3'){
-            hero=new Archer(
-                        heroes.MAGE.atkSets,
-                        hname,
-                        heroes.MAGE.hp,
-                        heroes.MAGE.characterClass,
-                         heroes.WARRIOR.characterType,
-                        heroes.MAGE.atkPow
-                        )
-            return hero;
-        }
+}
 
 
 
-        
-    }
- 
-    public DisplayMenu():void{
-        //dteails to generate a battle
-        
-        let questions:string[];
-        let answers:string[]=[];
-
-             questions=["What's your hero name?",
-                `What's your hero class? 1. Warrior, 2.Mage, 3.Archer`
-                ,"How many rounds for the battle?"]
-
-             const ask=(index:number):void =>{
-                console.log(questions[index])
-             }
-
-             if(answers.length===0){
-                ask(0)
-            } 
-
-            
-            process.stdin.on('data',(input:string)=>{
-
-                answers.push(input.toString().trim())
-                
-                if(answers.length<questions.length){
-                    ask(answers.length)
-                }else if(answers.length===questions.length){
-                   
-                    if(answers[0]&&answers[1]&&answers[2]){
-                         
-                        let the_Hero=this.createHero(answers[0],answers[1])
-                       
-                        this.generateSessions(the_Hero,answers[2])
-                    }
-                   
-                }
-            })
-             
-           
-            
-
-            
-        }        
-            
-     */
-
-
-    }
-
-
-    
-
-
+}
 
 export default BattleManager
-

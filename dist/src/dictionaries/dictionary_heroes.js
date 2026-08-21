@@ -47,7 +47,7 @@ let heroes = {
             regular: mageRegularAtks,
             special: mageSpecialAtks
         },
-        hp: 55,
+        hp: 45,
         atkPow: 30
     },
     WARRIOR: { characterClass: 'warrior',

@@ -1,5 +1,5 @@
 
 import BattleManager from "./src/BattleManager/BattleManager";
 
-let mainBatlleManager=new BattleManager()
-//mainBatlleManager.DisplayMenu();
+//let mainBatlleManager=new BattleManager(false,false)
+

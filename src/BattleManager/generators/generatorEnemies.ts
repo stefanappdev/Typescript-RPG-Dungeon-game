@@ -80,4 +80,4 @@ import Enemy from "../../characters/enemies/enemy_classes/Enemy";
     }
 
 
-export default generatorEnemies;
+module.exports=generatorEnemies;

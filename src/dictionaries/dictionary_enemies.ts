@@ -42,22 +42,22 @@ let enemies={
     
     GOBLIN:{
         name:'Goblin',
-        hp:10,
+        hp:25,
         characterClass:'GOBLIN',
         characterType:'enemy',
         isHero:false,
         atkSets:{regular:goblinRegularAtks,special:goblinSpecialAtks},
-        atkPow:1,
+        atkPow:5,
     },
     
     ORC:{
         name:'Orc',
-        hp:5,
+        hp:15,
         characterClass:'ORC',
         characterType:'enemy', 
         isHero:false,
         atkSets:{regular:orcRegularAtks,special:orcSpecialAtks},
-        atkPow:3,
+        atkPow:8,
     },
    
 };

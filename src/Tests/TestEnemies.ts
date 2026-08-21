@@ -1,6 +1,5 @@
-import Enemy from "./Enemy";
-import dictionary_enemies from "../../../dictionaries/dictionary_enemies"
-
+import Enemy from "../characters/enemies/enemy_classes/Enemy";
+import dictionary_enemies from "../dictionaries/dictionary_enemies"
 
 
 let orc=new Enemy('orc',dictionary_enemies.ORC.hp,dictionary_enemies.ORC.hp,dictionary_enemies.ORC.atkPow)
